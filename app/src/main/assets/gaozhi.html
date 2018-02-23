@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>食品生产日常监督检查要点表</title>
+    <style>
+
+        input[type=text]{border-bottom:1px solid #000;width:200px;}
+    </style>
+<link href="public.css" rel="stylesheet" type="text/css" />
+    <link href="jquery.alerts.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"
+            src="html2canvas.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="jquery.alerts.js"></script>
+    <script type="text/javascript">
+        function sendData(tmp){
+            //alert(tmp);
+            var jsonO = eval("("+tmp+")");
+            var etpsName = jsonO.etpsName;
+            var address = jsonO.address;
+            var checkUnit = jsonO.checkUnit;
+            var personName = jsonO.personName;
+            var personNo = jsonO.personNo;
+            var certName = jsonO.certName;
+            var certNo = jsonO.certNo;
+            var checkYear = jsonO.checkYear;
+            var checkMonth = jsonO.checkMonth;
+            var checkDay = jsonO.checkDay;
+            var checkAddress = jsonO.checkAddress;
+
+        $('#etpsName').html(etpsName);
+        $('#address').html(address);
+        $('#checkUnit').html(checkUnit);
+        $("input[name='personName']").val(personName);
+        $("input[name='personNo']").val(personNo);
+        $("input[name='certName']").val(certName);
+        $("input[name='certNo']").val(certNo);
+        $("input[name='checkAddress']").val(checkAddress);
+        $("input[name='checkYear']").val(checkYear);
+        $("input[name='checkMonth']").val(checkMonth);
+        $("input[name='checkDay']").val(checkDay);
+        }
+       </script>
+</head>
+
+<body>
+<div class="wrap1">
+<div class="space10"></div>
+<div class="space10"></div>
+<div class="space10"></div>
+<p class="title center">食品生产日常监督检查要点表</p>
+<p class="title3 center">告知页
+</p>
+<table class="tableC">
+  <tr>
+    <td colspan="2" style="vertical-align:top">
+    <p>&nbsp;</p>
+    <p>被检查单位：<span style=" text-align:center;font-size:18px; border-bottom:1px solid #000;" id="etpsName"></span> 地址：<span style=" text-align:center;font-size:18px; border-bottom:1px solid #000;" id="address"></span><br />
+      检查人员及执法证件名称、编号：1.<input type ="text" name = "personName"/> <input type ="text" name = "personNo"/> <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.<input type ="text" name = "certName"/> <input type ="text" name = "certNo"/> <br />
+      检查时间：<input type ="text" style = "text-align:center;width:50px"name = "checkYear"/>年<input type ="text" style = "text-align:center;width:50px"name = "checkMonth"/>月<input type ="text" style = "text-align:center;width:50px"name = "checkDay"/>日<br />
+      检查地点：<input style="width:700px;" type ="text" name = "checkAddress"/> <br />
+      告知事项： <br />
+      &nbsp;&nbsp;我们是<span style=" text-align:center;font-size:18px; border-bottom:1px solid #000;" id="checkUnit"></span>监督检查人员，现出示执法证件。我们依法对你（单位）进行日常监督检查，请予配合。 <br />
+      &nbsp;&nbsp;依照法律规定，监督检查人员少于两人或者所出示的执法证件与其身份不符的，你（单位）有权拒绝检查；对于监督检查人员有下列情形之一的，你（单位）有权申请回避：（1）系当事人或当事人的近亲属；（2）与本人或本人近亲属有利害关系；（3）与当事人有其他关系，可能影响公正执法的。 <br />
+      &nbsp;&nbsp;问：你（单位）是否申请回避？ <br />
+      &nbsp;&nbsp;答： </p>
+ </td>
+  </tr>
+  <tr>
+   <td width="50%"><p>被检查单位签字：<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+      <p align="center">&nbsp;&nbsp;&nbsp;年      月      日</p>
+      <p>&nbsp;</p></td>
+   <td><p>检查人员签字：<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </p>
+      <p align="center">&nbsp;&nbsp;&nbsp;年      月      日</p>
+      <p>&nbsp;</p></td>
+  </tr>
+</table>
+
+<div class="space"></div>
+</div>
+<script>
+    function comfirmText(obj){
+        //obj.innerText= prompt("请输入")
+        jPrompt('请输入：', obj.innerText.trim(), '', function(r) {
+            if( r ) obj.innerText=r;
+        });
+    }
+
+    function getValue(){
+        var ret=[];
+        ret.push($("input[name='personName']").val());
+        ret.push($("input[name='personNo']").val());
+        ret.push($("input[name='certName']").val());
+        ret.push($("input[name='certNo']").val());
+        ret.push($("input[name='checkYear']").val());
+        ret.push($("input[name='checkMonth']").val());
+        ret.push($("input[name='checkDay']").val());
+        ret.push($("input[name='checkAddress']").val());
+
+        return ret;
+    }
+
+</script>
+</body>
+</html>

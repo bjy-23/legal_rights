@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.legal_rights">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <application
+        android:name="com.wonders.application.AppData"
+        android:allowBackup="false"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/appTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="0f658ef89241c27d684ceffa0f5aa055" />
+        <activity
+            android:name="com.wonders.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wonders.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.wonders.activity.InputActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.CompanyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.YlActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.InputLookActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.PicLookActivitiy"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.NotesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NotesDialogStyle" />
+        <activity
+            android:name="com.wonders.activity.CheckDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.ImageShowActivity"
+            android:theme="@style/ImageScale"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.RecyclerViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wonders.activity.MessageActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:alpha="0.90"
+    android:background="@drawable/ios_alertdialog_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:text="职位选择"
+        android:textColor="#1E1F21"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/line_gray" />
+
+    <Button
+        android:id="@+id/btn_one"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:text="我是组员"
+        android:textColor="#6D9DCB"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/line_gray" />
+
+    <Button
+        android:id="@+id/btn_two"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:text="我是组长"
+        android:textColor="#6D9DCB"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/line_gray" />
+
+    <Button
+        android:id="@+id/btn_three"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:text="取消"
+        android:textColor="@color/common_text_color"
+        android:textSize="15sp" />
+
+</LinearLayout>

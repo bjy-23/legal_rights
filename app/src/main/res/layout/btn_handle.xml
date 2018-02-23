@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+   >
+
+    <Button
+        style="@style/btnStyle"
+        android:id="@+id/print_btn"
+        android:text="打印" />
+
+    <Button
+        style="@style/btnStyle"
+        android:id="@+id/change_btn"
+        android:layout_marginLeft="15dp"
+        android:text="下一页"
+        android:visibility="gone"/>
+
+    <Button
+        style="@style/btnStyle"
+        android:id="@+id/close_btn"
+        android:layout_marginLeft="15dp"
+        android:text="关闭" />
+</LinearLayout>

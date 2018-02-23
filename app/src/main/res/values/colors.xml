@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--通用-->
+    <color name="white">#ffffffff</color>
+
+    <!-- login -->
+    <color name="btn_login_background">#3874ca</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="gray_line">#E0E0E0</color>
+    <color name="blue_1">#52ADE7</color>
+    <color name="common_top_bar_blue">#3874ca</color>
+    <color name="btn_login_normal">#1539d2</color>
+    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="gray_normal">#666667</color>
+    <color name="background">#f2f0eb</color>
+    <color name="line_gray">#C7C7C7</color>
+    <color name="common_text_color">#666667</color>
+    <color name="blue_text_color">#3a73cc</color>
+    <color name="text_red">#FFF42404</color>
+
+    <!--tab-->
+    <color name="tab_background">#f7f6f6</color>
+    <color name="tab_indicator">#76bfe6</color>
+    <color name="tab_selected_text">#2e6ae3</color>
+    <color name="tab_text_color">#000000</color>
+
+</resources>

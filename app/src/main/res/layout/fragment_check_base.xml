@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="检查依据"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+
+            <TextView
+                android:id="@+id/tv_jcyj"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="食品生产安全"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="检查规程"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+
+            <TextView
+                android:id="@+id/tv_jcgc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text=""
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="重点注释"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+
+            <TextView
+                android:id="@+id/tv_zdzs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text=""
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="常见问题"
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+
+            <TextView
+                android:id="@+id/tv_cjwt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text=""
+                android:textColor="@color/common_text_color"
+                android:textSize="@dimen/common_title_size" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

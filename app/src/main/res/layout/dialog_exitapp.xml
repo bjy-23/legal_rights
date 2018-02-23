@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:alpha="0.9"
+    android:background="@drawable/ios_alertdialog_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:drawableLeft="@drawable/upomp_bypay_user_title_icon"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="退出移动监管 ?"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_normal" />
+
+    <TextView
+        android:id="@+id/exit_tv"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="退出"
+        android:textColor="@color/common_text_color"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_normal" />
+
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/blue_1"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_normal" />
+
+</LinearLayout>

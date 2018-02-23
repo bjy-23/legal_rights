@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_top_bar"
+    android:background="@color/common_top_bar_blue">
+
+    <RelativeLayout
+        android:id="@+id/layout_home"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/topBackSize"
+            android:layout_height="@dimen/topBackSize"
+            android:layout_centerInParent="true"
+            android:background="@drawable/home_left_nav"
+            android:clickable="false"
+            android:longClickable="false"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_back"
+        android:layout_width="60dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/back_btn"
+            android:clickable="false"
+            android:longClickable="false"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:maxWidth="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="17sp"/>
+
+</RelativeLayout>

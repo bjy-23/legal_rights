@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>表1-1 食品生产日常监督检查要点表</title>
+<link href="public.css" rel="stylesheet" type="text/css" />
+  <style>
+    <!--table td{-->
+      <!--border-bottom:1px solid #000;-->
+    <!--}-->
+
+  </style>
+  <script type="text/javascript"
+          src="html2canvas.min.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="wrap1">
+<div class="space10"></div>
+<p class="title center"><span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;" id="checkName"></span> 食品生产日常监督检查要点表</p>
+<div class="space"></div>
+<p class="title1"><span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;" id="checkName2"></span> 食品通用检查项目：重点项（*）<span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;" id="count3"></span>项，一般项<span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;" id="count5"></span>项，共<span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;" id="count2"></span>项。
+</p>
+<table class="tableA" cellpadding="1" id="infoTable">
+  <tr>
+    <td width="155" class="Th">检查项目</td>
+    <td width="84" class="Th">项目序号</td>
+    <td width="528" class="Th">检查内容</td>
+    <td width="87" class="Th">评价</td>
+    <td width="145" class="Th">备注</td>
+  </tr>
+  
+</table>
+<div class="space"></div>
+</div>
+<script type="text/javascript">
+//var arr = ["A1许可资质"];
+//var subArr = [[{"content":"生产条件等发生改变后是否主动报告监管部门","isPass":"0","isEdit":"0"}, {"content":"生产条件等发生改变后是否主动报告监管部门","isPass":"0","isEdit":"0"}, {"content":"生产条件等发生改变后是否主动报告监管部门","isPass":"0","isEdit":"0"}, {"content":"生产条件等发生改变后是否主动报告监管部门","isPass":"0","isEdit":"0"}]];
+             //createTable(arr,subArr);
+
+function createTable(tmp){
+  //console.log(arr)
+  //alert(tmp);
+  while (tmp.indexOf('\n') >= 0) { tmp = tmp.replace('\n', ''); }
+        var jsonO = eval("("+tmp+")");
+  var jsonO = eval("("+tmp+")");
+  var arr=jsonO.group;
+  var checkName = jsonO.checkName;
+  var count2 = jsonO.count2;
+  var count3 = jsonO.count3;
+  var count5 = jsonO.count5;
+  $('#checkName').html(checkName);
+  $('#checkName2').html(checkName);
+  $('#count2').html(count2);
+  $('#count3').html(count3);
+  $('#count5').html(count5);
+  //alert(arr);
+  var subArr=jsonO.child;
+  for(var i=0;i<arr.length;i++){
+    for(var j=0;j<subArr[i].length;j++){
+      var tr=document.createElement("tr");
+    $("#infoTable").append(tr);
+      if(j==0){
+        $(tr).append("<td rowspan="+subArr[i].length+">&nbsp;"+arr[i]+"</td>");
+      }
+      $(tr).append("<td>"+subArr[i][j].itemCode+"</td>");
+      $(tr).append("<td>"+subArr[i][j].content+"</td>");
+      if(subArr[i][j].isEdit=="1"){
+         if(subArr[i][j].isPass=="1"){
+            $(tr).append("<td>√是  □否</td>");
+         }else{
+            $(tr).append("<td>□是  √否</td>");
+         }
+      }else{
+         $(tr).append("<td>□是  □否</td>");
+      }
+      $(tr).append("<td>"+subArr[i][j].remark+"</td>");
+    }
+  }
+  $("#infoTable").append('<tr height="100"><td colspan="5" class="otherQ">其他需要记录的问题：</td></tr> ');
+}
+
+</script>
+</body>
+</html>

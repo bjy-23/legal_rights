@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_title1">计划检查项</string>
+    <string name="item_title2">新增SOP检查项</string>
+    <string name="item_title3">添加计划照片</string>
+    <string name="action_settings">Settings</string>
+    <string name="error_json">服务器数据报错，请联系客服。</string>
+    <string name="error_server">服务器连接失败！</string>
+    <string name="gaozhiye">打印告知页</string>
+    <string name="enterpriseInformationQuery">企业信息查询</string>
+    <string name="queryNoAnswers">没有查询到相关信息</string>
+    <string name="query">查询</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:gravity="left|center"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:text="添加计划照片"
+            android:textColor="@color/blue_text_color"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/addicon"
+            android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:alpha="0.3"
+        android:background="#000000" />
+
+</LinearLayout>

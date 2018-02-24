@@ -35,6 +35,7 @@ import com.wonders.http.Retrofit2Service;
 import com.wonders.bean.Db_message;
 import com.wonders.bean.EnterpriseBean;
 import com.wonders.bean.CheckRecordBean;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 import com.wonders.widget.LoadingLayout;
 
@@ -165,8 +166,7 @@ public class CheckRecordFragment extends Fragment {
             }
 
             if (dataList.size() == 0) {
-                Toast.makeText(myActivity, "暂时没有该企业记录",
-                        Toast.LENGTH_SHORT).show();
+                ToastUtil.show("暂时没有该企业记录");
             }
 
             adapter.notifyDataSetChanged();
@@ -196,8 +196,7 @@ public class CheckRecordFragment extends Fragment {
                         dataList.clear();
                         dataList.addAll(response.body().getObject());
                         if (dataList.size() == 0) {
-                            Toast.makeText(myActivity, "暂时没有该企业记录",
-                                    Toast.LENGTH_SHORT).show();
+                            ToastUtil.show("暂时没有该企业记录");
                         }
 
                         adapter.notifyDataSetChanged();

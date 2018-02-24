@@ -118,7 +118,7 @@ public class YlActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonObject = new JSONObject(result);
                                 if ("null".equals(jsonObject.getString("object"))){
-                                    ToastUtil.show(YlActivity.this,getResources().getString(R.string.error_json));
+                                    ToastUtil.show(getResources().getString(R.string.error_json));
                                     LoadingDialog.dismiss();
                                     return;
                                 }
@@ -141,8 +141,7 @@ public class YlActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             LoadingDialog.dismiss();
-                            Toast.makeText(YlActivity.this, getResources().getString(R.string.error_server),
-                                    Toast.LENGTH_SHORT).show();
+                            ToastUtil.show(getResources().getString(R.string.error_server));
                         }
                     });
                 }

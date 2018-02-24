@@ -13,6 +13,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,7 +32,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.google.gson.Gson;
@@ -43,10 +44,12 @@ import com.wonders.adapter.ImageGridViewAdapter;
 import com.wonders.adapter.MyExpandableListAdapter;
 import com.wonders.application.AppData;
 import com.wonders.bean.RecordBean;
+import com.wonders.bean.Result;
 import com.wonders.bean.SavePlanBean;
 import com.wonders.bean.SopItemBean;
 import com.wonders.constant.Constants;
 import com.wonders.constant.DbConstants;
+import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.DbHelper;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.http.Retrofit2Service;
@@ -94,15 +97,13 @@ import retrofit2.Response;
 
 @SuppressLint("NewApi")
 public class CheckTypeInFragment extends Fragment implements MyExpandableListAdapter.DeleteListener, PicUtil.PicListener {
-
+    private static final String TAG = CheckTypeInFragment.class.getName();
     private Db_message dbMessage;
     private LayoutInflater inflater;
 
     private Activity myActivity;
     private Context mContext;
     private AppData appData;
-
-
     // 根级菜单 组级菜单 单元级菜单
     private final static int TYPE_ROOT = 0;
     private final static int TYPE_GROUP = 1;
@@ -113,9 +114,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private final static int KIND_ADDATION = 4;
     private final static int KIND_DIY = 5;
 
-    private String planId;
-    private String etpsId;
-    private String userId;
+    private String planId, etpsId, userId;
     private ArrayList<SopListViewBean> hzSopList = new ArrayList<SopListViewBean>();
     private ArrayList<SopListViewBean> hzPlanList = new ArrayList<SopListViewBean>();
     private ArrayList<SopListViewBean> hzAddList = new ArrayList<SopListViewBean>();
@@ -124,7 +123,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private ArrayList<HzBean> hzList = new ArrayList<HzBean>();
     private ArrayList<SopBean> sopList = new ArrayList<>();
 
-    private Button hzBtn,ylBtn,qxBtn;
+    private Button hzBtn, ylBtn, qxBtn;
     private Button updataBtn;//提交
     private Button noProblemBtn;//批量通过
     private Button uncheckedBtn;//未检查提交
@@ -136,7 +135,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private LinearLayout beizhu_layout;
     private LinearLayout tjLayout;
     private LinearLayout tjMonthLayout;
-    private LinearLayout commitLayout,layoutYl;
+    private LinearLayout commitLayout, layoutYl;
 
     private ImageView sfxyhfIv;
     private ImageView sfxycyIv;
@@ -187,7 +186,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private TextView text_title3;
 
     private ImageView img_addSop2;
-    private boolean isOncreateView,isLoaded;
+    private boolean isOncreateView, isLoaded;
     private ArrayList<SopListViewBean> uploadDataList;
     private Call<ResponseBody> call;
 
@@ -195,21 +194,34 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
     private RecordBean recordBean;
     private HashMap params;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ToastUtil.showMid("暂时没有需要上传的待办数据");
+                    LoadingDialog.dismiss();
+                    break;
+                case 1:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        params = (getArguments().getSerializable(Constants.PARAMS) != null)? (HashMap) getArguments().getSerializable(Constants.PARAMS): new HashMap();
+        params = (getArguments().getSerializable(Constants.PARAMS) != null) ? (HashMap) getArguments().getSerializable(Constants.PARAMS) : new HashMap();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         isOncreateView = true;
-        planId = (params.get(Constants.PLAN_ID) != null)? (String) params.get(Constants.PLAN_ID): "";
-        etpsId = (params.get(Constants.ETPS_ID) != null)? (String) params.get(Constants.ETPS_ID): "";
-        allUserName = (params.get(Constants.ALL_USER_NAME) != null)? (String) params.get(Constants.ALL_USER_NAME): "";
+        planId = (params.get(Constants.PLAN_ID) != null) ? (String) params.get(Constants.PLAN_ID) : "";
+        etpsId = (params.get(Constants.ETPS_ID) != null) ? (String) params.get(Constants.ETPS_ID) : "";
+        allUserName = (params.get(Constants.ALL_USER_NAME) != null) ? (String) params.get(Constants.ALL_USER_NAME) : "";
 
         // 读取字典
         if (getActivity() != null) {
@@ -228,7 +240,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
 //            读取本地图片
             imgArray = new ArrayList<>();
-            imgAdapter = new ImageGridViewAdapter(mContext,imgArray);
+            imgAdapter = new ImageGridViewAdapter(mContext, imgArray);
             ImageGridViewAdapter.type = PicUtil.PIC_SHOW;
 
             refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -244,7 +256,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
         findView(view);
 
-        if (getUserVisibleHint()){
+        if (getUserVisibleHint()) {
             loadingLayout.setRefreshing(true);
             refreshListener.onRefresh();
         }
@@ -256,10 +268,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isOncreateView && isVisibleToUser && !isLoaded){
+        if (isOncreateView && isVisibleToUser && !isLoaded) {
             loadingLayout.setRefreshing(true);
             refreshListener.onRefresh();
-        }else if(!isVisibleToUser && call!=null && !isLoaded){
+        } else if (!isVisibleToUser && call != null && !isLoaded) {
             loadingLayout.setRefreshing(false);
             call.cancel();
         }
@@ -293,7 +305,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         String itemCode = bean.getItemCode();
                         String content = bean.getContent();
 
-                        dbHelper.deleteSop(userId,planId, itemCode, content);
+                        dbHelper.deleteSop(userId, planId, itemCode, content);
 
                         boolean isHave = false;
                         for (int i = 0; i < childArray2.size(); i++) {
@@ -347,12 +359,12 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
                                 LoadingDialog.show(myActivity);
                                 String url = "";
-                                if ("".equals(Constants.TYPE)){
+                                if ("".equals(Constants.TYPE)) {
                                     url = Retrofit2Service.DELETE_ADD_SOP_INFO;
-                                }else {
+                                } else {
                                     url = Retrofit2Service.LT_DELETE_ADD_SOP_INFO;
                                 }
-                                Call<ResponseBody> call = Retrofit2Helper.getInstance().deleteAddSopInfo(url,planId,itemCode);
+                                Call<ResponseBody> call = Retrofit2Helper.getInstance().deleteAddSopInfo(url, planId, itemCode);
                                 call.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -362,19 +374,19 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        ToastUtil.show(myActivity,"删除成功");
+                                        ToastUtil.show("删除成功");
                                         LoadingDialog.dismiss();
                                     }
 
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                                         LoadingDialog.dismiss();
-                                        ToastUtil.show(myActivity,getResources().getString(R.string.error_server));
+                                        ToastUtil.show(getResources().getString(R.string.error_server));
                                     }
                                 });
                             }
                         } else {
-                            ToastUtil.show(myActivity,"删除成功");
+                            ToastUtil.show("删除成功");
                             LoadingDialog.dismiss();
                         }
                     }
@@ -398,7 +410,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             public void onClick(View v) {
                 getSopList();
                 String type = groupArray.get(0).getContent().substring(0, 1);
-                createRootChooseDialog(mContext,type,sopList);
+                createRootChooseDialog(mContext, type, sopList);
             }
         });
 
@@ -432,10 +444,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 }
                 intent.putExtra("planId", planId);
                 intent.putExtra("etpsId", etpsId);
-                intent.putExtra("planType",0);
-                intent.putExtra("groupPosition",groupPosition);
-                intent.putExtra("childPosition",childPosition);
-                intent.putExtra("sopBean",childArray.get(groupPosition).get(childPosition));               ;
+                intent.putExtra("planType", 0);
+                intent.putExtra("groupPosition", groupPosition);
+                intent.putExtra("childPosition", childPosition);
+                intent.putExtra("sopBean", childArray.get(groupPosition).get(childPosition));
+                ;
                 startActivityForResult(intent, ItemWriteFragment.REFRESH_REQUEST_CODE1);
 
                 return true;
@@ -474,17 +487,17 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 }
                 intent.putExtra("planId", planId);
                 intent.putExtra("etpsId", etpsId);
-                intent.putExtra("planType",0);
-                intent.putExtra("groupPosition",groupPosition);
-                intent.putExtra("childPosition",childPosition);
-                intent.putExtra("sopBean",childArray2.get(groupPosition).get(childPosition));
+                intent.putExtra("planType", 0);
+                intent.putExtra("groupPosition", groupPosition);
+                intent.putExtra("childPosition", childPosition);
+                intent.putExtra("sopBean", childArray2.get(groupPosition).get(childPosition));
                 startActivityForResult(intent, ItemWriteFragment.REFRESH_REQUEST_CODE2);
 
                 return true;
             }
         });
 
-        igv = (HeightExpandableGridView) view.findViewById(R.id.igv);
+        igv = view.findViewById(R.id.igv);
         igv.setSelector(new ColorDrawable(Color.TRANSPARENT));
         igv.setAdapter(imgAdapter);
         igv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -494,27 +507,27 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 picUtil.setPicListener(CheckTypeInFragment.this);
                 PicBean picBean = imgArray.get(position);
                 picBean.setModel(0);
-                picUtil.imgDialogShow(position,imgArray.size(),picBean);
+                picUtil.imgDialogShow(position, imgArray.size(), picBean);
             }
         });
 
-        commitLayout = (LinearLayout) view.findViewById(R.id.commit_layout);
-        layoutYl = (LinearLayout) view.findViewById(R.id.layout_yl);
+        commitLayout = view.findViewById(R.id.commit_layout);
+        layoutYl = view.findViewById(R.id.layout_yl);
 
-        noProblemBtn = (Button) view.findViewById(R.id.no_problem_btn);
+        noProblemBtn = view.findViewById(R.id.no_problem_btn);
         noProblemBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                noProOption(childArray,etpsId,planId,0);
-                noProOption(childArray2,etpsId,planId,0);
+                noProOption(childArray, etpsId, planId, 0);
+                noProOption(childArray2, etpsId, planId, 0);
 
                 refreshListView();
 
             }
         });
 
-        updataBtn = (Button) view.findViewById(R.id.updata_btn);
+        updataBtn = view.findViewById(R.id.updata_btn);
 
         if (appData.isNetWork()) {
             updataBtn.setText("提交");
@@ -529,7 +542,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     makeRecordDataOffLine();
                     actionYlSCOff();
                 } else {
-                    uploadData();
+                    queryUploadData();
 
                     if (appData.getLoginBean().isManager() && !allUserName.contains(",")) {
                         showNoteDialog();
@@ -600,7 +613,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             @Override
             public void onClick(View v) {
                 if (!isSopHavePro()) {
-                    ToastUtil.show(mContext, "沒有发现问题的项，不能回访");
+                    ToastUtil.show("沒有发现问题的项，不能回访");
                     return;
                 }
 
@@ -667,13 +680,12 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             @Override
             public void onClick(View v) {
                 if (!sfxyhfFlag) {
-                    Toast.makeText(myActivity, "请先选择需要回访", Toast.LENGTH_SHORT)
-                            .show();
+                    ToastUtil.showMid("请先选择需要回访");
 
                     return;
                 }
 
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_date_picker,null,false);
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_date_picker, null, false);
                 final DatePicker datePicker = (DatePicker) view.findViewById(R.id.date_picker);
                 View view1 = ((ViewGroup) (((ViewGroup) datePicker.getChildAt(0)).getChildAt(0))).getChildAt(2);
                 if (view1 != null)
@@ -709,62 +721,49 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         hzBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hzBtn.getText().toString().equals("汇总")) {
-                    DbHelper dbhelper = new DbHelper(myActivity, DbConstants.TABLENAME, null, 1);
+                LoadingDialog.show(getActivity(), false);
+                if (hzBtn.getText().toString().equals(Constants.HZ)) {
+                    DbHelper dbhelper = new DbHelper(getActivity(), DbConstants.TABLENAME, null, 1);
                     //拿到需要做的列表
                     ArrayList<SopListViewBean> list = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
-
                     if (list.size() != 0) {
-                        ToastUtil.TextToast(myActivity, "您还有待提交的项目", Toast.LENGTH_SHORT);
-
+                        ToastUtil.show("您还有待提交的项目");
                         return;
                     }
-
-                    LoadingDialog.show(myActivity,false);
-
                     saveData();
-
-                    hzBtn.setText("办结");
-
+                    hzBtn.setText(Constants.BJ);
                     qxBtn.setVisibility(View.VISIBLE);
                     ylBtn.setVisibility(View.VISIBLE);
                     uncheckedBtn.setVisibility(View.GONE);
-
                     tjMonthLayout.setVisibility(View.VISIBLE);
                     ptrEt.setVisibility(View.VISIBLE);
                     tjLayout.setVisibility(View.VISIBLE);
-
-                } else if (hzBtn.getText().equals("办结")) {
-                    DbHelper dbhelper = new DbHelper(myActivity, DbConstants.TABLENAME, null, 1);
+                } else if (hzBtn.getText().equals(Constants.BJ)) {
+                    DbHelper dbhelper = new DbHelper(getActivity(), DbConstants.TABLENAME, null, 1);
                     //拿到需要做的列表
-                    ArrayList<SopListViewBean>list = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
+                    ArrayList<SopListViewBean> list = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
                     if (!isChecked) {
                         list.clear();
                     } else {
                         if (list.size() != 0) {
-                            ToastUtil.TextToast(myActivity, "有未上传的项目，请先提交", Toast.LENGTH_SHORT);
-
+                            ToastUtil.showMid("有未上传的项目，请先提交");
                             return;
                         }
-                        if (!isSopDone()) {
-                            ToastUtil.TextToast(myActivity, "您还有待检查的项目", Toast.LENGTH_SHORT);
 
+                        if (!isSopDone()) {
+                            ToastUtil.showMid("您还有待检查的项目");
                             return;
                         }
 
                         if (sfxyhfFlag) {
                             if (checkMonth == 0) {
-                                Toast.makeText(myActivity, "请选择回访月份",
-                                        Toast.LENGTH_SHORT).show();
-
+                                ToastUtil.showMid("请选择回访月份");
                                 return;
                             }
                         }
                     }
 
-                    LoadingDialog.show(myActivity);
-
-                    HashMap<String,String> params = new HashMap();
+                    HashMap<String, String> params = new HashMap();
                     params.put("planId", planId);
                     params.put("accompaniedPeople", ptrEt.getText().toString());
                     params.put("month", checkMonth + "");
@@ -788,58 +787,51 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         params.put("isChecked", "0");
                     }
                     String url = "";
-                    if ("".equals(Constants.TYPE)){
+                    if ("".equals(Constants.TYPE)) {
                         url = Retrofit2Service.SAVE_GATHER_PLAN_CHECK_CONTENT;
-                    }else {
+                    } else {
                         url = Retrofit2Service.LT_SAVE_GATHER_PLAN_CHECK_CONTENT;
                     }
-                    Call<ResponseBody> call = Retrofit2Helper.getInstance().saveGatherPlanCheckContent(url,params);
-                    call.enqueue(new Callback<ResponseBody>() {
+                    Call<Result> call = Retrofit2Helper.getInstance().saveGatherPlanCheckContent(url, params);
+                    call.enqueue(new Callback<Result>() {
                         @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        public void onResponse(Call<Result> call, Response<Result> response) {
                             LoadingDialog.dismiss();
-                            String result = "";
-                            try {
-                                result = response.body().string();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            if (response.body() != null
+                                    && response.body().getCode() == 0) {
+                                ToastUtil.show("该计划已办结");
+                                getActivity().setResult(Activity.RESULT_OK);
+
+                                if ("".equals(Constants.TYPE)) {
+                                    SopListViewBean bean = groupArray.get(0);
+                                    String content = bean.getContent();
+
+                                    HashMap params = new HashMap();
+                                    params.put(Constants.PLAN_TYPE, content.substring(0, 1));
+                                    params.put(Constants.PLAN_ID, planId);
+                                    params.put(Constants.DOC_TYPE, 2);
+                                    MessageActivity.groupJSONArray = getAllGroup();
+                                    MessageActivity.childJSONArray = getAllChild();
+                                    MessageActivity.notesJSONArray = getNotes();
+                                    Intent intent = new Intent(mContext, MessageActivity.class);
+                                    intent.putExtra(Constants.PARAMS, params);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(getActivity(), YlActivity.class);
+                                    intent.putExtra("planId", planId);
+                                    intent.putExtra("sub", "1");
+                                    intent.putExtra("acc", ptrEt.getText().toString());
+
+                                    startActivity(intent);
+                                }
+                                getActivity().finish();
                             }
-                            if (result.contains("100")) {
-                                ToastUtil.show(myActivity,"该计划已办结");
-                            }
-
-                            DbsxFragment.handler.sendEmptyMessage(0);
-
-                            if("".equals(Constants.TYPE)){
-                                SopListViewBean bean = groupArray.get(0);
-                                String content = bean.getContent();
-
-                                HashMap params = new HashMap();
-                                params.put(Constants.PLAN_TYPE, content.substring(0, 1));
-                                params.put(Constants.PLAN_ID, planId);
-                                params.put(Constants.DOC_TYPE, 2);
-                                MessageActivity.groupJSONArray = getAllGroup();
-                                MessageActivity.childJSONArray = getAllChild();
-                                MessageActivity.notesJSONArray = getNotes();
-                                Intent intent = new Intent(mContext, MessageActivity.class);
-                                intent.putExtra(Constants.PARAMS, params);
-                                startActivity(intent);
-                            }else {
-                                Intent intent = new Intent(myActivity,
-                                        YlActivity.class);
-                                intent.putExtra("planId", planId);
-                                intent.putExtra("sub", "1");
-                                intent.putExtra("acc", ptrEt.getText().toString());
-
-                                startActivity(intent);
-                            }
-                            getActivity().finish();
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        public void onFailure(Call<Result> call, Throwable t) {
                             LoadingDialog.dismiss();
-                            ToastUtil.show(myActivity,getResources().getString(R.string.error_server));
+                            ToastUtil.show(getResources().getString(R.string.error_server));
                         }
                     });
                 }
@@ -852,9 +844,9 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             @Override
             public void onClick(View v) {
                 if (ylBtn.getText().equals("预览")) {
-                    if("".equals(Constants.TYPE)){
+                    if ("".equals(Constants.TYPE)) {
                         actionYlSC();
-                    }else {
+                    } else {
                         Intent intent = new Intent(getActivity(), YlActivity.class);
                         intent.putExtra("planId", planId);
                         intent.putExtra("acc", ptrEt.getText().toString());
@@ -867,10 +859,8 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             }
         });
 
-
         final AppData appData = (AppData) myActivity.getApplication();
         qxBtn = (Button) view.findViewById(R.id.qx_btn);
-
         qxBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -930,7 +920,8 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             dbMessage = AppData.getInstance().getDb_message();
 
             Gson gson = new Gson();
-            items = gson.fromJson(dbMessage.getGet_planCheckContent(),new TypeToken<ArrayList<SopItemBean>>(){}.getType());
+            items = gson.fromJson(dbMessage.getGet_planCheckContent(), new TypeToken<ArrayList<SopItemBean>>() {
+            }.getType());
 
             makeSopItems(items);
 
@@ -954,7 +945,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 url = Retrofit2Service.GET_PLAN_CHECK_CONTENT;
             else
                 url = Retrofit2Service.LT_GET_PLAN_CHECK_CONTENT;
-            call = Retrofit2Helper.getInstance().getPlanCheckContent(url,planId);
+            call = Retrofit2Helper.getInstance().getPlanCheckContent(url, planId);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -973,19 +964,21 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     Gson gson = new Gson();
                     try {
                         JSONObject json = new JSONObject(result);
-                        if ("".equals(Constants.TYPE)){
+                        if ("".equals(Constants.TYPE)) {
                             JSONObject object = json.getJSONObject("object");
-                            items = gson.fromJson(object.getString("items"),new TypeToken<ArrayList<SopItemBean>>(){}.getType());
+                            items = gson.fromJson(object.getString("items"), new TypeToken<ArrayList<SopItemBean>>() {
+                            }.getType());
 //                            arrayList = gson.fromJson(json.getString("planPic"),new TypeToken<ArrayList<PicBean>>(){}.getType());
-                        }else {
-                            items = gson.fromJson(json.getString("object"),new TypeToken<ArrayList<SopItemBean>>(){}.getType());
+                        } else {
+                            items = gson.fromJson(json.getString("object"), new TypeToken<ArrayList<SopItemBean>>() {
+                            }.getType());
                         }
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
-                    if (arrayList.size()!=0){
+                    if (arrayList.size() != 0) {
 //                        showPlanPic(arrayList,imgArray,planId);
                         imgAdapter.notifyDataSetChanged();
                     }
@@ -1022,7 +1015,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             //封装二级列表的子项
             SopListViewBean childBean = new SopListViewBean();
 
-            sopBeanTransForm(childBean,itemBean);
+            sopBeanTransForm(childBean, itemBean);
 
             boolean isHave = false;
             int index = 0;
@@ -1070,7 +1063,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         }
     }
 
-    public void sopBeanTransForm(SopListViewBean childBean, SopItemBean itemBean){
+    public void sopBeanTransForm(SopListViewBean childBean, SopItemBean itemBean) {
         switch (itemBean.getResult()) {
             case "":
                 childBean.setIsPass("");
@@ -1090,28 +1083,28 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         childBean.setId(itemBean.getId());
         childBean.setContent(itemBean.getCheckContent());
         childBean.setRemark(itemBean.getRemark());
-        if (itemBean.getPicInfo().size()==0){
+        if (itemBean.getPicInfo().size() == 0) {
             childBean.setIsHavePic("0");
             childBean.setPic(new ArrayList<PicBean>());
-        }else {
+        } else {
             childBean.setIsHavePic("1");
             ArrayList<PicBean> pic = itemBean.getPicInfo();
-            for (int i=0;i<pic.size();i++){
+            for (int i = 0; i < pic.size(); i++) {
                 pic.get(i).setType(0);
             }
             childBean.setPic(pic);
         }
 
-        if ("".equals(Constants.TYPE)){
+        if ("".equals(Constants.TYPE)) {
             childBean.setCheckCode(itemBean.getCheckCode());
             childBean.setIsKey(itemBean.getIsKey());
-        }else {
+        } else {
             childBean.setCheckCode("");
             childBean.setIsKey("0");
         }
     }
 
-    public void makeSopList(JSONArray array) throws JSONException{
+    public void makeSopList(JSONArray array) throws JSONException {
         Gson gson = new Gson();
         for (int i = 0; i < array.length(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);
@@ -1133,15 +1126,16 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 childBean.setIsEdit("0");
             }
             String pic = jsonObject.getString("picInfo");
-            ArrayList<PicBean> picArray = gson.fromJson(pic,new TypeToken<ArrayList<PicBean>>(){}.getType());
-            if (picArray.size()==0){
+            ArrayList<PicBean> picArray = gson.fromJson(pic, new TypeToken<ArrayList<PicBean>>() {
+            }.getType());
+            if (picArray.size() == 0) {
                 childBean.setIsHavePic("0");
-            }else {
+            } else {
                 childBean.setIsHavePic("1");
             }
             childBean.setPic(picArray);
             //流通的字典表还未修改,这两个字段还没有
-            if("".equals(Constants.TYPE)){
+            if ("".equals(Constants.TYPE)) {
                 childBean.setCheckCode(jsonObject.getString("checkCode"));
                 childBean.setIsKey(jsonObject.getString("isKey"));
             }
@@ -1155,51 +1149,51 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             if ("0".equals(jsonObject.getString("ifAdded"))) {
                 childBean.setKind(KIND_PLAN);
 
-                    for (int j = 0; j < groupArray.size(); j++) {
-                        if (jsonObject.getString("parentCode").equals(groupArray.get(j).getContent())) {
-                            isHave = true;
-                            index = j;
-                            break;
-                        }
+                for (int j = 0; j < groupArray.size(); j++) {
+                    if (jsonObject.getString("parentCode").equals(groupArray.get(j).getContent())) {
+                        isHave = true;
+                        index = j;
+                        break;
                     }
-                    if (isHave) {
-                        childArray.get(index).add(childBean);
-                    } else {
-                        groupArray.add(groupBean);
-                        ArrayList<SopListViewBean> list = new ArrayList<SopListViewBean>();
-                        list.add(childBean);
-                        childArray.add(list);
-                    }
+                }
+                if (isHave) {
+                    childArray.get(index).add(childBean);
+                } else {
+                    groupArray.add(groupBean);
+                    ArrayList<SopListViewBean> list = new ArrayList<SopListViewBean>();
+                    list.add(childBean);
+                    childArray.add(list);
+                }
 
             } else {
-                if("1".equals(jsonObject.getString("ifCustom"))){
+                if ("1".equals(jsonObject.getString("ifCustom"))) {
                     childBean.setKind(KIND_DIY);
                     childBean.setCheckCode("其他");
                 } else
                     childBean.setKind(KIND_ADDATION);
 
-                    for (int j = 0; j < groupArray2.size(); j++) {
-                        if (jsonObject.getString("parentCode").equals(groupArray2.get(j).getContent())) {
-                            isHave = true;
-                            index = j;
-                            break;
-                        }
+                for (int j = 0; j < groupArray2.size(); j++) {
+                    if (jsonObject.getString("parentCode").equals(groupArray2.get(j).getContent())) {
+                        isHave = true;
+                        index = j;
+                        break;
                     }
-                    if (isHave) {
-                        childArray2.get(index).add(childBean);
-                    } else {
-                        groupArray2.add(groupBean);
-                        ArrayList<SopListViewBean> list = new ArrayList<SopListViewBean>();
-                        list.add(childBean);
-                        childArray2.add(list);
-                    }
+                }
+                if (isHave) {
+                    childArray2.get(index).add(childBean);
+                } else {
+                    groupArray2.add(groupBean);
+                    ArrayList<SopListViewBean> list = new ArrayList<SopListViewBean>();
+                    list.add(childBean);
+                    childArray2.add(list);
+                }
             }
         }
     }
 
-    public void manageLocalData(String planId){
-        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME,null,1);
-        ArrayList<SopListViewBean> tempList= dbHelper.querySops(AppData.getInstance().getLoginBean().getUserId(), planId);
+    public void manageLocalData(String planId) {
+        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+        ArrayList<SopListViewBean> tempList = dbHelper.querySops(AppData.getInstance().getLoginBean().getUserId(), planId);
 
         for (int i = 0; i < tempList.size(); i++) {
             SopListViewBean childBean = tempList.get(i);
@@ -1208,17 +1202,17 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             SopListViewBean groupBean = new SopListViewBean();
             groupBean.setContent(childBean.getParentCode());
 
-            if(childBean.getKind()==KIND_PLAN){
-                for(int j=0;j<childArray.size();j++){
-                    ArrayList<SopListViewBean> list  = childArray.get(j);
-                    for(int k=0;k<list.size();k++){
+            if (childBean.getKind() == KIND_PLAN) {
+                for (int j = 0; j < childArray.size(); j++) {
+                    ArrayList<SopListViewBean> list = childArray.get(j);
+                    for (int k = 0; k < list.size(); k++) {
                         SopListViewBean bean = list.get(k);
-                        if(childBean.getItemCode().equals(bean.getItemCode())){
-                            childArray.get(j).set(k,childBean);
+                        if (childBean.getItemCode().equals(bean.getItemCode())) {
+                            childArray.get(j).set(k, childBean);
                         }
                     }
                 }
-            }else{
+            } else {
                 boolean isGroupHave = false;
                 if (groupArray2.size() != 0) {
                     for (int j = 0; j < groupArray2.size(); j++) {
@@ -1230,7 +1224,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                                 for (int l = 0; l < list.size(); l++) {
                                     if (childBean.getItemCode().equals(list.get(l).getItemCode())) {
                                         isChildHave = true;
-                                        childArray2.get(k).set(l,childBean);
+                                        childArray2.get(k).set(l, childBean);
                                         break;
                                     }
                                 }
@@ -1262,41 +1256,41 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         }
     }
 
-    public void addCheckRules(){
-        for(int i=0;i<childArray.size();i++){
+    public void addCheckRules() {
+        for (int i = 0; i < childArray.size(); i++) {
             ArrayList<SopListViewBean> list = childArray.get(i);
-            for(int j=0;j<list.size();j++){
+            for (int j = 0; j < list.size(); j++) {
                 SopListViewBean bean = list.get(j);
-                for(int k=0;k<sopList.size();k++){
+                for (int k = 0; k < sopList.size(); k++) {
                     ArrayList<SopItemModel> items = sopList.get(k).getItems();
-                    for(int l=0;l<items.size();l++){
-                        if(bean.getItemCode().equals(items.get(l).getItemCode())){
+                    for (int l = 0; l < items.size(); l++) {
+                        if (bean.getItemCode().equals(items.get(l).getItemCode())) {
                             bean.setFaq(items.get(l).getFaq());
                             bean.setCheckBasis(items.get(l).getCheckBasis());
                             bean.setCheckRule(items.get(l).getCheckRule());
                             bean.setFoucsNotes(items.get(l).getFoucsNotes());
-                            list.set(j,bean);
-                            childArray.set(i,list);
+                            list.set(j, bean);
+                            childArray.set(i, list);
                         }
                     }
                 }
             }
         }
 
-        for(int i=0;i<childArray2.size();i++){
+        for (int i = 0; i < childArray2.size(); i++) {
             ArrayList<SopListViewBean> list = childArray2.get(i);
-            for(int j=0;j<list.size();j++){
+            for (int j = 0; j < list.size(); j++) {
                 SopListViewBean bean = list.get(j);
-                for(int k=0;k<sopList.size();k++){
+                for (int k = 0; k < sopList.size(); k++) {
                     ArrayList<SopItemModel> items = sopList.get(k).getItems();
-                    for(int l=0;l<items.size();l++){
-                        if(bean.getItemCode().equals(items.get(l).getItemCode())){
+                    for (int l = 0; l < items.size(); l++) {
+                        if (bean.getItemCode().equals(items.get(l).getItemCode())) {
                             bean.setFaq(items.get(l).getFaq());
                             bean.setCheckBasis(items.get(l).getCheckBasis());
                             bean.setCheckRule(items.get(l).getCheckRule());
                             bean.setFoucsNotes(items.get(l).getFoucsNotes());
-                            list.set(j,bean);
-                            childArray2.set(i,list);
+                            list.set(j, bean);
+                            childArray2.set(i, list);
                         }
                     }
                 }
@@ -1304,7 +1298,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         }
     }
 
-    public void setAdapter(){
+    public void setAdapter() {
         elv.setAdapter(myAdapter1);
         elv2.setAdapter(myAdapter2);
 
@@ -1326,17 +1320,17 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
     private void saveData() {
 
-        HashMap<String,String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("planId", planId);
-        params.put("etpsId",etpsId);
+        params.put("etpsId", etpsId);
 
         String url = "";
-        if ("".equals(Constants.TYPE)){
+        if ("".equals(Constants.TYPE)) {
             url = Retrofit2Service.GATHER_PLAN_CHECK_CONTENT;
-        }else {
+        } else {
             url = Retrofit2Service.LT_GATHER_PLAN_CHECK_CONTENT;
         }
-        Call<ResponseBody> call = Retrofit2Helper.getInstance().gatherPlanCheckContent(url,params);
+        Call<ResponseBody> call = Retrofit2Helper.getInstance().gatherPlanCheckContent(url, params);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1361,7 +1355,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 }
 
                 if (json == null) {
-                    ToastUtil.TextToast(myActivity, "服务器数据错误", Toast.LENGTH_SHORT);
+                    ToastUtil.showMid("服务器数据错误");
 
                     return;
                 }
@@ -1375,7 +1369,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 }
 
                 if (root == null) {
-                    ToastUtil.TextToast(myActivity, "服务器数据出错", Toast.LENGTH_SHORT);
+                    ToastUtil.showMid("服务器数据出错");
 
                     return;
                 }
@@ -1419,111 +1413,109 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                ToastUtil.show(myActivity,getResources().getString(R.string.error_server));
+                ToastUtil.show(getResources().getString(R.string.error_server));
             }
         });
     }
 
     /**
-     * 上传待办列表
+     * 查询要上传的数据-异步
      */
-    private void uploadData() {
+    private void queryUploadData() {
+        LoadingDialog.show(getActivity());
 
-        //拿到需要上传的文字列表、图片列表
-        uploadDataList = dbHelper.querySops(appData.getLoginBean().getUserId(), planId);
-
-        ArrayList<PicBean> picList = dbHelper.selectPic(planId,appData.getLoginBean().getUserId());
-
-        if (uploadDataList.size() == 0 && picList.size() == 0) {
-            ToastUtil.TextToast(myActivity, "暂时没有需要上传的待办数据", Toast.LENGTH_SHORT);
-
-            return;
-        }else {
-            LoadingDialog.show(getActivity());
-            for (int i = 0; i < uploadDataList.size(); i++) {
-                SopListViewBean sopListViewBean = uploadDataList.get(i);
-                sopListViewBean.setDataType("online");
-            }
-
-            Gson gson = new Gson();
-            String url = "";
-            String uploadData = "";
-            if ("".equals(Constants.TYPE)){
-                url = Retrofit2Service.SAVE_PLAN_CHECK_CONTENT;
-
-                SavePlanBean savePlanBean = new SavePlanBean();
-                savePlanBean.setItems(uploadDataList);
-                savePlanBean.setPlanPic(imgArray);
-                uploadData = gson.toJson(savePlanBean);
-            }else {
-                url = Retrofit2Service.LT_SAVE_PLAN_CHECK_CONTENT;
-                uploadData = gson.toJson(uploadDataList);
-            }
-
-            byte[] uploadDataBuffer = null;
-            try {
-                uploadDataBuffer = uploadData.getBytes("gb2312");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"),uploadDataBuffer);
-            Call<ResponseBody> call = Retrofit2Helper.getInstance().savePlanCheckContent(url,requestBody);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String result = response.body().string();
-                        handleResult(result);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        FastDealExecutor.run(new Runnable() {
+            @Override
+            public void run() {
+                uploadDataList = dbHelper.querySops(userId, planId);
+                ArrayList<PicBean> picList = dbHelper.selectPic(planId, appData.getLoginBean().getUserId());
+                if (uploadDataList.size() == 0 && picList.size() == 0) {
+                    handler.sendEmptyMessage(0);
+                } else {
+                    uploadData();
                 }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    LoadingDialog.dismiss();
-                    ToastUtil.show(mContext,getResources().getString(R.string.error_server));
-                }
-            });
-        }
+            }
+        });
     }
 
-    public void handleResult(String result){
-        //删除已上传的文字数据
+    /**
+     * 上传数据
+     */
+    private void uploadData() {
         for (int i = 0; i < uploadDataList.size(); i++) {
-            dbHelper.deleteSop(uploadDataList.get(i).getUserId(),uploadDataList.get(i).getPlanId(), uploadDataList.get(i).getItemCode(), uploadDataList.get(i).getContent());
-        }
-        JSONObject jb = null;
-
-        try {
-            jb = new JSONObject(result);
-        } catch (JSONException e2) {
-            // TODO Auto-generated catch block
-            e2.printStackTrace();
+            SopListViewBean sopListViewBean = uploadDataList.get(i);
+            sopListViewBean.setDataType("online");
         }
 
-        if (jb == null) {
-            Toast.makeText(myActivity, "服务器连接失败", Toast.LENGTH_SHORT).show();
-            return;
+        Gson gson = new Gson();
+        String url = "";
+        String uploadData = "";
+        if ("".equals(Constants.TYPE)) {
+            url = Retrofit2Service.SAVE_PLAN_CHECK_CONTENT;
+
+            SavePlanBean savePlanBean = new SavePlanBean();
+            savePlanBean.setItems(uploadDataList);
+            savePlanBean.setPlanPic(imgArray);
+            uploadData = gson.toJson(savePlanBean);
         } else {
-            try {
-                JSONArray array = new JSONArray(jb.getString("message"));
-                makeRecordData(array);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            url = Retrofit2Service.LT_SAVE_PLAN_CHECK_CONTENT;
+            uploadData = gson.toJson(uploadDataList);
         }
-        LoadingDialog.dismiss();
 
-        //图片上传
-        ArrayList<PicBean> picList = dbHelper.selectPic(planId,appData.getLoginBean().getUserId());
-        picList.clear();
-        picList = dbHelper.selectPic(planId,appData.getLoginBean().getUserId());
-        if (picList.size() != 0)
-            UploadPics(picList);
-        else {
-            Toast.makeText(myActivity, "提交数据成功", Toast.LENGTH_SHORT).show();
+        byte[] uploadDataBuffer = null;
+        try {
+            uploadDataBuffer = uploadData.getBytes("gb2312");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), uploadDataBuffer);
+        Call<Result> call = Retrofit2Helper.getInstance().savePlanCheckContent(url, requestBody);
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if (response.body() != null && response.body().getCode() == 0) {
+
+                    deleteUploadedData();
+
+                    try {
+                        JSONArray array = new JSONArray(response.body().getMessage());
+                        makeRecordData(array);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    //图片上传
+                    ArrayList<PicBean> picList = dbHelper.selectPic(planId, userId);
+                    if (picList.size() != 0)
+                        UploadPics(picList);
+                    else {
+                        LoadingDialog.dismiss();
+                        ToastUtil.show("提交数据成功");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                LoadingDialog.dismiss();
+                ToastUtil.show(getResources().getString(R.string.error_server));
+            }
+        });
+    }
+
+    /**
+     * 删除已上传数据-异步
+     */
+    private void deleteUploadedData() {
+        FastDealExecutor.run(new Runnable() {
+            @Override
+            public void run() {
+                Log.e(TAG, "当前线程："+Thread.currentThread().getName());
+                for (int i = 0; i < uploadDataList.size(); i++) {
+                    dbHelper.deleteSop(uploadDataList.get(i).getUserId(), uploadDataList.get(i).getPlanId(), uploadDataList.get(i).getItemCode(), uploadDataList.get(i).getContent());
+                }
+            }
+        });
     }
 
     private void createRootChooseDialog(final Context context, String type, ArrayList<SopBean> sopList) {
@@ -1545,7 +1537,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         //多选框
-                        createGroupDialog(context,which,addSopList);
+                        createGroupDialog(context, which, addSopList);
                     }
                 });
         bulder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -1558,7 +1550,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         bulder.create().show();
     }
 
-    private void createGroupDialog(Context context,int index, final ArrayList<SopBean> addSopList) {
+    private void createGroupDialog(Context context, int index, final ArrayList<SopBean> addSopList) {
         final int myindex = index;
         final SopBean sop = addSopList.get(index);
 
@@ -1592,16 +1584,16 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             }
 
             if (!isHave) {
-                if ("".equals(Constants.TYPE)){
+                if ("".equals(Constants.TYPE)) {
                     String text = sop.getItems().get(i).getCheckCode() + sop.getItems().get(i).getCheckContent();
 
                     if ("0".equals(sop.getItems().get(i).getIsKey()))
                         itemsList.add(text);
                     else
-                        itemsList.add(Html.fromHtml("<font color=red>"+text+"</font>"));
+                        itemsList.add(Html.fromHtml("<font color=red>" + text + "</font>"));
 
                     itemsList2.add(text);
-                }else {
+                } else {
                     String text = sop.getItems().get(i).getCheckContent();
                     itemsList.add(text);
                     itemsList2.add(text);
@@ -1631,11 +1623,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         isChoose = true;
                         if (itemsList2.get(i) == "其他") {
                             dialog.dismiss();
-                            createDiyDialog(myindex,mContext,addSopList);
+                            createDiyDialog(myindex, mContext, addSopList);
                             return;
                         } else {
                             SopListViewBean sopBean = new SopListViewBean();
-                            makeSopBean(sopBean,makeItemBean(i,addSopList.get(myindex).getItems(),itemsList2),addSopList);
+                            makeSopBean(sopBean, makeItemBean(i, addSopList.get(myindex).getItems(), itemsList2), addSopList);
 
                             childList.add(sopBean);
 
@@ -1646,7 +1638,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 if (!isChoose) {
                     dialog.dismiss();
                 } else {
-                    makeAddData(childList,groupArray2,childArray2,groupStatues2,bundleStatues2);
+                    makeAddData(childList, groupArray2, childArray2, groupStatues2, bundleStatues2);
                     refreshListView();
                 }
 
@@ -1664,16 +1656,17 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         bulder.show();
 
     }
-    public static SopItemModel makeItemBean(int i, ArrayList<SopItemModel> items, ArrayList<String> itemsList2 ){
+
+    public static SopItemModel makeItemBean(int i, ArrayList<SopItemModel> items, ArrayList<String> itemsList2) {
         SopItemModel itemBean = new SopItemModel();
         for (int j = 0; j < items.size(); j++) {
-            if ("".equals(Constants.TYPE)){
+            if ("".equals(Constants.TYPE)) {
                 if ((items.get(j).getCheckCode() + items.get(j).getCheckContent())
                         .equals(itemsList2.get(i))) {
                     itemBean = items.get(j);
                     break;
                 }
-            }else {
+            } else {
                 if (items.get(j).getCheckContent().equals(itemsList2.get(i))) {
                     itemBean = items.get(j);
                     break;
@@ -1683,7 +1676,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         return itemBean;
     }
 
-    public static void makeSopBean(SopListViewBean sopBean, SopItemModel itemBean, ArrayList<SopBean> addSopList){
+    public static void makeSopBean(SopListViewBean sopBean, SopItemModel itemBean, ArrayList<SopBean> addSopList) {
         sopBean.setId("");
         sopBean.setIsEdit("0");
         sopBean.setIsPass("0");
@@ -1695,10 +1688,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         sopBean.setItemCode(itemBean.getItemCode());
         sopBean.setContent(itemBean.getCheckContent());
         sopBean.setKind(KIND_ADDATION);
-        if ("".equals(Constants.TYPE)){
+        if ("".equals(Constants.TYPE)) {
             sopBean.setIsKey(itemBean.getIsKey());
             sopBean.setCheckCode(itemBean.getCheckCode());
-        }else {
+        } else {
             sopBean.setIsKey("0");
             sopBean.setCheckCode("");
         }
@@ -1729,15 +1722,15 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             public void onClick(DialogInterface dialog, int which) {
                 String content = editText.getText().toString();
                 //不能输入为空
-                if("".equals(content)){
-                    ToastUtil.show(context,"输入不能为空！");
+                if ("".equals(content)) {
+                    ToastUtil.show("输入不能为空！");
 
                     return;
                 }
 
                 //判断输入是否重复
-                if(isInput(content)){
-                    ToastUtil.show(context,"请不要输入重复项！");
+                if (isInput(content)) {
+                    ToastUtil.show("请不要输入重复项！");
 
                     return;
                 }
@@ -1748,7 +1741,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                 sopBean.setContent(content);
                 childList.add(sopBean);
 
-                makeAddData(childList,groupArray2,childArray2,groupStatues2,bundleStatues2);
+                makeAddData(childList, groupArray2, childArray2, groupStatues2, bundleStatues2);
 
                 refreshListView();
 
@@ -1767,7 +1760,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
     }
 
-    public static void makeDiySopBean(SopListViewBean sopBean){
+    public static void makeDiySopBean(SopListViewBean sopBean) {
         sopBean.setId("");
         sopBean.setIsPass("0");
         sopBean.setIsEdit("0");
@@ -1777,10 +1770,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         sopBean.setType(TYPE_CELL);
         sopBean.setKind(KIND_DIY);
         sopBean.setItemCode(String.valueOf(System.currentTimeMillis()));
-        if ("".equals(Constants.TYPE)){
+        if ("".equals(Constants.TYPE)) {
             sopBean.setCheckCode("其他 ");
             sopBean.setIsKey("0");
-        }else {
+        } else {
             sopBean.setCheckCode("");
             sopBean.setIsKey("0");
         }
@@ -1840,7 +1833,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                AppData.getInputManger().showSoftInput(et,0);
+                AppData.getInputManger().showSoftInput(et, 0);
             }
         });
         dialog.setCanceledOnTouchOutside(true);
@@ -1855,30 +1848,43 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         else
             url = Retrofit2Service.LT_SAVE_PLAN_CHECK_CONTENT_PICTURE_TEMP;
 
-        for (int i=0;i<picList.size();i++){
+        for (int i = 0; i < picList.size(); i++) {
             final PicBean picBean = picList.get(i);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),new File(picBean.getPicPath()));
-            MultipartBody.Part part = MultipartBody.Part.createFormData(picBean.getPicName() + "_" + picBean.getPicNum(),"",requestBody);
-            Call<ResponseBody> call = Retrofit2Helper.getInstance().savePlanCheckContentPictureTemp(url,part);
-            call.enqueue(new Callback<ResponseBody>() {
+            final RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), new File(picBean.getPicPath()));
+            MultipartBody.Part part = MultipartBody.Part.createFormData(picBean.getPicName() + "_" + picBean.getPicNum(), "", requestBody);
+            Call<Result> call = Retrofit2Helper.getInstance().savePlanCheckContentPictureTemp(url, part);
+            call.enqueue(new Callback<Result>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String result = response.body().string();
-                        Log.e("picture",result);
-                        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
-                        dbHelper.deletePicAfterUpload(picBean);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                public void onResponse(Call<Result> call, Response<Result> response) {
+                    if (response.body() != null && response.body().getCode() == 0){
+                        picList.remove(picList.size() -1);
+                        if (picList.size() == 0){
+                            LoadingDialog.dismiss();
+                            ToastUtil.show("提交数据成功");
+                        }
+
+                        deleteUploadedPics(picBean);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e("","");
-                }
+                public void onFailure(Call<Result> call, Throwable t) {
+            }
             });
         }
+    }
+
+    /**
+     * 删除已上传的图片-异步
+     */
+    public static void deleteUploadedPics(final PicBean picBean){
+        FastDealExecutor.run(new Runnable() {
+            @Override
+            public void run() {
+                DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+                dbHelper.deletePicAfterUpload(picBean);
+            }
+        });
     }
 
     public static void makeAddData(ArrayList<SopListViewBean> list, ArrayList<SopListViewBean> groupArray
@@ -1933,7 +1939,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME,null,1);
+        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
         for (int i = 0; i < array.size(); i++) {
             ArrayList<SopListViewBean> list = array.get(i);
             for (int j = 0; j < list.size(); j++) {
@@ -1947,8 +1953,8 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     bean.setPlanId(planId);
                     bean.setEtpsId(etpsId);
                     bean.setUserId(AppData.getInstance().getLoginBean().getUserId());
-                    bean.setYear(year+"");
-                    bean.setMonth(month+1+"");
+                    bean.setYear(year + "");
+                    bean.setMonth(month + 1 + "");
                     bean.setSecondDate("");
                     bean.setAddress("");
                     bean.setLongitude("");
@@ -1989,26 +1995,26 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==0){
+        if (resultCode == 0) {
             return;
         }
 
-        switch (requestCode){
+        switch (requestCode) {
             case ItemWriteFragment.REFRESH_REQUEST_CODE1:
-                if (resultCode== ItemWriteFragment.REFERESH_RESULT_CODE_YES){
+                if (resultCode == ItemWriteFragment.REFERESH_RESULT_CODE_YES) {
                     SopListViewBean bean = data.getParcelableExtra("sopBean");
-                    int groupPosition = data.getIntExtra("groupPosition",0);
-                    int childPosition = data.getIntExtra("childPosition",0);
-                    childArray.get(groupPosition).set(childPosition,bean);
+                    int groupPosition = data.getIntExtra("groupPosition", 0);
+                    int childPosition = data.getIntExtra("childPosition", 0);
+                    childArray.get(groupPosition).set(childPosition, bean);
                     refreshListView();
                 }
                 return;
             case ItemWriteFragment.REFRESH_REQUEST_CODE2:
-                if (resultCode== ItemWriteFragment.REFERESH_RESULT_CODE_YES){
+                if (resultCode == ItemWriteFragment.REFERESH_RESULT_CODE_YES) {
                     SopListViewBean bean = data.getParcelableExtra("sopBean");
-                    int groupPosition = data.getIntExtra("groupPosition",0);
-                    int childPosition = data.getIntExtra("childPosition",0);
-                    childArray2.get(groupPosition).set(childPosition,bean);
+                    int groupPosition = data.getIntExtra("groupPosition", 0);
+                    int childPosition = data.getIntExtra("childPosition", 0);
+                    childArray2.get(groupPosition).set(childPosition, bean);
                     refreshListView();
                 }
                 return;
@@ -2022,11 +2028,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         if (requestCode > 10)
             position = requestCode - 100;
         else {
-            ItemWriteFragment.waterMark(picPath,timeMark);
+            ItemWriteFragment.waterMark(picPath, timeMark);
         }
 
         final PicBean picBean = new PicBean();
-        picBean.setPicName(System.currentTimeMillis()+"");
+        picBean.setPicName(System.currentTimeMillis() + "");
         picBean.setPicPath(picPath);
         picBean.setPlanId(planId);
         picBean.setUserId(userId);
@@ -2036,7 +2042,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         if (!"".equals(imgArray.get(position)) && (imgArray.size() - position) != 1) {
             //替换图片
 
-            imgArray.set(position,picBean);
+            imgArray.set(position, picBean);
 
 
             new Thread(new Runnable() {
@@ -2050,7 +2056,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             //添加图片
             imgArray.remove(imgArray.size() - 1);
             imgArray.add(picBean);
-            if (imgArray.size()< PicUtil.PIC_MAX){
+            if (imgArray.size() < PicUtil.PIC_MAX) {
                 PicBean picBean1 = new PicBean();
                 picBean1.setPicPath("");
                 imgArray.add(picBean1);
@@ -2139,8 +2145,8 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         jsonObject.put("remark", "");
                     else
                         jsonObject.put("remark", bean.getRemark());
-                    jsonObject.put("isPass",bean.getIsPass());
-                    jsonObject.put("isEdit",bean.getIsEdit());
+                    jsonObject.put("isPass", bean.getIsPass());
+                    jsonObject.put("isEdit", bean.getIsEdit());
                     String num = getItemNum(bean.getItemCode());
                     if ("9".equals(bean.getItemCode().substring(bean.getItemCode().length() - 1, bean.getItemCode().length())))
                         num = "其他";
@@ -2313,8 +2319,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            MessageActivity.startDate = (date.getYear()+1900)+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日";
+            MessageActivity.startDate = (date.getYear() + 1900) + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
 
 
         } catch (JSONException e) {
@@ -2365,9 +2370,9 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     public void deletePic(int position) {
         final ArrayList<PicBean> picList = new ArrayList<>();
         int max = imgArray.size();
-        if(!(!"".equals(imgArray.get(imgArray.size()-1).getPicPath())&&imgArray.size()== PicUtil.PIC_MAX))
+        if (!(!"".equals(imgArray.get(imgArray.size() - 1).getPicPath()) && imgArray.size() == PicUtil.PIC_MAX))
             max--;
-        for (int i=position;i<max;i++){
+        for (int i = position; i < max; i++) {
             picList.add(imgArray.get(i));
         }
 
@@ -2380,7 +2385,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
         imgArray.remove(position);
 
-        if(!"".equals(imgArray.get(imgArray.size()-1).getPicPath())){
+        if (!"".equals(imgArray.get(imgArray.size() - 1).getPicPath())) {
             PicBean picBean = new PicBean();
             picBean.setPicPath("");
             picBean.setType(1);
@@ -2399,7 +2404,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         File out = new File(picPath);
         Uri uri = Uri.fromFile(out);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(intent,position);
+        startActivityForResult(intent, position);
     }
 
     @Override
@@ -2407,14 +2412,14 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         Intent intent = new Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,position);
+        startActivityForResult(intent, position);
     }
 
 
-    public boolean isSopDone(){
-        for(ArrayList<SopListViewBean> arrayList:childArray){
-            for (SopListViewBean bean:arrayList){
-                if ("0".equals(bean.getIsEdit())){
+    public boolean isSopDone() {
+        for (ArrayList<SopListViewBean> arrayList : childArray) {
+            for (SopListViewBean bean : arrayList) {
+                if ("0".equals(bean.getIsEdit())) {
                     return false;
                 }
             }
@@ -2451,9 +2456,9 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         return false;
     }
 
-    public boolean isFirstDo(ArrayList<ArrayList<SopListViewBean>> array){
-        for(ArrayList<SopListViewBean> arrayList : array){
-            for (SopListViewBean bean : arrayList){
+    public boolean isFirstDo(ArrayList<ArrayList<SopListViewBean>> array) {
+        for (ArrayList<SopListViewBean> arrayList : array) {
+            for (SopListViewBean bean : arrayList) {
                 if ("1".equals(bean.getIsEdit()))
                     return false;
             }
@@ -2461,10 +2466,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         return true;
     }
 
-    public void getNotification(){
-        if ("".equals(Constants.TYPE)){
-            if (AppData.getInstance().isFirstDo){
-                if(isFirstDo(childArray) && isFirstDo(childArray2)){
+    public void getNotification() {
+        if ("".equals(Constants.TYPE)) {
+            if (AppData.getInstance().isFirstDo) {
+                if (isFirstDo(childArray) && isFirstDo(childArray2)) {
                     AppData.getInstance().isFirstDo = false;
                     Intent intent = new Intent(myActivity, NotesActivity.class);
                     startActivity(intent);
@@ -2473,24 +2478,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         }
     }
 
-    public ArrayList<PicBean> makeLtPic(List<String> pics){
-        ArrayList<PicBean> picInfo = new ArrayList<>();
-        for (int i=0;i<pics.size();i++){
-            if (!"".equals(pics.get(i))&&pics.get(i).length()>10){
-                PicBean picBean = new PicBean();
-                picBean.setType(0);
-                picBean.setPicNum(Integer.parseInt(pics.get(i).substring(0,1)));
-                picBean.setPicSource(pics.get(i).substring(1));
-                picInfo.add(picBean);
-            }
-        }
-        return picInfo;
-    }
-
     /*
     * 生产预览
     * */
-    public void actionYlSC(){
+    public void actionYlSC() {
         SopListViewBean bean = groupArray.get(0);
         String content = bean.getContent();
         HashMap params = new HashMap();
@@ -2508,7 +2499,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     /*
     * 生产预览
     * */
-    public void actionYlSCOff(){
+    public void actionYlSCOff() {
         SopListViewBean bean = groupArray.get(0);
         String content = bean.getContent();
         HashMap params = new HashMap();
@@ -2521,14 +2512,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         MessageActivity.notesJSONArray = getNotes();
 
         Intent intent = new Intent(mContext, MessageActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("recordBean",recordBean);
-//        bundle.putString("planId",planId);
         intent.putExtra(Constants.PARAMS, params);
         startActivity(intent);
     }
 
-    public void makeRecordDataOffLine(){
+    public void makeRecordDataOffLine() {
         recordBean = new RecordBean();
         recordBean.setCheckNum("\u3000");
         recordBean.setCheckDate(DateUtil.formate2(System.currentTimeMillis()));
@@ -2537,25 +2525,25 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         makeCounts(childArray2);
     }
 
-    public void makeCounts(ArrayList<ArrayList<SopListViewBean>> childArray){
-        for (ArrayList<SopListViewBean> arrayList : childArray){
-            for (SopListViewBean sopListViewBean : arrayList){
-                recordBean.setItemCounts(recordBean.getItemCounts()+1);
-                if ("1".equals(sopListViewBean.getIsKey())){
-                    recordBean.setHighCounts(recordBean.getHighCounts()+1);
-                    recordBean.setHighContents(recordBean.getHighContents()==null?"":recordBean.getHighContents()+sopListViewBean.getCheckCode()+",");
-                    if ("0".equals(sopListViewBean.getIsPass())){
-                        recordBean.setHighProCounts(recordBean.getHighProCounts()+1);
-                        recordBean.setHighProContents(((recordBean.getHighProContents()==null)?"":recordBean.getHighProContents())
-                                +sopListViewBean.getCheckCode()+",");
+    public void makeCounts(ArrayList<ArrayList<SopListViewBean>> childArray) {
+        for (ArrayList<SopListViewBean> arrayList : childArray) {
+            for (SopListViewBean sopListViewBean : arrayList) {
+                recordBean.setItemCounts(recordBean.getItemCounts() + 1);
+                if ("1".equals(sopListViewBean.getIsKey())) {
+                    recordBean.setHighCounts(recordBean.getHighCounts() + 1);
+                    recordBean.setHighContents(recordBean.getHighContents() == null ? "" : recordBean.getHighContents() + sopListViewBean.getCheckCode() + ",");
+                    if ("0".equals(sopListViewBean.getIsPass())) {
+                        recordBean.setHighProCounts(recordBean.getHighProCounts() + 1);
+                        recordBean.setHighProContents(((recordBean.getHighProContents() == null) ? "" : recordBean.getHighProContents())
+                                + sopListViewBean.getCheckCode() + ",");
                     }
-                }else {
-                    recordBean.setLowCounts(recordBean.getLowCounts()+1);
-                    recordBean.setLowContents(recordBean.getLowContents()==null?"":recordBean.getLowContents()+sopListViewBean.getCheckCode()+",");
-                    if ("0".equals(sopListViewBean.getIsPass())){
-                        recordBean.setLowProCounts(recordBean.getLowProCounts()+1);
-                        recordBean.setLowProContents(((recordBean.getLowProContents()==null)?"":recordBean.getLowProContents())
-                                +sopListViewBean.getCheckCode()+",");
+                } else {
+                    recordBean.setLowCounts(recordBean.getLowCounts() + 1);
+                    recordBean.setLowContents(recordBean.getLowContents() == null ? "" : recordBean.getLowContents() + sopListViewBean.getCheckCode() + ",");
+                    if ("0".equals(sopListViewBean.getIsPass())) {
+                        recordBean.setLowProCounts(recordBean.getLowProCounts() + 1);
+                        recordBean.setLowProContents(((recordBean.getLowProContents() == null) ? "" : recordBean.getLowProContents())
+                                + sopListViewBean.getCheckCode() + ",");
                     }
                 }
             }

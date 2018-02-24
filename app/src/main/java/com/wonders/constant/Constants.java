@@ -28,6 +28,8 @@ public class Constants {
     public static final String SZ = "设置";
     public static final String RCJC = "日常检查";
     public static final String HFRW = "回访任务";
+    public static final String HZ = "汇总";
+    public static final String BJ = "办结";
     /**
      * 计划状态
      */

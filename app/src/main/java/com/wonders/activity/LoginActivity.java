@@ -405,7 +405,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         UserBean userbean = dbHelper.queryUserInfo(nameEt.getText().toString());
 
         if (userbean.getLoginName() == null) {
-            ToastUtil.show(mContext, "没有此用户");
+            ToastUtil.show("没有此用户");
             return;
         }
 
@@ -432,8 +432,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             finish();
         } else if (nameString.equals(userbean.getLoginName())
                 && !str2.equals(userbean.getPassword())) {
-            Toast.makeText(LoginActivity.this, "用户名密码错误",
-                    Toast.LENGTH_SHORT).show();
+            ToastUtil.show("用户名密码错误");
         }
     }
 
@@ -535,14 +534,12 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
     public boolean checkInput() {
         if ("".equals(nameEt.getText().toString().trim())) {
-            Toast.makeText(LoginActivity.this, "用户名没有填写",
-                    Toast.LENGTH_SHORT).show();
+            ToastUtil.show("用户名没有填写");
             return false;
         }
 
         if ("".equals(passwordEt.getText().toString().trim())) {
-            Toast.makeText(LoginActivity.this, "密码没有填写", Toast.LENGTH_SHORT)
-                    .show();
+            ToastUtil.show("密码没有填写");
             return false;
         }
 

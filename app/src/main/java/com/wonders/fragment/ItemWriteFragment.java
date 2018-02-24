@@ -44,6 +44,7 @@ import com.wonders.bean.PicBean;
 import com.wonders.bean.SopListViewBean;
 import com.wonders.util.DateUtil;
 import com.wonders.util.PicUtil;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.HeightExpandableGridView;
 import com.wonders.widget.LoadingDialog;
 
@@ -205,8 +206,7 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
                 if (passFlag == 0) {
                     createRootChooseDialog();
                 } else {
-                    Toast.makeText(getActivity(), "请先选择发现问题",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("请先选择发现问题");
                 }
             }
         });
@@ -215,8 +215,7 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
             @Override
             public void onClick(View v) {
                 if (passFlag == 2) {
-                    Toast.makeText(getActivity(), "检查结果必须选择",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("检查结果必须选择");
 
                     return;
                 }
@@ -400,7 +399,7 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
         AlertDialog.Builder bulder = new AlertDialog.Builder(getActivity(), R.style.alertDialog);
 
         if (sopBean.getFaq() == null || sopBean.getFaq().trim().equals("")) {
-            Toast.makeText(getActivity(), "没有常见问题", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("没有常见问题");
 
             return;
         }

@@ -145,7 +145,7 @@ public class CheckDetailsActivity extends BaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                ToastUtil.show(mContext,getResources().getString(R.string.error_server));
+                ToastUtil.show(getResources().getString(R.string.error_server));
             }
         });
 

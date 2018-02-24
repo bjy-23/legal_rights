@@ -16,6 +16,7 @@ import com.example.legal_rights.R;
 import com.wonders.adapter.UnqualifiedInfoAdapter;
 import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingLayout;
 
 import org.json.JSONArray;
@@ -143,18 +144,11 @@ public class UnqualifiedInfoFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                         showNoRecord();
-                        Toast.makeText(
-                                getActivity(),
-                                getResources().getString(
-                                        R.string.error_json),
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.show(getResources().getString(R.string.error_json));
                     }
                 } else {
                     showNoRecord();
-                    Toast.makeText(
-                            getActivity(),
-                            getResources().getString(R.string.error_server),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
 

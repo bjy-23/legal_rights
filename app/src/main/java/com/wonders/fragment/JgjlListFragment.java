@@ -19,6 +19,7 @@ import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.http.Retrofit2Service;
 import com.wonders.bean.JgBean;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,8 +100,7 @@ public class JgjlListFragment extends RecyclerViewFragment {
                     data.addAll(response.body().getObject());
                     adapter.notifyDataSetChanged();
                 }else {
-                    Toast.makeText(getActivity(), "没有找到相关的信息",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("没有找到相关的信息");
                 }
             }
 
@@ -108,8 +108,7 @@ public class JgjlListFragment extends RecyclerViewFragment {
             public void onFailure(Call<Result<List<JgBean>>> call, Throwable t) {
                 LoadingDialog.dismiss();
                 if (!call.isCanceled()){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_server),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
         });

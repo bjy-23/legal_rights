@@ -487,7 +487,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
         uploadDataList = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
 
         if (uploadDataList.size() == 0) {
-            ToastUtil.TextToast(myActivity, "暂时没有需要上传的待办数据", Toast.LENGTH_SHORT);
+            ToastUtil.showMid("暂时没有需要上传的待办数据");
             return;
         }
         for (SopListViewBean sopListViewBean : uploadDataList){
@@ -517,7 +517,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                ToastUtil.show(myActivity,getResources().getString(R.string.error_server));
+                ToastUtil.show(getResources().getString(R.string.error_server));
             }
         });
 
@@ -543,7 +543,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
         }
 
         if (jb == null) {
-            Toast.makeText(myActivity, "服务器连接失败", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("服务器连接失败");
             return;
         } else {
             if ("".equals(Constants.TYPE)){
@@ -567,7 +567,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
         if (picList.size() != 0)
             CheckTypeInFragment.UploadPics(picList);
         else {
-            Toast.makeText(myActivity, "提交数据成功", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("提交数据成功");
         }
 
         LoadingDialog.dismiss();
@@ -748,13 +748,13 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
 
                 //不能输入为空
                 if ("".equals(content)) {
-                    ToastUtil.show(myActivity, "输入不能为空！");
+                    ToastUtil.show("输入不能为空！");
                     return;
                 }
 
                 //判断输入是否重复
                 if (isInput(content)) {
-                    ToastUtil.show(myActivity, "请不要输入重复项！");
+                    ToastUtil.show("请不要输入重复项！");
                     return;
                 }
 

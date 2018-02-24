@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.legal_rights.R;
 import com.wonders.constant.Constants;
 import com.wonders.util.FragmentUtil;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 public class QyxxGlFragment extends Fragment {
@@ -153,12 +154,12 @@ public class QyxxGlFragment extends Fragment {
         if (!"".equals(Constants.TYPE)) {
             if ("".equals(qymcEt.getText().toString().trim())
                     && "".equals(xkzhEt.getText().toString().trim())) {
-                Toast.makeText(getActivity(), "请输入许可证号或企业名称", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("请输入许可证号或企业名称");
                 return false;
             }
             if (qymcEt.getText().toString().trim().length() < 4
                     && "".equals(xkzhEt.getText().toString().trim())) {
-                Toast.makeText(getActivity(), "至少填写企业完整注册名称4个字符", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("至少填写企业完整注册名称4个字符");
                 return false;
             }
         }

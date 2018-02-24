@@ -197,7 +197,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                ToastUtil.show(msg);
                 Looper.loop();
             }
         }).start();

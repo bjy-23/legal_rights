@@ -33,6 +33,7 @@ import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.NetCheck;
+import com.wonders.util.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -159,7 +160,7 @@ public class SplashActivity extends AppCompatActivity {
     private void getApk() {
         if (!NetCheck.isNetwork(SplashActivity.this)
                 || !NetCheck.isNetworkAvailable(SplashActivity.this)) {
-            Toast.makeText(SplashActivity.this, "当前环境无网络,只能进入单机模式", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("当前环境无网络,只能进入单机模式");
             AppData.getInstance().setIsNetWork(false);
             splashBtn.setVisibility(View.VISIBLE);
         } else {

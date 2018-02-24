@@ -44,6 +44,7 @@ import com.wonders.util.DbHelper;
 import com.wonders.http.CookieManager;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.bean.EnterpriseBean;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 import okhttp3.ResponseBody;
@@ -296,11 +297,11 @@ public class SettingFragment extends Fragment implements OnClickListener {
                 break;
 
             case R.id.show_pic_tv:
-                Toast.makeText(getActivity(), "保存设置", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("保存设置");
                 break;
 
             case R.id.clear_pic_tv:
-                Toast.makeText(getActivity(), "清除缓存成功", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("清除缓存成功");
                 break;
 
             case R.id.about_us_tv:
@@ -313,11 +314,11 @@ public class SettingFragment extends Fragment implements OnClickListener {
                 SplashActivity.checkUpdate(getActivity(), new SplashActivity.UpdateListener() {
 
                     public void updateFail() {
-                        Toast.makeText(getActivity(), "版本更新失败!", Toast.LENGTH_SHORT).show();
+                        ToastUtil.show("版本更新失败!");
                     }
 
                     public void updateNoNeed() {
-                        Toast.makeText(getActivity(), "当前版本为最新版本", Toast.LENGTH_SHORT).show();
+                        ToastUtil.show("当前版本为最新版本");
                     }
                 });
                 break;
@@ -363,7 +364,7 @@ public class SettingFragment extends Fragment implements OnClickListener {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "单机模式，无法下载！", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("单机模式，无法下载！");
                 }
                 break;
 
@@ -405,11 +406,11 @@ public class SettingFragment extends Fragment implements OnClickListener {
                     e.printStackTrace();
                 }
                 if (jsonObject == null) {
-                    Toast.makeText(getActivity(), "服务器数据有误，请重新下载", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("服务器数据有误，请重新下载");
                     return;
                 }
                 if (pageCount.equals("0")) {
-                    Toast.makeText(getActivity(), "没有相关的数据要下载", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("没有相关的数据要下载");
                     return;
                 }
 
@@ -533,7 +534,7 @@ public class SettingFragment extends Fragment implements OnClickListener {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "服务器连接不上！", Toast.LENGTH_SHORT).show();
+                ToastUtil.show("服务器连接不上！");
                 LoadingDialog.dismiss();
             }
         });

@@ -103,14 +103,14 @@ public interface Retrofit2Service {
     Call<ResponseBody> getPlanCheckContent(@Url String url,@Field("planId") String planId);
 
     @POST
-    Call<ResponseBody> savePlanCheckContent(@Url String url, @Body RequestBody requestBody);
+    Call<Result> savePlanCheckContent(@Url String url, @Body RequestBody requestBody);
 
     @POST
     Call<ResponseBody> saveSop(@Url String url, @Body RequestBody requestBody);
 
     @POST
     @Multipart
-    Call<ResponseBody> savePlanCheckContentPictureTemp(@Url String url, @Part MultipartBody.Part file);
+    Call<Result> savePlanCheckContentPictureTemp(@Url String url, @Part MultipartBody.Part file);
 
     @POST("get_unCheckItem.do")
     @FormUrlEncoded
@@ -122,7 +122,7 @@ public interface Retrofit2Service {
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> saveGatherPlanCheckContent(@Url String url,@FieldMap Map<String,String> map);
+    Call<Result> saveGatherPlanCheckContent(@Url String url,@FieldMap Map<String,String> map);
 
     @POST
     @FormUrlEncoded

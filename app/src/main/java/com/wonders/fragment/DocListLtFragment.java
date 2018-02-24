@@ -14,6 +14,7 @@ import com.wonders.util.JsonHelper;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.http.Retrofit2Service;
 import com.wonders.bean.WsdyBean;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 import org.json.JSONArray;
@@ -87,7 +88,7 @@ public class DocListLtFragment extends RecyclerViewFragment {
                 }
 
                 if (json == null) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_json), Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_json));
                     return;
                 }
 
@@ -99,7 +100,7 @@ public class DocListLtFragment extends RecyclerViewFragment {
                 }
 
                 if (array == null) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_json), Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_json));
                     return;
                 }
 
@@ -116,7 +117,7 @@ public class DocListLtFragment extends RecyclerViewFragment {
                 if (data.size() != 0) {
                     adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getActivity(), "没有找到相关的信息", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("没有找到相关的信息");
                 }
             }
 
@@ -124,7 +125,7 @@ public class DocListLtFragment extends RecyclerViewFragment {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
                 if (!call.isCanceled()){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_server), Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
         });

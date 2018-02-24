@@ -23,7 +23,7 @@ public class Retrofit2Helper {
     public final static String NOR_URL_TEST = "http://180.166.102.48:8081/android/";//正式分支
     public final static String TEST_URL_1 = "http://10.1.8.122:8082/android/";//公司测试
     public final static String TEST_URL_2 = "http://10.2.103.122:8080/fpsi4702/android/";//本地测试
-    public final static String BSAE_URL = TEST_URL_1;
+    public final static String BSAE_URL = NOR_URL_1;
 
     public static Retrofit2Service getInstance(){
         if (service==null){

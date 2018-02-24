@@ -30,7 +30,7 @@ public class MainAsyncTask extends AsyncTask<Void,Void,Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         if (result)
-            ToastUtil.show(mContext, "有离线数据没有上传");
+            ToastUtil.show("有离线数据没有上传");
     }
 
     // 检查是否有本地数据要提交

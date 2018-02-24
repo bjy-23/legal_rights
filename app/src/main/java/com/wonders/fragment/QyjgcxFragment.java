@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.wonders.constant.Constants;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.DatePickerDialog;
 import com.wonders.widget.ListDialog;
 import com.wonders.http.Retrofit2Helper;
@@ -360,10 +361,7 @@ public class QyjgcxFragment extends Fragment implements OnClickListener {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(),
-                            getResources().getString(
-                                    R.string.error_server),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
 
@@ -371,8 +369,7 @@ public class QyjgcxFragment extends Fragment implements OnClickListener {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
                 if (!call.isCanceled()){
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_server),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
         });

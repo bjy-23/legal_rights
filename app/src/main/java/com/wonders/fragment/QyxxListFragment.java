@@ -147,10 +147,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
                 }
 
                 if (json == null) {
-                    Toast.makeText(getActivity(),
-                            getResources().getString(
-                                    R.string.error_json),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_json));
 
                     return;
                 }
@@ -164,10 +161,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
                 }
 
                 if (array == null) {
-                    Toast.makeText(getActivity(),
-                            getResources().getString(
-                                    R.string.error_json),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_json));
 
                     return;
                 }
@@ -187,7 +181,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
                 if (data.size() != 0) {
                     adapter.notifyDataSetChanged();
                 } else {
-                    ToastUtil.show(getActivity(), getResources().getString(R.string.queryNoAnswers));
+                    ToastUtil.show(getResources().getString(R.string.queryNoAnswers));
                 }
 
                 LoadingDialog.dismiss();
@@ -197,9 +191,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
                 if (!call.isCanceled()){
-                    Toast.makeText(getActivity(),
-                            getResources().getString(R.string.error_server),
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
         });
@@ -222,7 +214,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
         if (data.size() != 0) {
             adapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(getActivity(), "没有找到相关的信息", Toast.LENGTH_SHORT).show();
+            ToastUtil.show("没有找到相关的信息");
         }
     }
 

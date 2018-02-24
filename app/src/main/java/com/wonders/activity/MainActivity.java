@@ -104,34 +104,6 @@ public class MainActivity extends AppCompatActivity {
         final AppData appData = (AppData) getApplication();
         if (appData.isNetWork()) {
             getLogin();
-
-            if (BuildConfig.DEBUG) {
-                String url = "";
-                if ("".equals(Constants.TYPE))
-                    url = Retrofit2Service.GET_PLAN_CHECK_CONTENT;
-                else
-                    url = Retrofit2Service.LT_GET_PLAN_CHECK_CONTENT;
-
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), new File("/storage/emulated/0/MagazineUnlock/magazine-unlock-01-2.3.566-bigpicture_01_44.jpg"));
-                MultipartBody.Part part = MultipartBody.Part.createFormData("1495611744409" + "_" + "1", "", requestBody);
-                Call<ResponseBody> call = Retrofit2Helper.getInstance().savePlanCheckContentPictureTemp(url, part);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try {
-                            String result = response.body().string();
-                            Log.e("picture", result);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                    }
-                });
-            }
         }
 
         MainAsyncTask mainAsyncTask = new MainAsyncTask(mContext);
@@ -259,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2://监管记录查询
                         if (!AppData.getInstance().isNetWork()) {
-                            ToastUtil.TextToast(MainActivity.this, "请在联网模式下查询", Toast.LENGTH_SHORT);
+                            ToastUtil.showMid("请在联网模式下查询");
 
                             return;
                         }

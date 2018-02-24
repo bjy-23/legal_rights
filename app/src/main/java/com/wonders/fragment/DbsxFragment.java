@@ -43,6 +43,7 @@ import com.wonders.bean.Db_message;
 import com.wonders.bean.PlanBean;
 import com.wonders.recyclerView.DiyItemDecoration;
 import com.wonders.util.ParameterizedTypeImpl;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 import org.json.JSONArray;
@@ -100,7 +101,6 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
     boolean isHaveNotDispath = false;
 
     private DbsxAdapter dbsxAdapter;
-    public static Handler handler;
 
     @Override
     public void onAttach(Context context) {
@@ -125,12 +125,6 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
         if (!appData.isNetWork()) {
             bottomLayout.setVisibility(View.GONE);
         }
-
-        handler = new Handler() {
-            public void handleMessage(Message msg) {
-                getData();
-            }
-        };
         getData();
 
         return view;
@@ -146,8 +140,8 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e(TAG, "onActivityResult");
-        Log.e(TAG, "" + requestCode);
-        Log.e(TAG, "" + resultCode);
+        Log.e(TAG, "requestCode：" + requestCode);
+        Log.e(TAG, "resultCode：" + resultCode);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             getData();
         }
@@ -307,25 +301,25 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                 //查看是否是组员
                 AppData appData = (AppData) getActivity().getApplication();
                 if (!appData.getLoginBean().isManager()) {
-                    Toast.makeText(getActivity(), "组员无法分配", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("组员无法分配");
 
                     return;
                 }
 
                 if (!isNoSelect) {
-                    Toast.makeText(getActivity(), "未选中待办", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("未选中待办");
 
                     return;
                 }
 
                 if (!isHaveNotDispath) {
-                    Toast.makeText(getActivity(), "没有可以分派的待办", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("没有可以分派的待办");
 
                     return;
                 }
 
                 if (isHaveDispath && isHaveNotDispath) {
-                    Toast.makeText(getActivity(), "选中的待办中有已分配的待办，请重新选择。", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("选中的待办中有已分配的待办，请重新选择。");
 
                     return;
                 }
@@ -353,11 +347,11 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                 }
 
                 if (isHaveDispatch) {
-                    Toast.makeText(getActivity(), "已分配的任务不再分配", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("已分配的任务不再分配");
                 }
 
                 if (canDispatch == false) {
-                    Toast.makeText(getActivity(), "当前没有可分配的任务", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("当前没有可分配的任务");
 
                     return;
                 }
@@ -388,19 +382,19 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
             public void onClick(View v) {
 
                 if (!isNoSelect) {
-                    Toast.makeText(getActivity(), "未选中待办", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("未选中待办");
 
                     return;
                 }
 
                 if (!isHaveDispath) {
-                    Toast.makeText(getActivity(), "未分配的待办不能下载", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("未分配的待办不能下载");
 
                     return;
                 }
 
                 if (isHaveDispath && isHaveNotDispath) {
-                    Toast.makeText(getActivity(), "选中的待办中有未分配的待办，请重新选择。", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("选中的待办中有未分配的待办，请重新选择。");
 
                     return;
                 }
@@ -441,6 +435,11 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
 //        rv.setItemAnimator(new DefaultItemAnimator());
     }
 
+
+    /**
+     * @param position
+     * recyclerView item的点击事件(分派人员或跳转下一页面)
+     */
     @Override
     public void click0(int position) {
         if (allPlans.get(position).getType() == 0
@@ -630,8 +629,7 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                             }
 
                             if (json == null) {
-                                Toast.makeText(getActivity(),getResources().getString(
-                                        R.string.error_json), Toast.LENGTH_SHORT).show();
+                                ToastUtil.show(getResources().getString(R.string.error_json));
 
                                 return;
                             }
@@ -640,12 +638,12 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                                 int code = json.getInt("code");
                                 String message = json.getString("message");
                                 if (code == 0) {
-                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                    ToastUtil.show(message);
 
                                     getData();
                                 }
                             } catch (JSONException e) {
-                                Toast.makeText(getActivity(), getString(R.string.error_json), Toast.LENGTH_SHORT).show();
+                                ToastUtil.show(getString(R.string.error_json));
                                 e.printStackTrace();
                             }
 
@@ -655,14 +653,12 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             dialog.dismiss();
                             LoadingDialog.dismiss();
-                            Toast.makeText(getActivity(), getResources().getString(R.string.error_server),
-                                    Toast.LENGTH_SHORT).show();
+                            ToastUtil.show(getResources().getString(R.string.error_server));
                         }
                     });
 
                 } else {
-                    Toast.makeText(getActivity(), "请选择将要分配的人员", Toast.LENGTH_SHORT)
-                            .show();
+                    ToastUtil.show("请选择将要分配的人员");
                 }
             }
         });
@@ -762,11 +758,11 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                 }
 
                 if (object == null) {
-                    Toast.makeText(getActivity(), "下载数据失败", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("下载数据失败");
 
                     return;
                 }else{
-                    Toast.makeText(getActivity(), "下载更新成功", Toast.LENGTH_SHORT).show();
+                    ToastUtil.show("下载更新成功");
                 }
 
 
@@ -833,8 +829,7 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_server),
-                        Toast.LENGTH_SHORT).show();
+                ToastUtil.show(getResources().getString(R.string.error_server));
             }
         });
     }
@@ -864,7 +859,7 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
         return jsonObject;
     }
 
-    public void getMemberData(final Context context,final ArrayList<GroupMemberBean> memberList){
+    public void getMemberData(Context context,final ArrayList<GroupMemberBean> memberList){
         LoadingDialog.show(context);
         String url = "";
         if ("".equals(Constants.TYPE)){
@@ -899,8 +894,7 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                Toast.makeText(context, getResources().getString(R.string.error_server),
-                        Toast.LENGTH_SHORT).show();
+                ToastUtil.show(getResources().getString(R.string.error_server));
             }
         });
     }

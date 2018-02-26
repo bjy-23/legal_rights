@@ -66,7 +66,6 @@ import retrofit2.Response;
 public class SplashActivity extends AppCompatActivity {
     private final static String TAG = SplashActivity.class.getName();
     private Button splashBtn;
-//    private AlertDialog printDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,9 @@ public class SplashActivity extends AppCompatActivity {
         splashBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                initFirtActivity();
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -235,12 +236,6 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         });
         builder.show();
-    }
-
-    public void initFirtActivity() {
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     protected static void downLoadApk(final Activity activity,final String url) {

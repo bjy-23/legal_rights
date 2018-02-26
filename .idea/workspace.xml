@@ -6,27 +6,81 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f844698b-f279-4ccf-8fa4-3b7437cfe5af" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$MenuAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$MenuAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$ViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity$ViewHolder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/wonders/activity/MainActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$MenuAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$MenuAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$ViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity$ViewHolder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/wonders/activity/MainActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$MenuAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$MenuAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$ViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity$ViewHolder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/0/com/wonders/activity/MainActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$MenuAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$MenuAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$ViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity$ViewHolder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/2/com/wonders/activity/MainActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/debug/com/example/legal_rights/debug/test/BuildConfig.java" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/debug/com/example/legal_rights/debug/test/BuildConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/example/legal_rights/BuildConfig.java" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/example/legal_rights/BuildConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/legal_rights/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/legal_rights/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/build-info/debug/build-info.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/build-info/debug/build-info.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifestChecker/manifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifestChecker/manifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/slice_2/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/slice_2/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/instant-run/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/instant-run/debug/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wonders/activity/SplashActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wonders/activity/SplashActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/wonders/util/NetCheck.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/wonders/util/NetCheck.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,62 +104,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JgjlListFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/JgjlListFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DocListLtFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DocListLtFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="35" column="47" lean-forward="false" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiyFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DiyFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="69" column="13" lean-forward="false" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DbsxFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DbsxFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="265" column="9" lean-forward="true" selection-start-line="265" selection-start-column="9" selection-end-line="265" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CheckTypeInFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/CheckTypeInFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ChecksQueryFragmentLt.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/ChecksQueryFragmentLt.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -125,6 +123,30 @@
               <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1519626343246" expanded="false" signature="1675:1692" ph="&lt;~&gt;" />
+                <marker date="1519626343246" expanded="true" signature="2050:3028" ph="{...}" />
+                <marker date="1519626343246" expanded="false" signature="2451:2572" ph="(OnRefreshListener) () → { " />
+                <marker date="1519626343246" expanded="false" signature="2582:2606" ph=" }" />
+                <marker date="1519626343246" expanded="false" signature="2780:2879" ph="() → { " />
+                <marker date="1519626343246" expanded="false" signature="2913:2945" ph=" }" />
+                <marker date="1519626343246" expanded="false" signature="3070:3081" ph=" { " />
+                <marker date="1519626343246" expanded="false" signature="3098:3104" ph=" }" />
+                <marker date="1519626343246" expanded="true" signature="3180:3490" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="3496:3519" ph="/**...*/" />
+                <marker date="1519626343246" expanded="true" signature="3547:6935" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="6210:6762" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="6883:6903" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="6974:7666" ph="{...}" />
+                <marker date="1519626343246" expanded="false" signature="7238:7419" ph="(parent, view, position, id) → {" />
+                <marker date="1519626343246" expanded="false" signature="7643:7658" ph="}" />
+                <marker date="1519626343246" expanded="true" signature="7720:9283" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="7819:8840" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="8904:8984" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="9048:9131" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="9183:9277" ph="{...}" />
+                <marker date="1519626343246" expanded="true" signature="9307:9406" ph="{...}" />
+                <marker date="1519626343246" expanded="false" signature="9448:9459" ph=" { " />
+                <marker date="1519626343246" expanded="false" signature="9480:9486" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -135,7 +157,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
               <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-              <folding />
+              <folding>
+                <marker date="1519626343241" expanded="true" signature="922:964" ph="/**...*/" />
+                <marker date="1519626343241" expanded="true" signature="1226:1249" ph="@{...}" />
+                <marker date="1519626343241" expanded="true" signature="1372:1762" ph="{...}" />
+                <marker date="1519626343241" expanded="true" signature="3750:3766" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -143,22 +170,121 @@
       <file leaf-file-name="CheckInfoFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/CheckInfoFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-494">
-              <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+            <state relative-caret-position="418">
+              <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <marker date="1519626343237" expanded="false" signature="1564:1575" ph="&lt;~&gt;" />
+                <marker date="1519626343237" expanded="false" signature="2541:2662" ph="(OnRefreshListener) () → { " />
+                <marker date="1519626343237" expanded="false" signature="2672:2696" ph=" }" />
+                <marker date="1519626343237" expanded="false" signature="3011:3022" ph=" { " />
+                <marker date="1519626343237" expanded="false" signature="3039:3045" ph=" }" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckBaseFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/CheckBaseFragment.java">
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            <state relative-caret-position="38">
+              <caret line="40" column="42" lean-forward="false" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/SplashActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="78" column="44" lean-forward="false" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
+              <folding>
+                <element signature="docComment;class#SplashActivity#0" expanded="false" />
+                <element signature="method#onResume#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#onRequestPermissionsResult#0;class#SplashActivity#0" expanded="false" />
+                <element signature="docComment;method#sendError#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#sendError#0;class#SplashActivity#0" expanded="false" />
+                <element signature="class#4401:4807" expanded="false" />
+                <element signature="method#onResponse#0;class#4401:4807" expanded="false" />
+                <element signature="method#onFailure#0;class#4401:4807" expanded="false" />
+                <element signature="method#getApk#0;class#SplashActivity#0" expanded="false" />
+                <element signature="class#5254:5729" expanded="false" />
+                <element signature="method#checkUpdate#0;class#SplashActivity#0" expanded="false" />
+                <element signature="class#5957:7277" expanded="false" />
+                <element signature="method#onResponse#0;class#5957:7277" expanded="false" />
+                <element signature="e#6799#6870#0" expanded="false" />
+                <element signature="method#onFailure#0;class#5957:7277" expanded="false" />
+                <element signature="method#showDownloadDialog#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#downLoadApk#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#installApk#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#getFileFromServer#0;class#SplashActivity#0" expanded="false" />
+                <element signature="class#9874:10890" expanded="false" />
+                <element signature="method#onFailure#0;class#9874:10890" expanded="false" />
+                <element signature="method#onResponse#0;class#9874:10890" expanded="false" />
+                <element signature="method#isAvailable#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#showPrintDialog#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#copyApkFromAssets#0;class#SplashActivity#0" expanded="false" />
+                <element signature="docComment;method#addPermission#0;class#SplashActivity#0" expanded="false" />
+                <element signature="method#addPermission#0;class#SplashActivity#0" expanded="false" />
+                <element signature="class#UpdateListener#0;class#SplashActivity#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DiyFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DiyFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="43">
+              <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1519626343266" expanded="false" signature="9186:9232" ph="&quot;新增SOP检查项&quot;" />
+                <marker date="1519626343266" expanded="false" signature="10283:10329" ph="&quot;添加计划照片&quot;" />
+                <marker date="1519626343266" expanded="false" signature="19664:19711" ph="&quot;服务器连接失败！&quot;" />
+                <marker date="1519626343266" expanded="false" signature="22135:22283" ph="(dialog, which) → { " />
+                <marker date="1519626343266" expanded="false" signature="22300:22325" ph=" }" />
+                <marker date="1519626343266" expanded="false" signature="23287:23435" ph="(dialog, which) → { " />
+                <marker date="1519626343266" expanded="false" signature="23452:23477" ph=" }" />
+                <marker date="1519626343266" expanded="false" signature="25287:25435" ph="(dialog, which) → { " />
+                <marker date="1519626343266" expanded="false" signature="25452:25477" ph=" }" />
+                <marker date="1519626343266" expanded="false" signature="28700:28848" ph="(dialog, which) → { " />
+                <marker date="1519626343266" expanded="false" signature="28865:28890" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetCheck.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/util/NetCheck.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="49" column="106" lean-forward="false" selection-start-line="49" selection-start-column="106" selection-end-line="49" selection-end-column="106" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Context.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/content/Context.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="3333" column="31" lean-forward="false" selection-start-line="3333" selection-start-column="31" selection-end-line="3333" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WifiInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/net/wifi/WifiInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="436" column="29" lean-forward="true" selection-start-line="436" selection-start-column="29" selection-end-line="436" selection-end-column="29" />
+              <folding>
+                <element signature="e#13182#13183#0" expanded="true" />
+                <element signature="e#13235#13236#0" expanded="true" />
+                <element signature="e#13335#13336#0" expanded="true" />
+                <element signature="e#13387#13388#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2210,6 +2336,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/wonders/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/QyxxListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/HomepageFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wonders/util/NetCheck.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wonders/activity/SplashActivity.java" />
       </list>
     </option>
   </component>
@@ -2274,16 +2402,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="legal_rights_new" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
             </PATH_ELEMENT>
@@ -2325,6 +2443,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="legal_rights_new" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wonders" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2427,7 +2567,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519624899989" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519627486164" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2527,7 +2667,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519624899990" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519627486165" />
       </method>
     </configuration>
     <list size="1">
@@ -2572,7 +2712,7 @@
     <frame x="-6" y="1" width="1378" height="733" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971016" sideWeight="0.49691358" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6322464" sideWeight="0.49074075" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2583,15 +2723,15 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45438597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982457" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09041591" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.755877" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20839694" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14732824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982457" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952815" sideWeight="0.49209487" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24961832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.49382716" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2676,65 +2816,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/widget/Toast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="123" column="16" lean-forward="false" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/util/ToastUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/os/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="66" column="18" lean-forward="false" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/http/Retrofit2Helper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="51" lean-forward="false" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/thread/FastDealExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-171">
-          <caret line="45" column="40" lean-forward="false" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
-          <folding>
-            <element signature="e#4019#4645#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#5758#5924#0" expanded="true" />
-            <element signature="e#5923#5924#0" expanded="true" />
-            <element signature="e#6019#6280#0" expanded="true" />
-            <element signature="e#6279#6280#0" expanded="true" />
-            <element signature="e#6740#9202#0" expanded="true" />
-            <element signature="e#9201#9202#0" expanded="true" />
-            <marker date="1519624622838" expanded="false" signature="10725:10813" ph="(v) → {" />
-            <marker date="1519624622838" expanded="false" signature="10939:10954" ph="}" />
-            <marker date="1519624622838" expanded="false" signature="11066:11171" ph="(v) → { " />
-            <marker date="1519624622838" expanded="false" signature="11188:11213" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/http/Retrofit2Service.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
@@ -2759,6 +2840,17 @@
           <caret line="567" column="32" lean-forward="false" selection-start-line="567" selection-start-column="32" selection-end-line="567" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1519626343266" expanded="false" signature="9186:9232" ph="&quot;新增SOP检查项&quot;" />
+            <marker date="1519626343266" expanded="false" signature="10283:10329" ph="&quot;添加计划照片&quot;" />
+            <marker date="1519626343266" expanded="false" signature="19664:19711" ph="&quot;服务器连接失败！&quot;" />
+            <marker date="1519626343266" expanded="false" signature="22135:22283" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="22300:22325" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="23287:23435" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="23452:23477" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="25287:25435" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="25452:25477" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="28700:28848" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="28865:28890" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -2791,6 +2883,169 @@
           <caret line="1884" column="34" lean-forward="true" selection-start-line="1884" selection-start-column="34" selection-end-line="1884" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1519626343251" expanded="false" signature="8916:9049" ph="onRefresh() → { " />
+            <marker date="1519626343251" expanded="false" signature="9059:9091" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="9466:9828" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="9899:15352" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="10145:10383" ph="onClick(dialog, which) → { " />
+            <marker date="1519626343251" expanded="false" signature="10400:10440" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="10500:10713" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="true" signature="13997:15075" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="14162:14688" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="14832:15041" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="15288:15311" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="15397:37034" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="16082:16169" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="16351:16366" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="16370:16550" ph="//..." />
+            <marker date="1519626343251" expanded="false" signature="16654:16828" ph="onGroupClick(parent, v, groupPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="17304:17319" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="17358:17551" ph="onChildClick(parent, v, groupPosition, childPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="18311:18326" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="18471:18645" ph="onGroupClick(parent, v, groupPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="19503:19518" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="19558:19751" ph="onChildClick(parent, v, groupPosition, childPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="20495:20510" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="20691:20847" ph="onItemClick(parent, view, position, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="21149:21164" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="21388:21475" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="21643:21658" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="21893:21980" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="22852:22867" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="23187:23274" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="23437:23452" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="23644:23748" ph="onClick(v) → { " />
+            <marker date="1519626343251" expanded="false" signature="23765:23789" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="24698:24786" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="25201:25216" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="25322:25410" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="25685:25700" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="25805:25893" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="26169:26184" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="26289:26377" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="26652:26667" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="26766:26854" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="28032:28178" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="28388:28411" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="28565:28580" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="28674:28761" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="true" signature="32165:34498" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="32294:34189" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="34303:34476" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="34527:34542" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="34637:34724" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="35276:35291" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="35456:35544" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="36570:36585" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="37040:37064" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="37091:40505" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="37491:37506" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="38227:40487" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="38352:40294" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="38804:38813" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="39205:39236" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="39530:39561" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="40398:40473" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="40566:42840" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="41658:41675" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="42676:42693" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="42924:44305" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="44373:47975" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="45383:45398" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="46895:46912" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="47823:47840" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="48024:50988" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="50560:50577" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="50836:50853" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="51022:53019" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="53050:53613" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="53643:56823" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="54152:56815" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="54269:56572" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="56668:56805" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="56829:56859" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="56895:57449" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="56970:57040" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="57426:57441" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="57455:57478" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="57509:59849" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="58715:59841" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="58820:59604" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="59694:59831" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="59855:59884" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="59923:60393" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="59954:60024" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="60370:60385" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="60499:61729" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="60617:60625" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="61129:61275" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="61435:61458" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="61500:61631" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="61674:61689" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="61831:66024" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="64193:64369" ph="onClick(dialog, which, isChecked) → {" />
+            <marker date="1519626343251" expanded="false" signature="64443:64466" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="64517:64647" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="65744:65760" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="65802:65933" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="65977:65992" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="66138:66758" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="66874:68181" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="68293:69841" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="68588:68719" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="69552:69567" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="69610:69741" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="69785:69800" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="69906:70481" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="70526:71228" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="71263:72847" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="71628:71758" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="72214:72229" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="72272:72402" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="72445:72460" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="72564:72681" ph="onShow(dialog) → {" />
+            <marker date="1519626343251" expanded="false" signature="72753:72768" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="72918:74359" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="73680:74341" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="73793:74214" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="74312:74327" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="74365:74395" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="74460:74754" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="74491:74561" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="74731:74746" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="74989:76708" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="76834:78206" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="78242:78797" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="78892:81621" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="80878:80977" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="81005:81037" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="81392:81491" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="81517:81549" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="81665:82097" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82134:82308" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82402:82589" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82645:83163" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="83200:83374" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="83484:84625" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="84659:84857" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="84938:85770" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="85884:86334" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="86365:87527" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="87584:92119" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="92174:93220" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="93276:94059" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="93626:93713" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="93741:93765" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="94113:94565" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="94618:94810" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="94844:95368" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="95404:96043" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96119:96369" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96405:96802" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96860:97473" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="97534:98194" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="98236:98470" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="98549:100131" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2799,7 +3054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2809,11 +3063,6 @@
           <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1519624622892" expanded="false" signature="2065:2157" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="2539:2631" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3239:3331" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3488:3549" ph="&quot;企业信息查询&quot;" />
-            <marker date="1519624622892" expanded="false" signature="3669:3684" ph="}" />
           </folding>
         </state>
       </provider>
@@ -2832,11 +3081,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1519624622892" expanded="false" signature="2065:2157" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="2539:2631" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3239:3331" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3488:3549" ph="&quot;企业信息查询&quot;" />
-            <marker date="1519624622892" expanded="false" signature="3669:3684" ph="}" />
           </folding>
         </state>
       </provider>
@@ -2868,9 +3112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2930,7 +3171,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2938,20 +3178,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4619">
           <caret line="42" column="40" lean-forward="false" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
-          <folding>
-            <element signature="e#4019#4645#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#5758#5924#0" expanded="true" />
-            <element signature="e#5923#5924#0" expanded="true" />
-            <element signature="e#6019#6280#0" expanded="true" />
-            <element signature="e#6279#6280#0" expanded="true" />
-            <element signature="e#6740#9202#0" expanded="true" />
-            <element signature="e#9201#9202#0" expanded="true" />
-            <marker date="1519624622838" expanded="false" signature="10725:10813" ph="(v) → {" />
-            <marker date="1519624622838" expanded="false" signature="10939:10954" ph="}" />
-            <marker date="1519624622838" expanded="false" signature="11066:11171" ph="(v) → { " />
-            <marker date="1519624622838" expanded="false" signature="11188:11213" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2961,11 +3188,6 @@
           <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1519624622892" expanded="false" signature="2065:2157" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="2539:2631" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3239:3331" ph="(v) → {" />
-            <marker date="1519624622892" expanded="false" signature="3488:3549" ph="&quot;企业信息查询&quot;" />
-            <marker date="1519624622892" expanded="false" signature="3669:3684" ph="}" />
           </folding>
         </state>
       </provider>
@@ -3022,7 +3244,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3046,7 +3267,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-          <folding />
+          <folding>
+            <marker date="1519626343289" expanded="true" signature="1639:1724" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3054,16 +3277,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="35" column="47" lean-forward="false" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DiyFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="69" column="13" lean-forward="false" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1610#1611#0" expanded="false" />
+            <marker date="1519626343270" expanded="true" signature="850:890" ph="/**...*/" />
+            <marker date="1519626343270" expanded="true" signature="1107:1691" ph="{...}" />
+            <marker date="1519626343270" expanded="false" signature="1297:1406" ph="(position) → {" />
+            <marker date="1519626343270" expanded="true" signature="1734:1871" ph="{...}" />
+            <marker date="1519626343270" expanded="true" signature="1899:4270" ph="{...}" />
+            <marker date="1519626343270" expanded="true" signature="2194:4237" ph="{...}" />
+            <marker date="1519626343270" expanded="true" signature="2311:3931" ph="{...}" />
+            <marker date="1519626343270" expanded="false" signature="2857:2902" ph="&quot;服务器数据报错，请联系客服。&quot;" />
+            <marker date="1519626343270" expanded="false" signature="3259:3304" ph="&quot;服务器数据报错，请联系客服。&quot;" />
+            <marker date="1519626343270" expanded="true" signature="4027:4227" ph="{...}" />
+            <marker date="1519626343270" expanded="false" signature="4146:4193" ph="&quot;服务器连接失败！&quot;" />
           </folding>
         </state>
       </provider>
@@ -3071,9 +3297,56 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DbsxFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="265" column="9" lean-forward="true" selection-start-line="265" selection-start-column="9" selection-end-line="265" selection-end-column="9" />
+          <caret line="265" column="9" lean-forward="false" selection-start-line="265" selection-start-column="9" selection-end-line="265" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1519626343261" expanded="true" signature="9501:9654" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="9693:15277" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="9966:10053" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="10246:10261" ph="}" />
+            <marker date="1519626343261" expanded="false" signature="10388:10475" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="10672:10687" ph="}" />
+            <marker date="1519626343261" expanded="false" signature="10830:10917" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="11788:11798" ph="&lt;~&gt;" />
+            <marker date="1519626343261" expanded="false" signature="13293:13308" ph="}" />
+            <marker date="1519626343261" expanded="false" signature="13452:13539" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="14798:14813" ph="}" />
+            <marker date="1519626343261" expanded="true" signature="15284:15361" ph="/**...*/" />
+            <marker date="1519626343261" expanded="true" signature="15413:16613" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="16666:17604" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="17657:18071" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="18077:18108" ph="/**...*/" />
+            <marker date="1519626343261" expanded="true" signature="18147:25370" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="18744:18832" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="19228:19243" ph="}" />
+            <marker date="1519626343261" expanded="false" signature="19285:19373" ph="(v) → {" />
+            <marker date="1519626343261" expanded="false" signature="20110:20126" ph="&lt;~&gt;" />
+            <marker date="1519626343261" expanded="true" signature="21384:23457" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="21525:23096" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="22365:22410" ph="&quot;服务器数据报错，请联系客服。&quot;" />
+            <marker date="1519626343261" expanded="false" signature="22954:22984" ph="&quot;服务器数据报错，请联系客服。&quot;" />
+            <marker date="1519626343261" expanded="true" signature="23216:23435" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="23360:23407" ph="&quot;服务器连接失败！&quot;" />
+            <marker date="1519626343261" expanded="false" signature="23562:23577" ph="}" />
+            <marker date="1519626343261" expanded="true" signature="23637:24897" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="23744:24390" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="24462:24554" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="24626:24721" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="24779:24887" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="24968:25149" ph="(parent, view, position, id) → {" />
+            <marker date="1519626343261" expanded="false" signature="25323:25338" ph="}" />
+            <marker date="1519626343261" expanded="true" signature="25425:30007" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="25675:25691" ph="&lt;~&gt;" />
+            <marker date="1519626343261" expanded="true" signature="25987:29999" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="26104:29756" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="29852:29989" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="29926:29973" ph="&quot;服务器连接失败！&quot;" />
+            <marker date="1519626343261" expanded="true" signature="30060:31130" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="31222:32697" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="31604:32689" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="31721:32446" ph="{...}" />
+            <marker date="1519626343261" expanded="true" signature="32542:32679" ph="{...}" />
+            <marker date="1519626343261" expanded="false" signature="32616:32663" ph="&quot;服务器连接失败！&quot;" />
           </folding>
         </state>
       </provider>
@@ -3081,9 +3354,172 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/CheckTypeInFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
-          <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1519626343251" expanded="false" signature="8916:9049" ph="onRefresh() → { " />
+            <marker date="1519626343251" expanded="false" signature="9059:9091" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="9466:9828" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="9899:15352" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="10145:10383" ph="onClick(dialog, which) → { " />
+            <marker date="1519626343251" expanded="false" signature="10400:10440" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="10500:10713" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="true" signature="13997:15075" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="14162:14688" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="14832:15041" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="15288:15311" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="15397:37034" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="16082:16169" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="16351:16366" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="16370:16550" ph="//..." />
+            <marker date="1519626343251" expanded="false" signature="16654:16828" ph="onGroupClick(parent, v, groupPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="17304:17319" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="17358:17551" ph="onChildClick(parent, v, groupPosition, childPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="18311:18326" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="18471:18645" ph="onGroupClick(parent, v, groupPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="19503:19518" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="19558:19751" ph="onChildClick(parent, v, groupPosition, childPosition, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="20495:20510" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="20691:20847" ph="onItemClick(parent, view, position, id) → {" />
+            <marker date="1519626343251" expanded="false" signature="21149:21164" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="21388:21475" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="21643:21658" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="21893:21980" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="22852:22867" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="23187:23274" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="23437:23452" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="23644:23748" ph="onClick(v) → { " />
+            <marker date="1519626343251" expanded="false" signature="23765:23789" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="24698:24786" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="25201:25216" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="25322:25410" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="25685:25700" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="25805:25893" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="26169:26184" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="26289:26377" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="26652:26667" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="26766:26854" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="28032:28178" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="28388:28411" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="28565:28580" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="28674:28761" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="true" signature="32165:34498" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="32294:34189" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="34303:34476" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="34527:34542" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="34637:34724" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="35276:35291" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="35456:35544" ph="onClick(v) → {" />
+            <marker date="1519626343251" expanded="false" signature="36570:36585" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="37040:37064" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="37091:40505" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="37491:37506" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="38227:40487" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="38352:40294" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="38804:38813" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="39205:39236" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="39530:39561" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="40398:40473" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="40566:42840" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="41658:41675" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="42676:42693" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="42924:44305" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="44373:47975" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="45383:45398" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="46895:46912" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="47823:47840" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="48024:50988" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="50560:50577" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="50836:50853" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="true" signature="51022:53019" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="53050:53613" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="53643:56823" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="54152:56815" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="54269:56572" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="56668:56805" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="56829:56859" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="56895:57449" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="56970:57040" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="57426:57441" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="57455:57478" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="57509:59849" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="58715:59841" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="58820:59604" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="59694:59831" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="59855:59884" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="59923:60393" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="59954:60024" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="60370:60385" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="60499:61729" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="60617:60625" ph="&lt;~&gt;" />
+            <marker date="1519626343251" expanded="false" signature="61129:61275" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="61435:61458" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="61500:61631" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="61674:61689" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="61831:66024" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="64193:64369" ph="onClick(dialog, which, isChecked) → {" />
+            <marker date="1519626343251" expanded="false" signature="64443:64466" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="64517:64647" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="65744:65760" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="65802:65933" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="65977:65992" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="66138:66758" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="66874:68181" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="68293:69841" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="68588:68719" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="69552:69567" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="69610:69741" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="69785:69800" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="69906:70481" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="70526:71228" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="71263:72847" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="71628:71758" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="72214:72229" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="72272:72402" ph="onClick(dialog, which) → {" />
+            <marker date="1519626343251" expanded="false" signature="72445:72460" ph="}" />
+            <marker date="1519626343251" expanded="false" signature="72564:72681" ph="onShow(dialog) → {" />
+            <marker date="1519626343251" expanded="false" signature="72753:72768" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="72918:74359" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="73680:74341" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="73793:74214" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="74312:74327" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="74365:74395" ph="/**...*/" />
+            <marker date="1519626343251" expanded="true" signature="74460:74754" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="74491:74561" ph="run() → {" />
+            <marker date="1519626343251" expanded="false" signature="74731:74746" ph="}" />
+            <marker date="1519626343251" expanded="true" signature="74989:76708" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="76834:78206" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="78242:78797" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="78892:81621" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="80878:80977" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="81005:81037" ph=" }" />
+            <marker date="1519626343251" expanded="false" signature="81392:81491" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="81517:81549" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="81665:82097" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82134:82308" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82402:82589" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="82645:83163" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="83200:83374" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="83484:84625" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="84659:84857" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="84938:85770" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="85884:86334" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="86365:87527" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="87584:92119" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="92174:93220" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="93276:94059" ph="{...}" />
+            <marker date="1519626343251" expanded="false" signature="93626:93713" ph="run() → { " />
+            <marker date="1519626343251" expanded="false" signature="93741:93765" ph=" }" />
+            <marker date="1519626343251" expanded="true" signature="94113:94565" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="94618:94810" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="94844:95368" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="95404:96043" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96119:96369" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96405:96802" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="96860:97473" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="97534:98194" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="98236:98470" ph="{...}" />
+            <marker date="1519626343251" expanded="true" signature="98549:100131" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3104,6 +3540,30 @@
           <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1519626343246" expanded="false" signature="1675:1692" ph="&lt;~&gt;" />
+            <marker date="1519626343246" expanded="true" signature="2050:3028" ph="{...}" />
+            <marker date="1519626343246" expanded="false" signature="2451:2572" ph="(OnRefreshListener) () → { " />
+            <marker date="1519626343246" expanded="false" signature="2582:2606" ph=" }" />
+            <marker date="1519626343246" expanded="false" signature="2780:2879" ph="() → { " />
+            <marker date="1519626343246" expanded="false" signature="2913:2945" ph=" }" />
+            <marker date="1519626343246" expanded="false" signature="3070:3081" ph=" { " />
+            <marker date="1519626343246" expanded="false" signature="3098:3104" ph=" }" />
+            <marker date="1519626343246" expanded="true" signature="3180:3490" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="3496:3519" ph="/**...*/" />
+            <marker date="1519626343246" expanded="true" signature="3547:6935" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="6210:6762" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="6883:6903" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="6974:7666" ph="{...}" />
+            <marker date="1519626343246" expanded="false" signature="7238:7419" ph="(parent, view, position, id) → {" />
+            <marker date="1519626343246" expanded="false" signature="7643:7658" ph="}" />
+            <marker date="1519626343246" expanded="true" signature="7720:9283" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="7819:8840" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="8904:8984" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="9048:9131" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="9183:9277" ph="{...}" />
+            <marker date="1519626343246" expanded="true" signature="9307:9406" ph="{...}" />
+            <marker date="1519626343246" expanded="false" signature="9448:9459" ph=" { " />
+            <marker date="1519626343246" expanded="false" signature="9480:9486" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -3112,16 +3572,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1519626343241" expanded="true" signature="922:964" ph="/**...*/" />
+            <marker date="1519626343241" expanded="true" signature="1226:1249" ph="@{...}" />
+            <marker date="1519626343241" expanded="true" signature="1372:1762" ph="{...}" />
+            <marker date="1519626343241" expanded="true" signature="3750:3766" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/CheckInfoFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-494">
-          <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        <state relative-caret-position="418">
+          <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1519626343237" expanded="false" signature="1564:1575" ph="&lt;~&gt;" />
+            <marker date="1519626343237" expanded="false" signature="2541:2662" ph="(OnRefreshListener) () → { " />
+            <marker date="1519626343237" expanded="false" signature="2672:2696" ph=" }" />
+            <marker date="1519626343237" expanded="false" signature="3011:3022" ph=" { " />
+            <marker date="1519626343237" expanded="false" signature="3039:3045" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -3132,6 +3601,112 @@
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="40" column="42" lean-forward="false" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/net/wifi/ScanResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="377" column="26" lean-forward="false" selection-start-line="377" selection-start-column="26" selection-end-line="377" selection-end-column="26" />
+          <folding>
+            <element signature="e#9730#9731#0" expanded="true" />
+            <element signature="e#9779#9780#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/net/wifi/WifiInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="436" column="29" lean-forward="true" selection-start-line="436" selection-start-column="29" selection-end-line="436" selection-end-column="29" />
+          <folding>
+            <element signature="e#13182#13183#0" expanded="true" />
+            <element signature="e#13235#13236#0" expanded="true" />
+            <element signature="e#13335#13336#0" expanded="true" />
+            <element signature="e#13387#13388#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/sources/android-26/android/content/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="3333" column="31" lean-forward="false" selection-start-line="3333" selection-start-column="31" selection-end-line="3333" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/util/NetCheck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="49" column="106" lean-forward="false" selection-start-line="49" selection-start-column="106" selection-end-line="49" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="78" column="44" lean-forward="false" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
+          <folding>
+            <element signature="docComment;class#SplashActivity#0" expanded="false" />
+            <element signature="method#onResume#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#SplashActivity#0" expanded="false" />
+            <element signature="docComment;method#sendError#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#sendError#0;class#SplashActivity#0" expanded="false" />
+            <element signature="class#4401:4807" expanded="false" />
+            <element signature="method#onResponse#0;class#4401:4807" expanded="false" />
+            <element signature="method#onFailure#0;class#4401:4807" expanded="false" />
+            <element signature="method#getApk#0;class#SplashActivity#0" expanded="false" />
+            <element signature="class#5254:5729" expanded="false" />
+            <element signature="method#checkUpdate#0;class#SplashActivity#0" expanded="false" />
+            <element signature="class#5957:7277" expanded="false" />
+            <element signature="method#onResponse#0;class#5957:7277" expanded="false" />
+            <element signature="e#6799#6870#0" expanded="false" />
+            <element signature="method#onFailure#0;class#5957:7277" expanded="false" />
+            <element signature="method#showDownloadDialog#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#downLoadApk#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#installApk#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#getFileFromServer#0;class#SplashActivity#0" expanded="false" />
+            <element signature="class#9874:10890" expanded="false" />
+            <element signature="method#onFailure#0;class#9874:10890" expanded="false" />
+            <element signature="method#onResponse#0;class#9874:10890" expanded="false" />
+            <element signature="method#isAvailable#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#showPrintDialog#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#copyApkFromAssets#0;class#SplashActivity#0" expanded="false" />
+            <element signature="docComment;method#addPermission#0;class#SplashActivity#0" expanded="false" />
+            <element signature="method#addPermission#0;class#SplashActivity#0" expanded="false" />
+            <element signature="class#UpdateListener#0;class#SplashActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/fragment/DiyFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1519626343266" expanded="false" signature="9186:9232" ph="&quot;新增SOP检查项&quot;" />
+            <marker date="1519626343266" expanded="false" signature="10283:10329" ph="&quot;添加计划照片&quot;" />
+            <marker date="1519626343266" expanded="false" signature="19664:19711" ph="&quot;服务器连接失败！&quot;" />
+            <marker date="1519626343266" expanded="false" signature="22135:22283" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="22300:22325" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="23287:23435" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="23452:23477" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="25287:25435" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="25452:25477" ph=" }" />
+            <marker date="1519626343266" expanded="false" signature="28700:28848" ph="(dialog, which) → { " />
+            <marker date="1519626343266" expanded="false" signature="28865:28890" ph=" }" />
           </folding>
         </state>
       </provider>

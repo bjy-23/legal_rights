@@ -47,8 +47,7 @@ public class NetCheck {
 	 * @return
 	 */
 	public static boolean isNetworkAvailable(Context context) {
-		ConnectivityManager connectivity = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connectivity == null) {
 			return false;
 		} else {

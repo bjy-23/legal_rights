@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.wonders.constant.Constants;

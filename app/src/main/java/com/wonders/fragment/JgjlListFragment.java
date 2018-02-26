@@ -48,7 +48,6 @@ public class JgjlListFragment extends RecyclerViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
-//        params = (HashMap) getArguments().getSerializable(Constants.PARAMS);
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
@@ -88,8 +87,14 @@ public class JgjlListFragment extends RecyclerViewFragment {
     }
 
     public void getData(){
-        Call<Result<List<JgBean>>> call = Retrofit2Helper.getInstance().querySuperviseRecord(
-                Retrofit2Service.QUERY_SUPERVISE_RECORD,params);
+        String url = "";
+        if ("".equals(Constants.TYPE)){
+            url = Retrofit2Service.QUERY_SUPERVISE_RECORD;
+        }else {
+            url = Retrofit2Service.LT_QUERY_SUPERVISE_RECORD;
+        }
+
+        Call<Result<List<JgBean>>> call = Retrofit2Helper.getInstance().querySuperviseRecord(url, params);
         call.enqueue(new Callback<Result<List<JgBean>>>() {
             @Override
             public void onResponse(Call<Result<List<JgBean>>> call, Response<Result<List<JgBean>>> response) {

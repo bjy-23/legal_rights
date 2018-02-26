@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.TextView;
@@ -52,6 +54,22 @@ public class QyxxListFragment extends RecyclerViewFragment {
     private List<EnterpriseBean> data;
     private QyxxAdapter adapter;
     private HashMap params;
+    private int position;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0:
+                    LoadingDialog.dismiss();
+                    showDialog((List<String>) msg.obj);
+                    break;
+                case 1:
+                    LoadingDialog.dismiss();
+                    startNext();
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -76,8 +94,6 @@ public class QyxxListFragment extends RecyclerViewFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        params = (HashMap) getArguments().getSerializable("params");
-
         TextView tvTitle = getActivity().findViewById(R.id.tv_title);
         tvTitle.setText("企业列表");
         data = new ArrayList<>();
@@ -85,34 +101,32 @@ public class QyxxListFragment extends RecyclerViewFragment {
         adapter.setOnClickListener(new BaseAdapter.OnClickListener() {
             @Override
             public void onItemClick(final int position) {
+                QyxxListFragment.this.position = position;
                 if ("".equals(Constants.TYPE)) {
-                   startNext(position);
+                    startNext();
                 } else {
+                    //获取列表
                     ArrayList<String> list = Hawk.get(Constants.SOP_LT_ITEM);
                     if (list == null || list.size() == 0) {
-                        list = new ArrayList<>();
-                        ArrayList<SopCheckItemLt> sops = Hawk.get(Constants.SOP_LT);
-                        for (SopCheckItemLt sopCheckItemLt : sops) {
-                            list.add(sopCheckItemLt.getDicName());
-                        }
-                        Hawk.put(Constants.SOP_LT_ITEM, list);
-                    }
-
-                    new AlertDialog.Builder(getActivity(), R.style.alertDialog)
-                            .setSingleChoiceItems(list.toArray(new String[list.size()]), -1, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, final int which) {
-                                    FastDealExecutor.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ArrayList<SopCheckItemLt> sops = Hawk.get(Constants.SOP_LT);
-                                            Hawk.put(Constants.SOP_LT_ITEM_LIST, sops.get(which).getDicLtcheckTypes());
-                                        }
-                                    });
-                                    dialog.dismiss();
-                                    startNext(position);
+                        LoadingDialog.show(getActivity(), false);
+                        FastDealExecutor.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                List list = new ArrayList<>();
+                                ArrayList<SopCheckItemLt> sops = Hawk.get(Constants.SOP_LT);
+                                for (SopCheckItemLt sopCheckItemLt : sops) {
+                                    list.add(sopCheckItemLt.getDicName());
                                 }
-                            }).create().show();
+                                Hawk.put(Constants.SOP_LT_ITEM, list);
+                                Message msg = new Message();
+                                msg.what = 0;
+                                msg.obj = list;
+                                handler.sendMessage(msg);
+                            }
+                        });
+                    }else {
+                        showDialog(list);
+                    }
                 }
             }
         });
@@ -192,7 +206,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 LoadingDialog.dismiss();
-                if (!call.isCanceled()){
+                if (!call.isCanceled()) {
                     ToastUtil.show(getResources().getString(R.string.error_server));
                 }
             }
@@ -220,7 +234,27 @@ public class QyxxListFragment extends RecyclerViewFragment {
         }
     }
 
-    public void startNext(int position){
+    public void showDialog(List<String> list){
+        new AlertDialog.Builder(getActivity(), R.style.alertDialog)
+                .setSingleChoiceItems(list.toArray(new String[list.size()]), -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, final int which) {
+                        LoadingDialog.show(getActivity());
+                        //每次根据选择重新赋值
+                        FastDealExecutor.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                ArrayList<SopCheckItemLt> sops = Hawk.get(Constants.SOP_LT);
+                                Hawk.put(Constants.SOP_LT_ITEM_LIST, sops.get(which).getDicLtcheckTypes());
+                                handler.sendEmptyMessage(1);
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                }).create().show();
+    }
+
+    public void startNext() {
         params.put(Constants.ETPS_ID, data.get(position).getEtpsId());
         params.put(Constants.ETPS_NAME, data.get(position).getEtpsName());
         params.put(Constants.ALL_USER_NAME, "");

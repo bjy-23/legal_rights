@@ -98,7 +98,6 @@ public class CompanyActivity extends AppCompatActivity {
                 titles.add("历史不合格信息");
             }
         }else if (taskType == 1){
-            bundle.putString("planId",System.currentTimeMillis() + "");
             DiyFragment mDiyFragment = new DiyFragment();
             mDiyFragment.setArguments(bundle);
             fragments.add(mDiyFragment);

@@ -1,8 +1,8 @@
 package com.wonders.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,16 +40,13 @@ import com.wonders.bean.SopListViewBean;
 import com.wonders.util.DateUtil;
 import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -72,23 +69,10 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
     public static int type = 0;
 
     private DbHelper dbHelper;
-
-    private Activity myActivity;
     private AppData appData;
-    private String etpsId;
-
-    // 根级菜单 组级菜单 单元级菜单
-    private final static int TYPE_ROOT = 0;
-    private final static int TYPE_GROUP = 1;
-    private final static int TYPE_CELL = 2;
-
-    // 计划检查项 新增检查项 其他
-    private final static int KIND_PLAN = 3;
-    private final static int KIND_ADDATION = 4;
     private final static int KIND_DIY = 5;
-
     private ArrayList<SopListViewBean> childList;//保存新增的数据
-    private String planId;
+    private String planId = "", etpsId = "";
     private ArrayList<SopBean> sopList;
     private ArrayList<SopBean> addSopList = new ArrayList<>();
 
@@ -115,20 +99,23 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
     private String tradeType;
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        HashMap params = (HashMap) getArguments().getSerializable(Constants.PARAMS);
+        if (params != null){
+            planId = (String) params.get(Constants.PLAN_ID);
+            etpsId = (String) params.get(Constants.ETPS_ID);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        planId = getArguments().getString("planId");
-        etpsId = getArguments().getString("etpsId");
 
-        // 读取字典
-        if (getActivity() != null) {
-            myActivity = getActivity();
-            dbHelper = new DbHelper(myActivity, DbConstants.TABLENAME, null, 1);
-            appData = (AppData) getActivity().getApplication();
-        }
+        dbHelper = new DbHelper(getActivity(), DbConstants.TABLENAME, null, 1);
+        appData = AppData.getInstance();
 
-        View view = View.inflate(myActivity, R.layout.fragment_diy,
-                null);
+        View view = View.inflate(getActivity(), R.layout.fragment_diy, null);
 
         findView(view);
 
@@ -147,12 +134,11 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
             elv.expandGroup(i);
         }
 
-        AppData data = (AppData) myActivity.getApplication();
         if (Constants.TYPE.equals("")) {
-            sopList = data.getSopList();
+            sopList = appData.getSopList();
         } else {
             sopList = Hawk.get(Constants.SOP_LT_ITEM_LIST);
-            tradeType = sopList.get(0).getTradeType();
+            tradeType = sopList != null? sopList.get(0).getTradeType(): "";
         }
     }
 
@@ -360,7 +346,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
                     MessageActivity.childJSONArray = arrayList2;
                     MessageActivity.notesJSONArray = getNotes();
 
-                    Intent intent = new Intent(myActivity, MessageActivity.class);
+                    Intent intent = new Intent(getActivity(), MessageActivity.class);
                     intent.putExtra(Constants.PARAMS, params);
                     startActivity(intent);
                 }else {
@@ -392,8 +378,8 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
                         ylBtn.setVisibility(View.VISIBLE);
                     } else {
                         //预览
-                        Intent intent = new Intent(myActivity, YlActivity.class);
-                        intent.putExtra("planId", planId);
+                        Intent intent = new Intent(getActivity(), YlActivity.class);
+                        intent.putExtra(Constants.PLAN_ID, planId);
                         intent.putExtra("acc", "");
 
                         startActivity(intent);
@@ -439,7 +425,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
             }
         }
 
-        elvAdapter = new MyExpandableListAdapter(myActivity, groupArray, childArray);
+        elvAdapter = new MyExpandableListAdapter(getActivity(), groupArray, childArray);
         elvAdapter.setDeleteListener(this);
 
         //配置检查依据
@@ -480,9 +466,8 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
     private void updateOnClick() {
         LoadingDialog.show(getActivity());
 
-        DbHelper dbhelper = new DbHelper(myActivity, DbConstants.TABLENAME, null, 1);
         //拿到需要做的列表
-        uploadDataList = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
+        uploadDataList = dbHelper.querySops(appData.getLoginBean().getUserId(), planId);
 
         if (uploadDataList.size() == 0) {
             ToastUtil.showMid("暂时没有需要上传的待办数据");
@@ -735,7 +720,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
         AlertDialog.Builder bulder = new AlertDialog.Builder(getActivity(), R.style.alertDialog);
 
         bulder.setTitle("请输入检查项");
-        final EditText editText = new EditText(myActivity);
+        final EditText editText = new EditText(getActivity());
         bulder.setView(editText);
         bulder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 

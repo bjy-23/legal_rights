@@ -76,6 +76,8 @@ public class QyxxListFragment extends RecyclerViewFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        params = (HashMap) getArguments().getSerializable("params");
+
         TextView tvTitle = getActivity().findViewById(R.id.tv_title);
         tvTitle.setText("企业列表");
         data = new ArrayList<>();

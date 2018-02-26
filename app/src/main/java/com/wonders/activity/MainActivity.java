@@ -1,11 +1,11 @@
 package com.wonders.activity;
 
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,9 +23,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.legal_rights.BuildConfig;
 import com.example.legal_rights.R;
 import com.wonders.bean.DeptBean;
 import com.wonders.bean.LoginBean;
@@ -44,18 +41,9 @@ import com.wonders.fragment.DocQueryFragment;
 import com.wonders.util.DbHelper;
 import com.wonders.util.FragmentUtil;
 import com.wonders.http.Retrofit2Helper;
-import com.wonders.http.Retrofit2Service;
 import com.wonders.thread.MainAsyncTask;
 import com.wonders.util.ToastUtil;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         //左边菜单栏的用户信息
         initPersonInformation();
 
-        fm = getFragmentManager();
+        fm = getSupportFragmentManager();
         //回退栈添加监听，修改图标变化
         fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -159,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("todocount", loginBean.getTodoCount());
         outState.putString("userid", loginBean.getUserId());
         outState.putString("username", loginBean.getUserName());
-
 
         super.onSaveInstanceState(outState);
     }
@@ -209,8 +196,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                FragmentManager fm = getFragmentManager();
-
                 switch (position) {
                     case 0:
                         FragmentUtil.clearAllFragments(fm);
@@ -308,10 +293,10 @@ public class MainActivity extends AppCompatActivity {
 
     //处理回退按钮和系统回退键
     public void doBack(){
-        if (getFragmentManager().getBackStackEntryCount() == 1){
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
             doFinish();
         }else {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
         }
     }
 

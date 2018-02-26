@@ -16,7 +16,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/search_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"

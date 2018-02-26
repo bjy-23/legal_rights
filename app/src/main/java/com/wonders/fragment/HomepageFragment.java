@@ -1,8 +1,8 @@
 package com.wonders.fragment;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.legal_rights.R;
 import com.wonders.bean.Result;
 import com.wonders.application.AppData;
@@ -20,9 +19,7 @@ import com.wonders.util.DbHelper;
 import com.wonders.util.FragmentUtil;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.bean.Db_message;
-
 import com.wonders.widget.LoadingDialog;
-
 import java.util.ArrayList;
 
 import retrofit2.Call;

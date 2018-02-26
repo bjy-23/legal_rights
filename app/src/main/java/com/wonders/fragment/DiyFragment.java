@@ -19,8 +19,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;

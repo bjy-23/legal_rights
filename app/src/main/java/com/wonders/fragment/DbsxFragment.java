@@ -2,12 +2,10 @@ package com.wonders.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -107,12 +105,16 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
         super.onAttach(context);
 
         type = getArguments().getString("type") != null? getArguments().getString("type"): Constants.RCJC;
+        Log.e(TAG, "类型：" + type);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
+
+//        type = getArguments().getString("type") != null? getArguments().getString("type"): Constants.RCJC;
+//        Log.e(TAG, "类型：" + type);
 
         View view = inflater.inflate(R.layout.fragment_dbsx, null);
 
@@ -255,10 +257,10 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
 
     private void chooseResult() {
         allPlans.clear();
-        if (type.equals(Constants.RCJC)) {
+        if (Constants.RCJC.equals(type)) {
             allPlans.addAll(notSupervisionPlans);
             allPlans.addAll(supervisionPlans);
-        } else if (type.equals(Constants.HFRW)) {
+        } else if (Constants.HFRW.equals(type)) {
             allPlans.addAll(revisitPlans);
             allPlans.addAll(notRevisitPlans);
         }

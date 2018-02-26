@@ -5,7 +5,6 @@ INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\A
 INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml:2:1-77:12
 INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml:2:1-77:12
 MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\hawk-2.0.1.aar\abcae4164c140898620e3d1e2bf21d4d\AndroidManifest.xml:2:1-8:12
-MERGED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\9a472370881d5c38ff2b72196af4655d\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:transition:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\5fd20b90c86cd42afca29af1c3b635fa\AndroidManifest.xml:17:1-28:12
@@ -78,8 +77,6 @@ ADDED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\Andr
 		ADDED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml:13:22-70
 application
 ADDED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml:15:5-75:19
-MERGED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\9a472370881d5c38ff2b72196af4655d\AndroidManifest.xml:25:5-29:19
@@ -232,8 +229,6 @@ INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\A
 INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\hawk-2.0.1.aar\abcae4164c140898620e3d1e2bf21d4d\AndroidManifest.xml:6:5-44
 MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\hawk-2.0.1.aar\abcae4164c140898620e3d1e2bf21d4d\AndroidManifest.xml:6:5-44
-MERGED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:21:5-23:55
-MERGED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:21:5-23:55
 MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\9a472370881d5c38ff2b72196af4655d\AndroidManifest.xml:21:5-23:78
@@ -271,7 +266,7 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\bjy\.gradle\caches\t
 INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:23:9-52
+		ADDED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:23:9-59
 	android:targetSdkVersion
 		INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 		ADDED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
@@ -281,9 +276,7 @@ INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\A
 		ADDED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 		INJECTED from E:\Android\AndroidProjects\company\legal_rights_new\app\src\main\AndroidManifest.xml
 meta-data#android.support.VERSION
-ADDED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:26:9-28:38
+ADDED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\9a472370881d5c38ff2b72196af4655d\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\9a472370881d5c38ff2b72196af4655d\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:transition:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\5fd20b90c86cd42afca29af1c3b635fa\AndroidManifest.xml:23:9-25:38
@@ -307,9 +300,9 @@ MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\bjy\.g
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\1b58e7747a9ce867bedeb8834a7ac35c\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\1b58e7747a9ce867bedeb8834a7ac35c\AndroidManifest.xml:26:9-28:38
 	android:value
-		ADDED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:28:13-35
+		ADDED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:28:13-35
 	android:name
-		ADDED from [com.android.support:support-v13:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\support-v13-26.1.0.aar\2b59b89f2fe6e52488eb8a09a76656b9\AndroidManifest.xml:27:13-51
+		ADDED from [com.android.support:design:26.1.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\802d147af4fc75d7d12f87da2b3a76d5\AndroidManifest.xml:27:13-51
 meta-data#android.arch.lifecycle.VERSION
 ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\bjy\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\911cddb8c027e2ece95661a31e0cb599\AndroidManifest.xml:25:9-27:47
 	android:value

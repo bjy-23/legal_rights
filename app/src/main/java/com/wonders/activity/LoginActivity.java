@@ -128,7 +128,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.login_btn:
                 if (checkInput()){
                     if (!appData.isNetWork()) {
@@ -477,6 +476,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
                             AppData.getInstance().setLoginBean(loginBean);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            LoadingDialog.dismiss();
                         }
                     }
 
@@ -492,7 +492,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LoadingDialog.dismiss();
                     }
                 });
     }

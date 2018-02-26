@@ -2,9 +2,9 @@ package com.wonders.fragment;
 
 import java.util.HashMap;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,11 +249,11 @@ public class DocQueryFragment extends Fragment {
                 if ("".equals(Constants.TYPE)){
                     DocListScFragment fragment = new DocListScFragment();
                     fragment.setArguments(bundle);
-                    FragmentUtil.replaceStack(getActivity().getFragmentManager(), fragment, R.id.fragment);
+                    FragmentUtil.replaceStack(getActivity().getSupportFragmentManager(), fragment, R.id.fragment);
                 }else {
                     DocListLtFragment fragment = new DocListLtFragment();
                     fragment.setArguments(bundle);
-                    FragmentUtil.replaceStack(getActivity().getFragmentManager(), fragment, R.id.fragment);
+                    FragmentUtil.replaceStack(getActivity().getSupportFragmentManager(), fragment, R.id.fragment);
                 }
             }
         });

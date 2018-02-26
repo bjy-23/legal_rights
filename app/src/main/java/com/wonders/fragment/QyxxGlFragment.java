@@ -3,10 +3,10 @@ package com.wonders.fragment;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.example.legal_rights.R;
 import com.wonders.constant.Constants;
 import com.wonders.util.FragmentUtil;
@@ -45,6 +43,7 @@ public class QyxxGlFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        queryType = getArguments().getInt("type", 0);
         View view = View.inflate(getActivity(), R.layout.fragment_qyxxgl, null);
         findView(view);
 

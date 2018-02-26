@@ -219,6 +219,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         isOncreateView = true;
+//        params = (getArguments().getSerializable(Constants.PARAMS) != null) ? (HashMap) getArguments().getSerializable(Constants.PARAMS) : new HashMap();
         planId = (params.get(Constants.PLAN_ID) != null) ? (String) params.get(Constants.PLAN_ID) : "";
         etpsId = (params.get(Constants.ETPS_ID) != null) ? (String) params.get(Constants.ETPS_ID) : "";
         allUserName = (params.get(Constants.ALL_USER_NAME) != null) ? (String) params.get(Constants.ALL_USER_NAME) : "";

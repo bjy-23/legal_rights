@@ -3,10 +3,8 @@ package com.wonders.fragment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

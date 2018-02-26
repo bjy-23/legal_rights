@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.example.legal_rights.R;
 import com.wonders.activity.CheckDetailsActivity;
 import com.wonders.adapter.BaseAdapter;
@@ -49,6 +48,7 @@ public class JgjlListFragment extends RecyclerViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
+//        params = (HashMap) getArguments().getSerializable(Constants.PARAMS);
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }

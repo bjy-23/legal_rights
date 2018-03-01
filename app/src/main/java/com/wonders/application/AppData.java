@@ -100,7 +100,7 @@ public class AppData extends MultiDexApplication {
 		return packageInfo.versionName;
 	}
 
-	public static InputMethodManager getInputManger(){
+	public static InputMethodManager getInputMethodManger(){
     	return (InputMethodManager) instance.getSystemService(Context.INPUT_METHOD_SERVICE);
 	}
 

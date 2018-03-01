@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.legal_rights.R;
 import com.wonders.bean.SopItemBean;
-import com.wonders.util.BitmapHelper;
+import com.wonders.util.BitmapUtil;
 
 public class InputLookActivity extends BaseActivity {
     private TextView jcnrTv;
@@ -76,7 +76,7 @@ public class InputLookActivity extends BaseActivity {
                     160);
             p.setMargins(30, 0, 0, 0);
             temp.setLayoutParams(p);
-            Bitmap bitmap = BitmapHelper.stringtoBitmap(sopBean.getPictureUrl()
+            Bitmap bitmap = BitmapUtil.stringtoBitmap(sopBean.getPictureUrl()
                     .get(i).substring(1));
             bitmapList.add(bitmap);
             temp.setImageBitmap(bitmap);

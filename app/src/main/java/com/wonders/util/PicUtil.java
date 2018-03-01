@@ -29,7 +29,7 @@ public class PicUtil {
     //流通图片操作
     public final static int PIC_LT = 4;
 
-    public final static int PIC_MAX = 9;
+    public final static int PIC_MAX_SC = 9;
     public final static int PIC_MAX_LT = 3;
 
     private PicListener picListener;
@@ -92,7 +92,7 @@ public class PicUtil {
             @Override
             public void onClick(View v) {
                 if("".equals(Constants.TYPE)){
-                    if(size-position==1&&size!=PIC_MAX){
+                    if(size-position==1&&size!= PIC_MAX_SC){
                         ImageGridViewAdapter.type = PIC_ADD;
                     }else {
                         ImageGridViewAdapter.type = PIC_CHANGE;
@@ -115,7 +115,7 @@ public class PicUtil {
             @Override
             public void onClick(View v) {
                 if ("".equals(Constants.TYPE)){
-                    if(size-position==1&&size!=PIC_MAX){
+                    if(size-position==1&&size!= PIC_MAX_SC){
                         ImageGridViewAdapter.type = PIC_ADD;
                     }else {
                         ImageGridViewAdapter.type = PIC_CHANGE;

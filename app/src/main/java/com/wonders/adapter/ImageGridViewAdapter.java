@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.example.legal_rights.R;
 import com.squareup.picasso.Picasso;
-import com.wonders.util.BitmapHelper;
+import com.wonders.util.BitmapUtil;
 import com.wonders.bean.PicBean;
 import com.wonders.util.PicUtil;
 
@@ -76,12 +76,23 @@ public class ImageGridViewAdapter extends BaseAdapter{
         return convertView;
     }
 
-    private View getConvertView(int position,View convertView){
+    private View getConvertView(final int position, View convertView){
         convertView = View.inflate(mContext, R.layout.image_item,null);
-        ImageView imageView = (ImageView)convertView.findViewById(R.id.img);
-        if (arrayList.get(position).getType()==0){
-            Bitmap bitmap = BitmapHelper.stringtoBitmap(arrayList.get(position).getPicSource());
-            imageView.setImageBitmap(bitmap);
+        ImageView imageView = convertView.findViewById(R.id.img);
+        if (arrayList.get(position).getType() == 0){
+            Bitmap bitmap = BitmapUtil.stringtoBitmap(arrayList.get(position).getPicSource());
+            //bitmap为空，则删相应位置的图片
+            if (bitmap == null){
+                //加入UI事件队列，
+                convertView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        arrayList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+            }else
+                imageView.setImageBitmap(bitmap);
         }else {
             String picPath = arrayList.get(position).getPicPath();
             if(!"".equals(picPath)){
@@ -96,5 +107,4 @@ public class ImageGridViewAdapter extends BaseAdapter{
 
         return convertView;
     }
-
 }

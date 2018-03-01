@@ -33,42 +33,42 @@ import retrofit2.http.Url;
  * Created by bjy on 2016/11/7.
  */
 public interface Retrofit2Service {
-    public static final String SAVE_PLAN_CHECK_CONTENT = "save_planCheckContent";
-    public static final String LT_SAVE_PLAN_CHECK_CONTENT = "lt_save_planCheckContent";
-    public static final String QUERY_TODO = "query_todo.do";
-    public static final String LT_QUERY_TODO = "lt_query_todo.do";
-    public static final String GET_ETP_CHECK_INFO= "get_etpCheckInfo.do";
-    public static final String LT_GET_ETP_CHECK_INFO= "lt_get_etpCheckInfo.do";
-    public static final String GET_SUPERVISE_RECORD= "get_superviseRecord.do";
-    public static final String LT_GET_SUPERVISE_RECORD= "lt_get_superviseRecord.do";
-    public static final String GET_PLAN_CHECK_CONTENT= "get_planCheckContent";
-    public static final String LT_GET_PLAN_CHECK_CONTENT= "lt_get_planCheckContent";
-    public static final String SAVE_PLAN_CHECK_CONTENT_PICTURE_TEMP= "save_planCheckContentPictureTemp.do";
-    public static final String LT_SAVE_PLAN_CHECK_CONTENT_PICTURE_TEMP= "lt_save_planCheckContentPictureTemp.do";
-    public static final String DELETE_ADD_SOP_INFO= "delete_addSOPInfo.do";
-    public static final String LT_DELETE_ADD_SOP_INFO= "lt_delete_addSOPInfo.do";
-    public static final String SAVE_GATHER_PLAN_CHECK_CONTENT= "save_gatherPlanCheckContent.do";
-    public static final String LT_SAVE_GATHER_PLAN_CHECK_CONTENT= "lt_save_gatherPlanCheckContent.do";
-    public static final String GATHER_PLAN_CHECK_CONTENT= "gather_planCheckContent.do";
-    public static final String LT_GATHER_PLAN_CHECK_CONTENT= "lt_gather_planCheckContent.do";
-    public static final String GET_BIG_PICTURE= "getBigPicture.do";
-    public static final String LT_GET_BIG_PICTURE= "lt_getBigPicture.do";
-    public static final String GET_PLAN_CHECK_CONTENT_DETAIL= "get_planCheckContentDetail.do";
-    public static final String LT_GET_PLAN_CHECK_CONTENT_DETAIL= "lt_get_planCheckContentDetail.do";
-    public static final String QUERY_SUPERVISE_RECORD= "query_superviseRecord.do";
-    public static final String LT_QUERY_SUPERVISE_RECORD= "lt_query_superviseRecord.do";
-    public static final String BINDING_GROUP= "binding_group.do";
-    public static final String LT_BINDING_GROUP= "lt_binding_group.do";
-    public static final String GET_CHECK_ITEM= "getCheckItem.do";
-    public static final String LT_GET_CHECK_ITEM= "lt_getCheckItem.do";
-    public static final String DISTRIBUTION_GROUP= "distribution_group.do";
-    public static final String LT_DISTRIBUTION_GROUP= "lt_distribution_group.do";
-    public static final String QUERY_PRINT_DOCUMENT= "query_printDocument.do";
-    public static final String LT_QUERY_PRINT_DOCUMENT= "lt_query_printDocument.do";
-    public static final String QUERY_ETPS_INFO= "query_etpsInfo.do";
-    public static final String LT_QUERY_ETPS_INFO= "lt_query_etpsInfo.do";
-    public static final String SAVE_SOP= "saveSOP.do";
-    public static final String LT_SAVE_SOP= "lt_saveSOP.do";
+    String SAVE_PLAN_CHECK_CONTENT = "save_planCheckContent";
+    String LT_SAVE_PLAN_CHECK_CONTENT = "lt_save_planCheckContent";
+    String QUERY_TODO = "query_todo.do";
+    String LT_QUERY_TODO = "lt_query_todo.do";
+    String GET_ETP_CHECK_INFO = "get_etpCheckInfo.do";
+    String LT_GET_ETP_CHECK_INFO = "lt_get_etpCheckInfo.do";
+    String GET_SUPERVISE_RECORD = "get_superviseRecord.do";
+    String LT_GET_SUPERVISE_RECORD = "lt_get_superviseRecord.do";
+    String GET_PLAN_CHECK_CONTENT = "get_planCheckContent";
+    String LT_GET_PLAN_CHECK_CONTENT = "lt_get_planCheckContent";
+    String SAVE_PLAN_CHECK_CONTENT_PICTURE_TEMP = "save_planCheckContentPictureTemp.do";
+    String LT_SAVE_PLAN_CHECK_CONTENT_PICTURE_TEMP = "lt_save_planCheckContentPictureTemp.do";
+    String DELETE_ADD_SOP_INFO = "delete_addSOPInfo.do";
+    String LT_DELETE_ADD_SOP_INFO = "lt_delete_addSOPInfo.do";
+    String SAVE_GATHER_PLAN_CHECK_CONTENT = "save_gatherPlanCheckContent.do";
+    String LT_SAVE_GATHER_PLAN_CHECK_CONTENT = "lt_save_gatherPlanCheckContent.do";
+    String GATHER_PLAN_CHECK_CONTENT = "gather_planCheckContent.do";
+    String LT_GATHER_PLAN_CHECK_CONTENT = "lt_gather_planCheckContent.do";
+    String GET_BIG_PICTURE = "getBigPicture.do";
+    String LT_GET_BIG_PICTURE = "lt_getBigPicture.do";
+    String GET_PLAN_CHECK_CONTENT_DETAIL = "get_planCheckContentDetail.do";
+    String LT_GET_PLAN_CHECK_CONTENT_DETAIL = "lt_get_planCheckContentDetail.do";
+    String QUERY_SUPERVISE_RECORD = "query_superviseRecord.do";
+    String LT_QUERY_SUPERVISE_RECORD = "lt_query_superviseRecord.do";
+    String BINDING_GROUP = "binding_group.do";
+    String LT_BINDING_GROUP = "lt_binding_group.do";
+    String GET_CHECK_ITEM = "getCheckItem.do";
+    String LT_GET_CHECK_ITEM = "lt_getCheckItem.do";
+    String DISTRIBUTION_GROUP = "distribution_group.do";
+    String LT_DISTRIBUTION_GROUP = "lt_distribution_group.do";
+    String QUERY_PRINT_DOCUMENT = "query_printDocument.do";
+    String LT_QUERY_PRINT_DOCUMENT = "lt_query_printDocument.do";
+    String QUERY_ETPS_INFO = "query_etpsInfo.do";
+    String LT_QUERY_ETPS_INFO = "lt_query_etpsInfo.do";
+    String SAVE_SOP = "saveSOP.do";
+    String LT_SAVE_SOP = "lt_saveSOP.do";
 
     @GET("get_appinfo")
     Call<Result<UpdateBean>> getAppInfo();
@@ -79,7 +79,7 @@ public interface Retrofit2Service {
 
     @POST("login.do")
     @FormUrlEncoded
-    Observable<Result<LoginBean>> login(@FieldMap Map<String,String> map);
+    Observable<Result<LoginBean>> login(@FieldMap Map<String, String> map);
 
     @GET("getAcount/{date}")
     Call<Result<ArrayList<UserInfoBean>>> getAccount(@Path("date") String date);
@@ -92,7 +92,7 @@ public interface Retrofit2Service {
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> getEtpCheckInfo(@Url String url,@Field("etpId") String etpId);
+    Call<ResponseBody> getEtpCheckInfo(@Url String url, @Field("etpId") String etpId);
 
     @POST
     @FormUrlEncoded
@@ -100,7 +100,7 @@ public interface Retrofit2Service {
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> getPlanCheckContent(@Url String url,@Field("planId") String planId);
+    Call<ResponseBody> getPlanCheckContent(@Url String url, @Field("planId") String planId);
 
     @POST
     Call<Result> savePlanCheckContent(@Url String url, @Body RequestBody requestBody);
@@ -118,61 +118,61 @@ public interface Retrofit2Service {
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> deleteAddSopInfo(@Url String url,@Field("planId") String planId,@Field("itemCode") String itemCode);
+    Call<ResponseBody> deleteAddSopInfo(@Url String url, @Field("planId") String planId, @Field("itemCode") String itemCode);
 
     @POST
     @FormUrlEncoded
-    Call<Result> saveGatherPlanCheckContent(@Url String url,@FieldMap Map<String,String> map);
+    Call<Result> saveGatherPlanCheckContent(@Url String url, @FieldMap Map<String, String> map);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> gatherPlanCheckContent(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> gatherPlanCheckContent(@Url String url, @FieldMap Map<String, String> map);
 
     @POST("get_informPage")
     @FormUrlEncoded
-    Call<ResponseBody> getInformPage(@FieldMap Map<String,String> map);
+    Call<ResponseBody> getInformPage(@FieldMap Map<String, String> map);
 
     @POST("get_resultRecord")
     @FormUrlEncoded
-    Call<ResponseBody> getResultRecord(@FieldMap Map<String,String> map);
+    Call<ResponseBody> getResultRecord(@FieldMap Map<String, String> map);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> getBigPicture(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> getBigPicture(@Url String url, @FieldMap Map<String, String> map);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> getPlanCheckContentDetail(@Url String url,@Field("planId") String planId);
+    Call<ResponseBody> getPlanCheckContentDetail(@Url String url, @Field("planId") String planId);
 
     @POST
     @FormUrlEncoded
-    Call<Result<List<JgBean>>> querySuperviseRecord(@Url String url, @FieldMap Map<String,String> map);
+    Call<Result<List<JgBean>>> querySuperviseRecord(@Url String url, @FieldMap Map<String, String> map);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> bindingGroup(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> bindingGroup(@Url String url, @FieldMap Map<String, String> map);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> getCheckItem(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> getCheckItem(@Url String url, @FieldMap Map<String, String> map);
 
     @POST
     Call<ResponseBody> distributionGroup(@Url String url);
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> queryPrintDocument(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> queryPrintDocument(@Url String url, @FieldMap Map<String, String> map);
 
     @POST("to_superviseRecord.do")
     Call<ResponseBody> toSuperviseRecord();
 
     @POST
     @FormUrlEncoded
-    Call<ResponseBody> queryEtpsInfo(@Url String url,@FieldMap Map<String,String> map);
+    Call<ResponseBody> queryEtpsInfo(@Url String url, @FieldMap Map<String, String> map);
 
     @POST("printThreeBooks.do")
     @FormUrlEncoded
-    Call<ResponseBody> printThreeBooks(@Field("planId") String planId,@Field("etpsId") String etpsId);
+    Call<ResponseBody> printThreeBooks(@Field("planId") String planId, @Field("etpsId") String etpsId);
 
     @POST("query_dataInfo_offline.do")
     @FormUrlEncoded
@@ -180,7 +180,7 @@ public interface Retrofit2Service {
 
     @POST("ltGetPDFPrintData.do")
     @FormUrlEncoded
-    Call<ResponseBody> ltGetPDFPrintData(@FieldMap HashMap<String,String> params);
+    Call<ResponseBody> ltGetPDFPrintData(@FieldMap HashMap<String, String> params);
 
     @GET("lt_query_dataInfo_offline_db")
     Call<ResponseBody> ltQueryDataInfoOfflineDb();

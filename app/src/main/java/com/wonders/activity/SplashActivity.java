@@ -33,6 +33,7 @@ import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.NetCheck;
+import com.wonders.util.PermissionUtil;
 import com.wonders.util.ToastUtil;
 
 import org.json.JSONException;
@@ -113,6 +114,15 @@ public class SplashActivity extends AppCompatActivity {
 
                         }
                         break;
+                    case Manifest.permission.ACCESS_FINE_LOCATION:
+                        if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+
+                        }
+                        break;
+                    case Manifest.permission_group.CAMERA:
+                        if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+
+                        }
                 }
             }
         }
@@ -166,7 +176,7 @@ public class SplashActivity extends AppCompatActivity {
             splashBtn.setVisibility(View.VISIBLE);
         } else {
             // 版本更新
-            checkUpdate(SplashActivity.this, new UpdateListener(){
+            checkUpdate(SplashActivity.this, new UpdateListener() {
                 @Override
                 public void updateFail() {
                     splashBtn.setVisibility(View.VISIBLE);
@@ -199,7 +209,7 @@ public class SplashActivity extends AppCompatActivity {
                     } else {
                         updateListener.updateNoNeed();
                     }
-                }else {
+                } else {
                     updateListener.updateFail();
                 }
 //                if (printDialog != null && printDialog.isShowing()) {
@@ -225,7 +235,7 @@ public class SplashActivity extends AppCompatActivity {
                 .setPositiveButton("现在升级",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                downLoadApk(activity,url);
+                                downLoadApk(activity, url);
                             }
                         })
                 .setNegativeButton("下次再说",
@@ -238,7 +248,7 @@ public class SplashActivity extends AppCompatActivity {
         builder.show();
     }
 
-    protected static void downLoadApk(final Activity activity,final String url) {
+    protected static void downLoadApk(final Activity activity, final String url) {
         final ProgressDialog pd; //进度条对话框
         pd = new ProgressDialog(activity, R.style.alertDialog);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -263,7 +273,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     //安装apk
-    protected static void installApk(Activity activity,File file) {
+    protected static void installApk(Activity activity, File file) {
         Intent intent = new Intent();
         //执行动作
         intent.setAction(Intent.ACTION_VIEW);
@@ -391,23 +401,23 @@ public class SplashActivity extends AppCompatActivity {
      * 获取权限
      */
     private void addPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                    , 1);
-        }
+        PermissionUtil.getPermissions(SplashActivity.this
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        , Manifest.permission.ACCESS_COARSE_LOCATION
+                        , Manifest.permission.CAMERA});
     }
 
-    public abstract static class UpdateListener{
+    public abstract static class UpdateListener {
         //接口数据返回失败
-        void updateFail(){}
+        void updateFail() {
+        }
 
         //用户拒绝更新
-        void updateRefuse(){}
+        void updateRefuse() {
+        }
 
         //版本不支持更新
-        void updateNoNeed(){}
+        void updateNoNeed() {
+        }
     }
 }

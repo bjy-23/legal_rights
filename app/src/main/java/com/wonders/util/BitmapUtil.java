@@ -9,7 +9,8 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
 
-public class BitmapHelper {
+public class BitmapUtil {
+	private static final String TAG = BitmapUtil.class.getName();
 	public static String bitmaptoString(Bitmap bitmap, int bitmapQuality) {
 
 		String string = null;
@@ -32,6 +33,7 @@ public class BitmapHelper {
 			bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,
 					bitmapArray.length);
 		} catch (Exception e) {
+			Log.e(TAG, "base64 转 Bitmap 失败！");
 			e.printStackTrace();
 		}
 		return bitmap;

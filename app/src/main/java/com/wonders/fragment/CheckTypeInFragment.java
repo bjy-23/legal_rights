@@ -230,7 +230,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             mContext = getActivity();
             inflater = LayoutInflater.from(mContext);
             this.inflater = inflater;
-            dbHelper = new DbHelper(myActivity, DbConstants.TABLENAME, null, 1);
+            dbHelper = DbHelper.getInstance();
             appData = (AppData) myActivity.getApplication();
 
             userId = appData.getLoginBean().getUserId();
@@ -438,7 +438,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Intent intent = new Intent(mContext, InputActivity.class);
+                Intent intent = new Intent(getActivity(), InputActivity.class);
 
                 if (childArray.get(groupPosition).get(childPosition).getKind() == KIND_DIY) {
                     intent.putExtra("isDiy", true);
@@ -724,7 +724,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             public void onClick(View v) {
                 LoadingDialog.show(getActivity(), false);
                 if (hzBtn.getText().toString().equals(Constants.HZ)) {
-                    DbHelper dbhelper = new DbHelper(getActivity(), DbConstants.TABLENAME, null, 1);
+                    DbHelper dbhelper = DbHelper.getInstance();
                     //拿到需要做的列表
                     ArrayList<SopListViewBean> list = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
                     if (list.size() != 0) {
@@ -740,7 +740,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     ptrEt.setVisibility(View.VISIBLE);
                     tjLayout.setVisibility(View.VISIBLE);
                 } else if (hzBtn.getText().equals(Constants.BJ)) {
-                    DbHelper dbhelper = new DbHelper(getActivity(), DbConstants.TABLENAME, null, 1);
+                    DbHelper dbhelper = DbHelper.getInstance();
                     //拿到需要做的列表
                     ArrayList<SopListViewBean> list = dbhelper.querySops(appData.getLoginBean().getUserId(), planId);
                     if (!isChecked) {
@@ -1193,7 +1193,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     }
 
     public void manageLocalData(String planId) {
-        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+        DbHelper dbHelper = DbHelper.getInstance();
         ArrayList<SopListViewBean> tempList = dbHelper.querySops(AppData.getInstance().getLoginBean().getUserId(), planId);
 
         for (int i = 0; i < tempList.size(); i++) {
@@ -1508,6 +1508,9 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
      * 删除已上传数据-异步
      */
     private void deleteUploadedData() {
+//        for (int i = 0; i < uploadDataList.size(); i++) {
+//            dbHelper.deleteSop(uploadDataList.get(i).getUserId(), uploadDataList.get(i).getPlanId(), uploadDataList.get(i).getItemCode(), uploadDataList.get(i).getContent());
+//        }
         FastDealExecutor.run(new Runnable() {
             @Override
             public void run() {
@@ -1834,7 +1837,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                AppData.getInputManger().showSoftInput(et, 0);
+                AppData.getInputMethodManger().showSoftInput(et, 0);
             }
         });
         dialog.setCanceledOnTouchOutside(true);
@@ -1879,10 +1882,12 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
      * 删除已上传的图片-异步
      */
     public static void deleteUploadedPics(final PicBean picBean){
+//        DbHelper dbHelper = DbHelper.getInstance();
+//        dbHelper.deletePicAfterUpload(picBean);
         FastDealExecutor.run(new Runnable() {
             @Override
             public void run() {
-                DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+                DbHelper dbHelper = DbHelper.getInstance();
                 dbHelper.deletePicAfterUpload(picBean);
             }
         });
@@ -1940,7 +1945,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        DbHelper dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+        DbHelper dbHelper = DbHelper.getInstance();
         for (int i = 0; i < array.size(); i++) {
             ArrayList<SopListViewBean> list = array.get(i);
             for (int j = 0; j < list.size(); j++) {
@@ -2057,7 +2062,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             //添加图片
             imgArray.remove(imgArray.size() - 1);
             imgArray.add(picBean);
-            if (imgArray.size() < PicUtil.PIC_MAX) {
+            if (imgArray.size() < PicUtil.PIC_MAX_SC) {
                 PicBean picBean1 = new PicBean();
                 picBean1.setPicPath("");
                 imgArray.add(picBean1);
@@ -2371,7 +2376,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     public void deletePic(int position) {
         final ArrayList<PicBean> picList = new ArrayList<>();
         int max = imgArray.size();
-        if (!(!"".equals(imgArray.get(imgArray.size() - 1).getPicPath()) && imgArray.size() == PicUtil.PIC_MAX))
+        if (!(!"".equals(imgArray.get(imgArray.size() - 1).getPicPath()) && imgArray.size() == PicUtil.PIC_MAX_SC))
             max--;
         for (int i = position; i < max; i++) {
             picList.add(imgArray.get(i));
@@ -2472,7 +2477,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             if (AppData.getInstance().isFirstDo) {
                 if (isFirstDo(childArray) && isFirstDo(childArray2)) {
                     AppData.getInstance().isFirstDo = false;
-                    Intent intent = new Intent(myActivity, NotesActivity.class);
+                    Intent intent = new Intent(getActivity(), NotesActivity.class);
                     startActivity(intent);
                 }
             }

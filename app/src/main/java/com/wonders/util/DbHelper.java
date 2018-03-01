@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,21 +28,37 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DbHelper extends SQLiteOpenHelper {
+    private static final String TAG = DbHelper.class.getName();
+    private AtomicInteger atomicInteger = new AtomicInteger();
     private Context mcontext;
     private AppData appData;
     private String organId;
-    public DbHelper(Context context, String name, CursorFactory factory,
-                    int version) {
+    private static DbHelper dbHelper;
+    private SQLiteDatabase sqLiteDatabase;
+
+    public DbHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.mcontext = context;
-        appData = (AppData) mcontext.getApplicationContext();
+        appData = AppData.getInstance();
 
         SharedPreferences sp = mcontext.getSharedPreferences("config", Context.MODE_PRIVATE);
-        if(appData.getLoginBean()!=null){
-            organId = sp.getString(appData.getLoginBean().getUserName(),"123");
+        if(appData.getLoginBean() != null){
+            organId = sp.getString(appData.getLoginBean().getUserName(), "123");
         }
+    }
+
+    public static DbHelper getInstance(){
+        if (dbHelper == null){
+            synchronized (DbHelper.class){
+                if (dbHelper == null){
+                    dbHelper = new DbHelper(AppData.getInstance(), DbConstants.TABLENAME, null, 1);
+                }
+            }
+        }
+        return dbHelper;
     }
 
     @Override
@@ -50,13 +67,13 @@ public class DbHelper extends SQLiteOpenHelper {
         StringBuffer strBuf = new StringBuffer();
         strBuf.append(DbConstants.CREAT_TABLE);
         strBuf.append("contact(");
-        strBuf.append(DbConstants.PRIMARY_KEY + ",");
-        strBuf.append("path VARCHAR(200) NOT NULL,");
-        strBuf.append("picName VARCHAR(200) NOT NULL,");
-        strBuf.append("picNum "+DbConstants.INTEGER+",");
-        strBuf.append("isProduct INTEGER,");
-        strBuf.append("isFinish INTEGER,");
-        strBuf.append("picState VARCHAR(20)");
+        strBuf.append(DbConstants.PRIMARY_KEY + ", ");
+        strBuf.append("path VARCHAR(200) NOT NULL, ");
+        strBuf.append("picName VARCHAR(200) NOT NULL, ");
+        strBuf.append("picNum " + DbConstants.INTEGER + ",");
+        strBuf.append("isProduct INTEGER, ");
+        strBuf.append("isFinish INTEGER, ");
+        strBuf.append("picState VARCHAR(20) ");
         strBuf.append(");");
 
         db.execSQL(strBuf.toString());
@@ -166,12 +183,38 @@ public class DbHelper extends SQLiteOpenHelper {
         strBuf6.append(",type " + DbConstants.INTEGER);//0,网络图片，1，本地图片
         strBuf6.append(");");
         db.execSQL(strBuf6.toString());
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    /*
+    * 重写以下三个函数，帮助在多线程环境下关闭数据库
+    * */
+    @Override
+    public SQLiteDatabase getReadableDatabase() {
+        if (atomicInteger.incrementAndGet() == 1){
+            sqLiteDatabase = super.getReadableDatabase();
+        }
+        return sqLiteDatabase;
+    }
+
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        if (atomicInteger.incrementAndGet() == 1){
+            sqLiteDatabase = super.getWritableDatabase();
+        }
+        return sqLiteDatabase;
+    }
+
+    @Override
+    public synchronized void close() {
+        if (atomicInteger.decrementAndGet() == 0){
+            Log.e(TAG, "close");
+            super.close();
+        }
     }
 
     public void insertUserInfo(UserBean userBean){
@@ -180,7 +223,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sdb.execSQL(sql,new Object[]{
                 userBean.getLoginName(),userBean.getPassword(),userBean.getUserName(),userBean.getUserId(),userBean.getDeptName()
         });
-        sdb.close();
+        close();
     }
 
     public UserBean queryUserInfo(String loginName){
@@ -194,7 +237,7 @@ public class DbHelper extends SQLiteOpenHelper {
             userBean.setUserName(cursor.getString(cursor.getColumnIndex("userName")));
             userBean.setPassword(cursor.getString(cursor.getColumnIndex("password")));
         }
-        sdb.close();
+        close();
         return userBean;
 
     }
@@ -203,7 +246,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase sdb = getWritableDatabase();
         String sql = "delete from userInfoTable";
         sdb.execSQL(sql);
-        sdb.close();
+        close();
     }
 
 
@@ -217,7 +260,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 new Object[]{db_message.getPlanId(), db_message.getUserId(), db_message.getFlag(), db_message.getGet_etpCheckInfo(),
                         db_message.getGet_superviseRecord(), db_message.getGet_planCheckContent(), db_message.getGet_planCheckContentDetail(), db_message.getIsLt(), db_message.getAddress(), db_message.getEtpsName(), db_message.getPlanMonth(), db_message.getAllUserName(), db_message.getEtpsId(), db_message.getType(), db_message.getIsFinish(), db_message.getGet_fpsiCertInfo(), db_message.getGet_fpsiEtpsInfo(), db_message.getGet_fpsiInspPlan()
                 });
-        db.close();
+        close();
     }
 
     public Db_message query_Db_message(String planId) {
@@ -304,7 +347,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 ,bean.getContent(),bean.getRemark(),bean.getIsEdit(),bean.getIsPass()
                 ,bean.getIsHavePic(),bean.getKind(),gson.toJson(bean.getPic()),bean.getLongitude()
                 ,bean.getLatitude(),bean.getAddress(),bean.getPlanType(),bean.getEtpsName()});
-        db.close();
+        close();
     }
 
     /**
@@ -317,7 +360,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("delete from SopListViewBeanTable where userId = ? and planId=? and itemCode = ? and content =?", new Object[]{
                 userId,planId, itemCode,content});
-        db.close();
+        close();
     }
 
     /**
@@ -357,7 +400,7 @@ public class DbHelper extends SQLiteOpenHelper {
             sopListViewBean.setPlanType(cursor.getInt(cursor.getColumnIndex("planType")));
         }
         cursor.close();
-        database.close();
+        close();
 
         return sopListViewBean;
     }
@@ -397,7 +440,7 @@ public class DbHelper extends SQLiteOpenHelper {
             list.add(sopListViewBean);
         }
         cursor.close();
-        db.close();
+        close();
 
         return list;
     }
@@ -439,7 +482,7 @@ public class DbHelper extends SQLiteOpenHelper {
             list.add(sopListViewBean);
         }
         cursor.close();
-        db.close();
+        close();
 
         return list;
     }
@@ -480,7 +523,7 @@ public class DbHelper extends SQLiteOpenHelper {
             list.add(sopListViewBean);
         }
         cursor.close();
-        database.close();
+        close();
 
         return list;
     }
@@ -495,7 +538,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("update SopListViewBeanTable set isPass=?,secondDate=?,remark=?,pic=? where planId=? and userId = ? and itemCode = ? and content = ?", new Object[]{
                 bean.getIsPass(),bean.getSecondDate(),bean.getRemark(),gson.toJson(bean.getPic()),planId, userId, itemCode,content});
 
-        db.close();
+        close();
     }
 
 
@@ -511,7 +554,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("update Db_message_table set isFinish=? where planId=? and userId = ?", new Object[]{
                 "1", planId, userId});
 
-        db.close();
+        close();
     }
 
 
@@ -526,7 +569,7 @@ public class DbHelper extends SQLiteOpenHelper {
         strBuf1.append("delete from Db_message_table where isFinish = 1");
         db.execSQL(strBuf1.toString());
 
-        db.close();
+        close();
     }
 
 
@@ -545,7 +588,7 @@ public class DbHelper extends SQLiteOpenHelper {
                         enterpriseBean.getEtpsName(), enterpriseBean.getFrequency(), enterpriseBean.getGrade(),
                         enterpriseBean.getEtpsInfo(), enterpriseBean.getRecordInfo(), enterpriseBean.getLicNo(),
                         enterpriseBean.getExeOrgan()});
-        db.close();
+        close();
     }
 
     public ArrayList<EnterpriseBean> queryEnterpriseBean(EnterpriseBean bean){
@@ -588,11 +631,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 list.add(enterpriseBean);
             }
             cursor.close();
-            db.close();
+            close();
 
         }else {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory().
-                    getAbsolutePath() + "/生产流通移动执法/"+organId+".db", null);
+                    getAbsolutePath() + "/生产流通移动执法/"+ organId +".db", null);
             if(bean.getLicNo().equals("")&&!bean.getEtpsName().equals("")&&bean.getAddress().equals("")&&bean.getGrade().equals("")){
                 cursor = db.rawQuery("select * from lt_dataInfo_offline where etpsName like ?  ", new String[]{"%"+bean.getEtpsName()+"%"});
             }else if(bean.getLicNo().equals("")&&!bean.getEtpsName().equals("")&&!bean.getAddress().equals("")&&bean.getGrade().equals("")){
@@ -644,7 +687,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 list.add(enterpriseBean);
             }
             cursor.close();
-            db.close();
+            close();
         }
 
         return list;
@@ -668,7 +711,7 @@ public class DbHelper extends SQLiteOpenHelper {
             enterpriseBean.setExeOrgan(cursor.getString(cursor.getColumnIndex("exeOrgan")));
         }
         cursor.close();
-        db.close();
+        close();
 
         return enterpriseBean;
     }
@@ -746,7 +789,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 strBuf.toString(),
                 new Object[]{picBean.getPicName(),picBean.getPicPath(),picBean.getPicNum(), picBean.getPlanId(),
                         picBean.getUserId(),picBean.getItemCode(),picBean.getCheckContent(),picBean.getType()});
-        db.close();
+        close();
     }
 
     public void deletePic(ArrayList<PicBean> picBeanList){
@@ -764,31 +807,30 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("update picTable set picNum = ? where planId =? and userId = ?",
                     new Object[]{picBean1.getPicNum()-1,picBean1.getPlanId(),picBean1.getUserId()});
         }
-        db.close();
+        close();
     }
 
     public void deletePicOnPosition(PicBean picBean){
         SQLiteDatabase database = getWritableDatabase();
         String sql = "delete from picTable where userId = ? and planId = ? and itemCode = ? " +
                 "and checkContent = ? and picNum = ?";
-        database.execSQL(sql,new Object[]{picBean.getUserId(),picBean.getPlanId(),picBean.getItemCode()
-        ,picBean.getCheckContent(),picBean.getPicNum()});
-        database.close();
+        database.execSQL(sql,new Object[]{picBean.getUserId(),picBean.getPlanId(),picBean.getItemCode(),picBean.getCheckContent(),picBean.getPicNum()});
+        close();
     }
 
     public void deletePicAfterUpload(PicBean picBean){
         SQLiteDatabase db = getWritableDatabase();
         //删除当前位置的图片
         String sql = "";
-        if (picBean.getItemCode()==null) {
+        if (picBean.getItemCode() == null) {
             sql = "delete from picTable where userId = ? and planId = ? and itemCode is null";
-            db.execSQL(sql,new Object[]{picBean.getUserId(),picBean.getPlanId()});
+            db.execSQL(sql, new Object[]{picBean.getUserId(),picBean.getPlanId()});
         }else{
             sql = "delete from picTable where userId = ? and planId = ? and itemCode = ? and checkContent = ?";
-            db.execSQL(sql,new Object[]{picBean.getUserId(),picBean.getPlanId(),picBean.getItemCode()
-                    ,picBean.getCheckContent()});
+            db.execSQL(sql, new Object[]{picBean.getUserId(), picBean.getPlanId(), picBean.getItemCode()
+                    , picBean.getCheckContent()});
         }
-        db.close();
+        close();
     }
 
     public void  updatePic(PicBean picBean){
@@ -799,7 +841,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 strBuf.toString(),
                 new Object[]{picBean.getPicPath(), picBean.getPlanId(),
                         picBean.getUserId(),picBean.getPicNum()});
-        db.close();
+        close();
     }
 
     public ArrayList<PicBean> selectPicForPlanOrItem(PicSelectBean picSelectBean){
@@ -824,17 +866,14 @@ public class DbHelper extends SQLiteOpenHelper {
             }
         }
         cursor.close();
-        sdb.close();
+        close();
 
         return arrayList;
     }
 
     public ArrayList<PicBean> selectPic(String planId,String userId) {
         SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = getReadableDatabase().rawQuery(
-                "select * from picTable where planId = ? and userId = ?", new String[]{planId,userId});
-
+        Cursor cursor = db.rawQuery("select * from picTable where planId = ? and userId = ?", new String[]{planId,userId});
         ArrayList<PicBean> list = new ArrayList<PicBean>();
 
         if (cursor != null) {
@@ -852,7 +891,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+        close();
 
         return list;
     }
@@ -880,7 +919,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+        close();
 
         return list;
     }
@@ -891,7 +930,7 @@ public class DbHelper extends SQLiteOpenHelper {
         strBuf.append("delete from login_message_table");
         db.execSQL(strBuf.toString());
 
-        db.close();
+        close();
     }
 
     public void insertDbLogin(DbLogin login_message) {
@@ -913,7 +952,7 @@ public class DbHelper extends SQLiteOpenHelper {
                         login_message.getUserclass(), login_message.getValid(), login_message.getValidDateEnd(), login_message.getValidDateStart(), login_message.getValidate(),
                         login_message.getWorkId()});
 
-        db.close();
+        close();
     }
 
     public DbLogin queryDbLogin(String loginName) {
@@ -958,6 +997,7 @@ public class DbHelper extends SQLiteOpenHelper {
             login_message.setWorkId(cursor.getString(35));
         }
         cursor.close();
+        close();
         return login_message;
     }
 }

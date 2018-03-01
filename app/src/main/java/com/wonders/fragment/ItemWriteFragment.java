@@ -36,7 +36,6 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.example.legal_rights.R;
-import com.wonders.activity.SplashActivity;
 import com.wonders.adapter.ImageGridViewAdapter;
 import com.wonders.application.AppData;
 import com.wonders.constant.Constants;
@@ -59,7 +58,6 @@ import java.util.Calendar;
 
 /**
  * Created by bjy on 2017/2/23.
- * <p>
  * 检查项录入
  */
 
@@ -187,21 +185,24 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //可以拍照
-        boolean isPicOk = true;
-        for(int i=0; i<permissions.length; i++){
-            switch (permissions[i]){
-                case Manifest.permission.CAMERA:
-                    isPicOk = isPicOk & (grantResults[i] == PackageManager.PERMISSION_GRANTED);
-                    break;
-                case Manifest.permission.WRITE_EXTERNAL_STORAGE:
-                    isPicOk = isPicOk & (grantResults[i] == PackageManager.PERMISSION_GRANTED);
-                    break;
-            }
+        switch (requestCode){
+            //拍照
+            case 0:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    startCamera();
+                }else {
+                    ToastUtil.show("需要提供权限！");
+                }
+                break;
+            //从手机相册选取
+            case 1:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    takePicturesFromStorage();
+                else
+                    ToastUtil.show("需要提供权限！");
+                break;
         }
-
-        if (isPicOk)
-            takePictures();
     }
 
     public void initViewData() {
@@ -391,21 +392,22 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
         picPosition = position;
         //相机权限检测和申请
         if(PermissionUtil.checkPermissions(getActivity(), PERMISSIONS_CAMERA)){
-            takePictures();
+            startCamera();
         }else {
-            PermissionUtil.getPermissions(getActivity(), PERMISSIONS_CAMERA);
+            requestPermissions(PERMISSIONS_CAMERA, 0);
         }
     }
 
     @Override
     public void xuanQu(int position) {
-        Intent intent = new Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, position);
+        picPosition = position;
+        if (PermissionUtil.checkPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})){
+            takePicturesFromStorage();
+        }else
+            requestPermissions(PERMISSIONS_CAMERA, 1);
     }
 
-    public void takePictures(){
+    public void startCamera(){
         Intent intent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
         timeMark = DateUtil.format(System.currentTimeMillis());
@@ -414,6 +416,14 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
         File out = new File(picPath);
         Uri uri = Uri.fromFile(out);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, picPosition);
+    }
+
+    /**
+     * 读取本地图片
+     */
+    public void takePicturesFromStorage(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, picPosition);
     }
 

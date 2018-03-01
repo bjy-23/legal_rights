@@ -10,21 +10,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.legal_rights.BuildConfig;
 import com.example.legal_rights.R;
 import com.wonders.application.AppData;
 import com.wonders.bean.Result;
@@ -33,11 +27,7 @@ import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.NetCheck;
-import com.wonders.util.PermissionUtil;
 import com.wonders.util.ToastUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -84,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        addPermission();
+        applyPermission();
 
         if (!isAvailable(SplashActivity.this, Constants.PRINT_SOFTWARE_NAME)) {
             showPrintDialog(this);
@@ -106,26 +96,7 @@ public class SplashActivity extends AppCompatActivity {
     * */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (permissions != null) {
-            for (int i = 0; i < permissions.length; i++) {
-                switch (permissions[i]) {
-                    case Manifest.permission.WRITE_EXTERNAL_STORAGE:
-                        if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
 
-                        }
-                        break;
-                    case Manifest.permission.ACCESS_FINE_LOCATION:
-                        if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-
-                        }
-                        break;
-                    case Manifest.permission_group.CAMERA:
-                        if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-
-                        }
-                }
-            }
-        }
     }
 
     /**
@@ -212,12 +183,6 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     updateListener.updateFail();
                 }
-//                if (printDialog != null && printDialog.isShowing()) {
-//                    printDialog.cancel();
-//                }
-//                if (!isAvilible(SplashActivity.this, "com.dynamixsoftware.printershare")) {
-//                    installPrintShare();
-//                }
             }
 
             @Override
@@ -284,7 +249,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public static File getFileFromServer(String path, ProgressDialog pd) throws Exception {
-
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(path)
@@ -398,13 +362,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**
-     * 获取权限
+     * 申请权限
      */
-    private void addPermission() {
-        PermissionUtil.getPermissions(SplashActivity.this
+    private void applyPermission() {
+        ActivityCompat.requestPermissions(SplashActivity.this
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
                         , Manifest.permission.ACCESS_COARSE_LOCATION
-                        , Manifest.permission.CAMERA});
+                        , Manifest.permission.CAMERA}, 0);
     }
 
     public abstract static class UpdateListener {

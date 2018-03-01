@@ -15,7 +15,7 @@ public class ToastUtil {
      */  
     public static void showMid(CharSequence message){
         Toast toast = Toast.makeText(AppData.getInstance(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();  
     }
 }

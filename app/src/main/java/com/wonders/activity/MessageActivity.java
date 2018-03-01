@@ -1,14 +1,23 @@
 package com.wonders.activity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -38,6 +47,8 @@ import com.wonders.http.Retrofit2Helper;
 import com.wonders.bean.PlanBean;
 import com.wonders.bean.ZtXkzBean;
 import com.wonders.util.DateUtil;
+import com.wonders.util.PermissionUtil;
+import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 import org.json.JSONArray;
@@ -62,7 +73,6 @@ import retrofit2.Response;
  * 告知页、预览页、办结页
  */
 public class MessageActivity extends Activity {
-    private Context mcontext;
     private WebView wb;
     private Button print_btn,change_btn,close_btn;
     private PlanBean bean;
@@ -124,7 +134,6 @@ public class MessageActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_yl);
-        mcontext = this;
 
         HashMap params = getIntent().getSerializableExtra(Constants.PARAMS) != null? (HashMap) getIntent().getSerializableExtra(Constants.PARAMS): new HashMap();
         planType = params.get(Constants.PLAN_TYPE) != null? (String) params.get(Constants.PLAN_TYPE) : "F";
@@ -335,69 +344,13 @@ public class MessageActivity extends Activity {
                 if (!SplashActivity.isAvailable(MessageActivity.this, Constants.PRINT_SOFTWARE_NAME)) {
                     SplashActivity.showPrintDialog(MessageActivity.this);
                 } else {
-                    LoadingDialog.show(MessageActivity.this);
-
-                    switch (docType) {
-                        case 1:
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String value) {
-                                        try {
-                                            JSONArray arr = new JSONArray(value);
-                                            personNameGaozhi = TextUtils.isEmpty(arr.getString(0)) ? "　　　　　　　　　" : arr.getString(0);
-                                            personNoGaozhi = TextUtils.isEmpty(arr.getString(1)) ? "　　　　　　　　　" : arr.getString(1);
-                                            certNameGaozhi = TextUtils.isEmpty(arr.getString(2)) ? "　　　　　　　　　" : arr.getString(2);
-                                            certNoGaozhi = TextUtils.isEmpty(arr.getString(3)) ? "　　　　　　　　　" : arr.getString(3);
-                                            checkDateGaozhi = (TextUtils.isEmpty(arr.getString(4)) ? "　　　　　　　　　" : arr.getString(4))+"年"+(TextUtils.isEmpty(arr.getString(5)) ? "　　　　　　　　　" : arr.getString(5))+"月"+((TextUtils.isEmpty(arr.getString(6)) ? "　　　　　　　　　" : arr.getString(6)))+"日";
-                                            checkAddressGaozhi = TextUtils.isEmpty(arr.getString(7)) ? "　　　　　　　　　" : arr.getString(7);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        } finally {
-                                            createGaoZhiPDF();
-                                            doPrintPDF(MessageActivity.this);
-                                            if (AppData.getInstance().isNetWork())
-                                                uploadGaoZhiData();
-                                        }
-                                    }
-                                });
-                            }
-                            break;
-                        case 2:
-                        case 4:
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String value) {
-                                        try {
-                                            JSONArray arr = new JSONArray(value);
-                                            legalPersonRecord = arr.getString(0);
-                                            phoneNoRecord = arr.getString(1);
-                                            NoRecord = arr.getString(2);
-                                            illustration = arr.getString(3) + ((TextUtils.isEmpty(arr.getString(4)) || arr.getString(4).equals("null")) ? "" : arr.getString(4));
-                                            suggestion = TextUtils.isEmpty(arr.getString(5)) || arr.getString(5).equals("null") ? "" : arr.getString(5);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        } finally {
-                                            createRecordPDF();
-                                            doPrintPDF(MessageActivity.this);
-                                            if (AppData.getInstance().isNetWork())
-                                                uploadRecordData();
-                                        }
-                                    }
-                                });
-                            }
-
-                            break;
-                        case 3:
-                        case 5:
-                            createChecksPDF();
-                            doPrintPDF(MessageActivity.this);
-                            break;
-
+                    //需要存储pdf的权限
+                    if (!PermissionUtil.checkPermissions(MessageActivity.this
+                            , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})){
+                        ActivityCompat.requestPermissions(MessageActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                    }else {
+                        printPDF();
                     }
-
-                    LoadingDialog.dismiss();
                 }
 
             }
@@ -488,6 +441,89 @@ public class MessageActivity extends Activity {
         }
 
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //保存pdf的权限
+        if (requestCode == 0){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                printPDF();
+            else {
+                //权限选择被永久禁止
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(MessageActivity.this, permissions[0]))
+                    showAlert();
+                else
+                    ToastUtil.showMid("打印前，请允许相关权限");
+            }
+
+        }
+    }
+
+    public void printPDF(){
+        LoadingDialog.show(MessageActivity.this);
+
+        switch (docType) {
+            case 1:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            try {
+                                JSONArray arr = new JSONArray(value);
+                                personNameGaozhi = TextUtils.isEmpty(arr.getString(0)) ? "　　　　　　　　　" : arr.getString(0);
+                                personNoGaozhi = TextUtils.isEmpty(arr.getString(1)) ? "　　　　　　　　　" : arr.getString(1);
+                                certNameGaozhi = TextUtils.isEmpty(arr.getString(2)) ? "　　　　　　　　　" : arr.getString(2);
+                                certNoGaozhi = TextUtils.isEmpty(arr.getString(3)) ? "　　　　　　　　　" : arr.getString(3);
+                                checkDateGaozhi = (TextUtils.isEmpty(arr.getString(4)) ? "　　　　　　　　　" : arr.getString(4))+"年"+(TextUtils.isEmpty(arr.getString(5)) ? "　　　　　　　　　" : arr.getString(5))+"月"+((TextUtils.isEmpty(arr.getString(6)) ? "　　　　　　　　　" : arr.getString(6)))+"日";
+                                checkAddressGaozhi = TextUtils.isEmpty(arr.getString(7)) ? "　　　　　　　　　" : arr.getString(7);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } finally {
+                                createGaoZhiPDF();
+                                doPrintPDF(MessageActivity.this);
+                                if (AppData.getInstance().isNetWork())
+                                    uploadGaoZhiData();
+                            }
+                        }
+                    });
+                }
+                break;
+            case 2:
+            case 4:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            try {
+                                JSONArray arr = new JSONArray(value);
+                                legalPersonRecord = arr.getString(0);
+                                phoneNoRecord = arr.getString(1);
+                                NoRecord = arr.getString(2);
+                                illustration = arr.getString(3) + ((TextUtils.isEmpty(arr.getString(4)) || arr.getString(4).equals("null")) ? "" : arr.getString(4));
+                                suggestion = TextUtils.isEmpty(arr.getString(5)) || arr.getString(5).equals("null") ? "" : arr.getString(5);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } finally {
+                                createRecordPDF();
+                                doPrintPDF(MessageActivity.this);
+                                if (AppData.getInstance().isNetWork())
+                                    uploadRecordData();
+                            }
+                        }
+                    });
+                }
+
+                break;
+            case 3:
+            case 5:
+                createChecksPDF();
+                doPrintPDF(MessageActivity.this);
+                break;
+
+        }
+
+        LoadingDialog.dismiss();
     }
 
     public void createGaoZhiPDF() {
@@ -1234,6 +1270,7 @@ public class MessageActivity extends Activity {
 
         com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4);
         try {
+            PdfWriter.getInstance(document, new FileOutputStream(url));
             document.open();
             Font baseFont = new Font(BaseFont.createFont("assets/MSYYY.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
             Font font = new Font(baseFont);
@@ -1423,6 +1460,7 @@ public class MessageActivity extends Activity {
         }
     }
 
+
     public class BorderEvent implements PdfPTableEvent {
         public void tableLayout(PdfPTable table, float[][] widths, float[] heights, int headerRows, int rowStart, PdfContentByte[] canvases) {
             float width[] = widths[0];
@@ -1517,5 +1555,25 @@ public class MessageActivity extends Activity {
         intent.setComponent(comp);
         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
         context.startActivity(intent);
+    }
+
+    public void showAlert(){
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+        ssb.append("打印功能需要提供 ");
+        ssb.append("存储权限 ");
+        ssb.append("请前往  设置-权限管理");
+        ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.blue_1)), 9, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        AlertDialog alertDialog = new AlertDialog.Builder(MessageActivity.this, R.style.alertDialog)
+                .setMessage(ssb)
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+
     }
 }

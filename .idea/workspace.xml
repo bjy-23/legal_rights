@@ -561,7 +561,7 @@
       <file leaf-file-name="MessageActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/MessageActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
+            <state relative-caret-position="147">
               <caret line="1566" column="32" lean-forward="false" selection-start-line="1566" selection-start-column="32" selection-end-line="1566" selection-end-column="32" />
               <folding>
                 <element signature="docComment;class#MessageActivity#0" expanded="false" />
@@ -3041,7 +3041,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898349667" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898444638" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3089,7 +3089,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898349667" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898444638" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3251,7 +3251,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898349669" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519898444640" />
       </method>
     </configuration>
     <list size="1">
@@ -6190,7 +6190,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wonders/activity/MessageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
+        <state relative-caret-position="147">
           <caret line="1566" column="32" lean-forward="false" selection-start-line="1566" selection-start-column="32" selection-end-line="1566" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#MessageActivity#0" expanded="false" />

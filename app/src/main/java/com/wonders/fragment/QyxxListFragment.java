@@ -10,13 +10,12 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import com.wonders.activity.CompanyActivity;
-import com.wonders.activity.MessageActivity;
+import com.wonders.activity.PreviewScActivity;
 import com.wonders.adapter.BaseAdapter;
 import com.wonders.adapter.QyxxAdapter;
 import com.wonders.application.AppData;
@@ -265,6 +264,6 @@ public class QyxxListFragment extends RecyclerViewFragment {
 
         CheckInfoFragment.isTemp = true;
         CheckRecordFragment.isTemp = true;
-        MessageActivity.checkUnit = data.get(position).getExeOrgan();
+        PreviewScActivity.checkUnit = data.get(position).getExeOrgan();
     }
 }

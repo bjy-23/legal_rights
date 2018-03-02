@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.example.legal_rights.R;
-import com.wonders.activity.MessageActivity;
-import com.wonders.activity.YlActivity;
+import com.wonders.activity.PreviewScActivity;
+import com.wonders.activity.PreviewLtActivity;
 import com.wonders.adapter.BaseAdapter;
 import com.wonders.adapter.DocScAdapter;
 import com.wonders.constant.Constants;
@@ -171,7 +171,7 @@ public class DocListScFragment extends RecyclerViewFragment{
         planId = wsdyBean.getPlanId();
         switch (wsdyBean.getCodeType()) {
             default:
-                Intent intent = new Intent(getActivity(), YlActivity.class);
+                Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                 intent.putExtra("planId", planId);
                 intent.putExtra("sub", "1");
 
@@ -316,7 +316,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                                 }
                             }
 
-                            MessageActivity.notesJSONArray = getNotes();
+                            PreviewScActivity.notesJSONArray = getNotes();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -336,8 +336,8 @@ public class DocListScFragment extends RecyclerViewFragment{
 
     public JSONArray getNotes() {
         JSONArray jsonArray = new JSONArray();
-        makeNoteData(jsonArray, MessageActivity.highPros);
-        makeNoteData(jsonArray, MessageActivity.lowPros);
+        makeNoteData(jsonArray, PreviewScActivity.highPros);
+        makeNoteData(jsonArray, PreviewScActivity.lowPros);
 
         return jsonArray;
     }
@@ -415,7 +415,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                 params.put(Constants.PLAN_ID, planId);
                 params.put("id", wsid);
 
-                Intent intent = new Intent(getActivity(), MessageActivity.class);
+                Intent intent = new Intent(getActivity(), PreviewScActivity.class);
                 switch (position) {
 
                     case 0:
@@ -450,8 +450,8 @@ public class DocListScFragment extends RecyclerViewFragment{
                             e.printStackTrace();
                         }
 
-                        MessageActivity.groupJSONArray = group;
-                        MessageActivity.childJSONArray = child;
+                        PreviewScActivity.groupJSONArray = group;
+                        PreviewScActivity.childJSONArray = child;
                         intent.putExtra(Constants.PARAMS, params);
                         startActivity(intent);
                         break;

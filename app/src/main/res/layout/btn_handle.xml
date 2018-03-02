@@ -9,19 +9,19 @@
 
     <Button
         style="@style/btnStyle"
-        android:id="@+id/print_btn"
+        android:id="@+id/btn_print"
         android:text="打印" />
 
     <Button
         style="@style/btnStyle"
-        android:id="@+id/change_btn"
+        android:id="@+id/btn_change"
         android:layout_marginLeft="15dp"
         android:text="下一页"
         android:visibility="gone"/>
 
     <Button
         style="@style/btnStyle"
-        android:id="@+id/close_btn"
+        android:id="@+id/btn_close"
         android:layout_marginLeft="15dp"
         android:text="关闭" />
 </LinearLayout>

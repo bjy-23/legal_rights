@@ -1,16 +1,16 @@
 package com.wonders.util;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.example.legal_rights.R;
 
 /**
  * Created by bjy on 2018/3/1.
@@ -38,4 +38,21 @@ public class PermissionUtil {
         return result;
     }
 
+    public static void showAlert(Context context, String permissionName){
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+        ssb.append("需要提供 ");
+        ssb.append(permissionName + "权限");
+        ssb.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.blue_1)), 5, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.alertDialog)
+                .setMessage(ssb)
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
 }

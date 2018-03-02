@@ -37,9 +37,9 @@ import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wonders.activity.InputActivity;
-import com.wonders.activity.MessageActivity;
+import com.wonders.activity.PreviewScActivity;
 import com.wonders.activity.NotesActivity;
-import com.wonders.activity.YlActivity;
+import com.wonders.activity.PreviewLtActivity;
 import com.wonders.adapter.ImageGridViewAdapter;
 import com.wonders.adapter.MyExpandableListAdapter;
 import com.wonders.application.AppData;
@@ -48,7 +48,6 @@ import com.wonders.bean.Result;
 import com.wonders.bean.SavePlanBean;
 import com.wonders.bean.SopItemBean;
 import com.wonders.constant.Constants;
-import com.wonders.constant.DbConstants;
 import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.DbHelper;
 import com.wonders.http.Retrofit2Helper;
@@ -811,14 +810,14 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                                     params.put(Constants.PLAN_TYPE, content.substring(0, 1));
                                     params.put(Constants.PLAN_ID, planId);
                                     params.put(Constants.DOC_TYPE, 2);
-                                    MessageActivity.groupJSONArray = getAllGroup();
-                                    MessageActivity.childJSONArray = getAllChild();
-                                    MessageActivity.notesJSONArray = getNotes();
-                                    Intent intent = new Intent(mContext, MessageActivity.class);
+                                    PreviewScActivity.groupJSONArray = getAllGroup();
+                                    PreviewScActivity.childJSONArray = getAllChild();
+                                    PreviewScActivity.notesJSONArray = getNotes();
+                                    Intent intent = new Intent(mContext, PreviewScActivity.class);
                                     intent.putExtra(Constants.PARAMS, params);
                                     startActivity(intent);
                                 } else {
-                                    Intent intent = new Intent(getActivity(), YlActivity.class);
+                                    Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                                     intent.putExtra("planId", planId);
                                     intent.putExtra("sub", "1");
                                     intent.putExtra("acc", ptrEt.getText().toString());
@@ -848,7 +847,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     if ("".equals(Constants.TYPE)) {
                         actionYlSC();
                     } else {
-                        Intent intent = new Intent(getActivity(), YlActivity.class);
+                        Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                         intent.putExtra("planId", planId);
                         intent.putExtra("acc", ptrEt.getText().toString());
                         startActivity(intent);
@@ -2168,8 +2167,8 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
 
     public JSONArray getNotes() {
         JSONArray jsonArray = new JSONArray();
-        makeNoteData(jsonArray, MessageActivity.highPros);
-        makeNoteData(jsonArray, MessageActivity.lowPros);
+        makeNoteData(jsonArray, PreviewScActivity.highPros);
+        makeNoteData(jsonArray, PreviewScActivity.lowPros);
 
         return jsonArray;
     }
@@ -2233,19 +2232,19 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     }
 
     public static void makeRecordData(JSONArray array) {
-        MessageActivity.highItems.clear();
-        MessageActivity.lowItems.clear();
-        MessageActivity.highPros.clear();
-        MessageActivity.lowPros.clear();
+        PreviewScActivity.highItems.clear();
+        PreviewScActivity.lowItems.clear();
+        PreviewScActivity.highPros.clear();
+        PreviewScActivity.lowPros.clear();
         try {
-            MessageActivity.count1 = array.get(0).toString();
-            MessageActivity.count2 = array.get(1).toString();
-            MessageActivity.count3 = array.get(2).toString();
+            PreviewScActivity.count1 = array.get(0).toString();
+            PreviewScActivity.count2 = array.get(1).toString();
+            PreviewScActivity.count3 = array.get(2).toString();
             JSONArray jsonArray4 = array.getJSONArray(3);
             if (jsonArray4.length() != 0) {
                 String s4 = "";
                 for (int i = 0; i < jsonArray4.length(); i++) {
-                    MessageActivity.highItems.add(jsonArray4.get(i).toString());
+                    PreviewScActivity.highItems.add(jsonArray4.get(i).toString());
                     String itemCode = jsonArray4.get(i).toString();
                     int length = itemCode.length();
                     String s = "";
@@ -2255,16 +2254,16 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         s = getItemNum(itemCode);
                     s4 += s.substring(1, s.length()) + "、";
                 }
-                MessageActivity.count4 = s4.substring(0, s4.length() - 1);
+                PreviewScActivity.count4 = s4.substring(0, s4.length() - 1);
             } else {
-                MessageActivity.count4 = "";
+                PreviewScActivity.count4 = "";
             }
-            MessageActivity.count5 = array.get(4).toString();
+            PreviewScActivity.count5 = array.get(4).toString();
             JSONArray jsonArray6 = array.getJSONArray(5);
             if (jsonArray6.length() != 0) {
                 String s6 = "";
                 for (int i = 0; i < jsonArray6.length(); i++) {
-                    MessageActivity.lowItems.add(jsonArray6.get(i).toString());
+                    PreviewScActivity.lowItems.add(jsonArray6.get(i).toString());
                     String itemCode = jsonArray6.get(i).toString();
                     int length = itemCode.length();
                     String s = "";
@@ -2274,16 +2273,16 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         s = getItemNum(itemCode);
                     s6 += s + "、";
                 }
-                MessageActivity.count6 = s6.substring(0, s6.length() - 1);
+                PreviewScActivity.count6 = s6.substring(0, s6.length() - 1);
             } else {
-                MessageActivity.count6 = "";
+                PreviewScActivity.count6 = "";
             }
-            MessageActivity.count7 = array.get(6).toString();
+            PreviewScActivity.count7 = array.get(6).toString();
             JSONArray jsonArray8 = array.getJSONArray(7);
             if (jsonArray8.length() != 0) {
                 String s8 = "";
                 for (int i = 0; i < jsonArray8.length(); i++) {
-                    MessageActivity.highPros.add(jsonArray8.get(i).toString());
+                    PreviewScActivity.highPros.add(jsonArray8.get(i).toString());
                     String itemCode = jsonArray8.get(i).toString();
                     int length = itemCode.length();
                     String s = "";
@@ -2293,16 +2292,16 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         s = getItemNum(itemCode);
                     s8 += s.substring(1, s.length()) + "、";
                 }
-                MessageActivity.count8 = s8.substring(0, s8.length() - 1);
+                PreviewScActivity.count8 = s8.substring(0, s8.length() - 1);
             } else {
-                MessageActivity.count8 = "";
+                PreviewScActivity.count8 = "";
             }
-            MessageActivity.count9 = array.get(8).toString();
+            PreviewScActivity.count9 = array.get(8).toString();
             JSONArray jsonArray10 = array.getJSONArray(9);
             if (jsonArray10.length() != 0) {
                 String s10 = "";
                 for (int i = 0; i < jsonArray10.length(); i++) {
-                    MessageActivity.lowPros.add(jsonArray10.get(i).toString());
+                    PreviewScActivity.lowPros.add(jsonArray10.get(i).toString());
                     String itemCode = jsonArray10.get(i).toString();
                     int length = itemCode.length();
                     String s = "";
@@ -2312,11 +2311,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                         s = getItemNum(itemCode);
                     s10 += s + "、";
                 }
-                MessageActivity.count10 = s10.substring(0, s10.length() - 1);
+                PreviewScActivity.count10 = s10.substring(0, s10.length() - 1);
             } else {
-                MessageActivity.count10 = "";
+                PreviewScActivity.count10 = "";
             }
-            MessageActivity.checkResult = array.get(10).toString();
+            PreviewScActivity.checkResult = array.get(10).toString();
             String startDate = array.get(11).toString().substring(0, 10);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
@@ -2325,7 +2324,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            MessageActivity.startDate = (date.getYear() + 1900) + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
+            PreviewScActivity.startDate = (date.getYear() + 1900) + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日";
 
 
         } catch (JSONException e) {
@@ -2359,7 +2358,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         s0 = s1 + "." + s3;
 
         boolean isHave = false;
-        for (String item : MessageActivity.highItems) {
+        for (String item : PreviewScActivity.highItems) {
             if (item.equals(itemCode)) {
                 isHave = true;
                 break;
@@ -2494,10 +2493,10 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         params.put(Constants.PLAN_TYPE, content.substring(0, 1));
         params.put(Constants.PLAN_ID, planId);
         params.put(Constants.DOC_TYPE, 2);
-        MessageActivity.groupJSONArray = getAllGroup();
-        MessageActivity.childJSONArray = getAllChild();
-        MessageActivity.notesJSONArray = getNotes();
-        Intent intent = new Intent(mContext, MessageActivity.class);
+        PreviewScActivity.groupJSONArray = getAllGroup();
+        PreviewScActivity.childJSONArray = getAllChild();
+        PreviewScActivity.notesJSONArray = getNotes();
+        Intent intent = new Intent(mContext, PreviewScActivity.class);
         intent.putExtra(Constants.PARAMS, params);
         startActivity(intent);
     }
@@ -2513,11 +2512,11 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         params.put(Constants.PLAN_ID, planId);
         params.put("recordBean", recordBean);
         params.put(Constants.DOC_TYPE, 2);
-        MessageActivity.groupJSONArray = getAllGroup();
-        MessageActivity.childJSONArray = getAllChild();
-        MessageActivity.notesJSONArray = getNotes();
+        PreviewScActivity.groupJSONArray = getAllGroup();
+        PreviewScActivity.childJSONArray = getAllChild();
+        PreviewScActivity.notesJSONArray = getNotes();
 
-        Intent intent = new Intent(mContext, MessageActivity.class);
+        Intent intent = new Intent(mContext, PreviewScActivity.class);
         intent.putExtra(Constants.PARAMS, params);
         startActivity(intent);
     }

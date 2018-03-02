@@ -1,38 +1,22 @@
 package com.wonders.activity;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.itextpdf.text.Chunk;
@@ -57,6 +41,7 @@ import com.wonders.bean.FpsiLtInspItem;
 import com.wonders.bean.FpsiLtInspPlan;
 import com.wonders.bean.FpsiLtPlanResult;
 import com.wonders.bean.FpsiPlanResult;
+import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
@@ -67,115 +52,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class YlActivity extends AppCompatActivity {
-    private WebView wb;
+/**
+ * 流通-预览
+ */
+public class PreviewLtActivity extends PreviewActivity {
     private String planId;
     private String sub;
     private String acc;
-    private Button closeBtn;
-    private Button printBtn;//打印
 
     private String scUrl;
     private String ltUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_yl);
+        super.onCreate(savedInstanceState);
 
         scUrl = Retrofit2Helper.BSAE_URL + "SopCheckForm.do";
         ltUrl = Retrofit2Helper.BSAE_URL + "documentPrint.do";
 
-        File destDir = new File(Environment.getExternalStorageDirectory(),
-                "fpsi");
-        if (!destDir.exists()) {
-            destDir.mkdirs();
-        }
-
-        printBtn = (Button) findViewById(R.id.print_btn);
-        printBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!SplashActivity.isAvailable(YlActivity.this, Constants.PRINT_SOFTWARE_NAME)) {
-                    SplashActivity.showPrintDialog(YlActivity.this);
-                }else {
-                    LoadingDialog.show(YlActivity.this);
-                    HashMap<String,String> params = new HashMap<String, String>();
-                    params.put("planId", planId);
-                    params.put("isPreview", sub);
-                    params.put("accompany", acc);
-
-                    Call<ResponseBody> call = Retrofit2Helper.getInstance().ltGetPDFPrintData(params);
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            String result = "";
-                            try {
-                                result = response.body().string();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                JSONObject jsonObject = new JSONObject(result);
-                                if ("null".equals(jsonObject.getString("object"))){
-                                    ToastUtil.show(getResources().getString(R.string.error_json));
-                                    LoadingDialog.dismiss();
-                                    return;
-                                }
-                                JSONObject jsonObject1 = (JSONObject) jsonObject.get("object");
-                                Iterator it = jsonObject1.keys();
-                                HashMap map = new HashMap();
-                                while (it.hasNext()) {
-                                    String key = String.valueOf(it.next());
-                                    Object value = (Object) jsonObject1.get(key);
-                                    map.put(key, value);
-                                }
-                                createPdf(Environment.getExternalStorageDirectory() + "/Download/1228.pdf", map);
-                                MessageActivity.doPrintPDF(YlActivity.this);
-                                LoadingDialog.dismiss();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            LoadingDialog.dismiss();
-                            ToastUtil.show(getResources().getString(R.string.error_server));
-                        }
-                    });
-                }
-            }
-        });
-
-        closeBtn = (Button) findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
-
         planId = getIntent().getStringExtra("planId");
         sub = "1".equals(getIntent().getStringExtra("sub")) ? "1" : "0";
         acc = (getIntent().getStringExtra("acc") == null) ? "无" : getIntent().getStringExtra("acc");
-
-        wb = (WebView) findViewById(R.id.webview);
-        //
-        wb.getSettings().setJavaScriptEnabled(true);
-        wb.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        wb.setWebChromeClient(new WebChromeClient());
-        // 设置可以支持缩放
-        wb.getSettings().setSupportZoom(true);
-        // 设置出现缩放工具
-        wb.getSettings().setBuiltInZoomControls(true);
-        // 扩大比例的缩放
-        wb.getSettings().setUseWideViewPort(true);
-        wb.setInitialScale(10);
-
-        wb.setWebViewClient(new WebViewClient());
 
         String url4load = "";
         if (Constants.TYPE.equals("")) {
@@ -197,69 +94,80 @@ public class YlActivity extends AppCompatActivity {
 
             Log.i("cookieString", cookieString);
         }
-        wb.loadUrl(url4load);
-
-        super.onCreate(savedInstanceState);
+        webView.loadUrl(url4load);
     }
 
-    public boolean copyApkFromAssets(Context context, String fileName, String path) {
-        boolean copyIsFinish = false;
-        try {
-            InputStream is = context.getAssets().open(fileName);
-            File file = new File(path);
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] temp = new byte[1024];
-            int i = 0;
-            while ((i = is.read(temp)) > 0) {
-                fos.write(temp, 0, i);
+    @Override
+    protected boolean createPDF() {
+        HashMap<String,String> params = new HashMap<String, String>();
+        params.put("planId", planId);
+        params.put("isPreview", sub);
+        params.put("accompany", acc);
+
+        Call<ResponseBody> call = Retrofit2Helper.getInstance().ltGetPDFPrintData(params);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String result = "";
+                try {
+                    result = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if ("null".equals(jsonObject.getString("object"))){
+                        ToastUtil.show(getResources().getString(R.string.error_json));
+                        LoadingDialog.dismiss();
+                        return;
+                    }
+                    JSONObject jsonObject1 = (JSONObject) jsonObject.get("object");
+                    Iterator it = jsonObject1.keys();
+                    HashMap map = new HashMap();
+                    while (it.hasNext()) {
+                        String key = String.valueOf(it.next());
+                        Object value = (Object) jsonObject1.get(key);
+                        map.put(key, value);
+                    }
+                    makePDF(PDF_PATH, map);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            fos.close();
-            is.close();
-            copyIsFinish = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return copyIsFinish;
-    }
 
-    private boolean isAvilible( Context context, String packageName )
-    {
-        final PackageManager packageManager = context.getPackageManager();
-        // 获取所有已安装程序的包信息
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        for ( int i = 0; i < pinfo.size(); i++ )
-        {
-            if(pinfo.get(i).packageName.equalsIgnoreCase(packageName))
-                return true;
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                LoadingDialog.dismiss();
+                ToastUtil.show(getResources().getString(R.string.error_server));
+            }
+        });
+
         return false;
     }
 
-
-    public void createPdf(String dest, Map map){
-        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream(dest));
-            document.open();
-            if(Constants.TYPE.equals("")){
-                setPDFInfo(document,map);
-            }else {
-                setltPDFInfo(document,map);
+    public void makePDF(String dest, Map map){
+        FastDealExecutor.run(new Runnable() {
+            @Override
+            public void run() {
+                com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+                try {
+                    PdfWriter.getInstance(document, new FileOutputStream(dest));
+                    document.open();
+                    if(Constants.TYPE.equals("")){
+                        setPDFInfo(document,map);
+                    }else {
+                        setltPDFInfo(document,map);
+                    }
+                    document.close();
+                    handler.sendEmptyMessage(0);
+                } catch (Exception e) {
+                    document.close();
+                    e.printStackTrace();
+                    handler.sendEmptyMessage(1);
+                }
             }
-            document.close();
-            //
-        } catch (FileNotFoundException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (IOException e) {
-            document.close();
-            e.printStackTrace();
-        }
-
+        });
     }
 
     protected void setPDFInfo(com.itextpdf.text.Document document, Map map) throws DocumentException,

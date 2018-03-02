@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 import com.example.legal_rights.R;
-import com.wonders.activity.YlActivity;
+import com.wonders.activity.PreviewLtActivity;
 import com.wonders.adapter.BaseAdapter;
 import com.wonders.adapter.DocLtAdapter;
 import com.wonders.util.JsonHelper;
@@ -46,7 +46,7 @@ public class DocListLtFragment extends RecyclerViewFragment {
         adapter.setOnClickListener(new BaseAdapter.OnClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(getActivity(), YlActivity.class);
+                Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                 intent.putExtra("planId", data.get(position).getPlanId());
                 startActivity(intent);
             }

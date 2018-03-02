@@ -185,14 +185,20 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             //拍照
             case 0:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     startCamera();
-                }else {
-                    ToastUtil.show("需要提供权限！");
+                } else {
+                    if (grantResults[0] == PackageManager.PERMISSION_DENIED
+                            && grantResults[1] == PackageManager.PERMISSION_DENIED)
+                        PermissionUtil.showAlert(getActivity(), "相机、存储");
+                    else if (grantResults[0] == PackageManager.PERMISSION_DENIED)
+                        PermissionUtil.showAlert(getActivity(), "相机");
+                    else if (grantResults[1] == PackageManager.PERMISSION_DENIED)
+                        PermissionUtil.showAlert(getActivity(), "存储");
                 }
                 break;
             //从手机相册选取
@@ -200,7 +206,7 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     takePicturesFromStorage();
                 else
-                    ToastUtil.show("需要提供权限！");
+                    PermissionUtil.showAlert(getActivity(), "存储");
                 break;
         }
     }
@@ -391,9 +397,9 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
     public void paiZhao(int position) {
         picPosition = position;
         //相机权限检测和申请
-        if(PermissionUtil.checkPermissions(getActivity(), PERMISSIONS_CAMERA)){
+        if (PermissionUtil.checkPermissions(getActivity(), PERMISSIONS_CAMERA)) {
             startCamera();
-        }else {
+        } else {
             requestPermissions(PERMISSIONS_CAMERA, 0);
         }
     }
@@ -401,13 +407,13 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
     @Override
     public void xuanQu(int position) {
         picPosition = position;
-        if (PermissionUtil.checkPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})){
+        if (PermissionUtil.checkPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE})) {
             takePicturesFromStorage();
-        }else
-            requestPermissions(PERMISSIONS_CAMERA, 1);
+        } else
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
     }
 
-    public void startCamera(){
+    public void startCamera() {
         Intent intent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
         timeMark = DateUtil.format(System.currentTimeMillis());
@@ -422,7 +428,7 @@ public class ItemWriteFragment extends Fragment implements AMapLocationListener,
     /**
      * 读取本地图片
      */
-    public void takePicturesFromStorage(){
+    public void takePicturesFromStorage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, picPosition);
     }

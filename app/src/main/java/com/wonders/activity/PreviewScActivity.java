@@ -1,32 +1,14 @@
 package com.wonders.activity;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 
-import com.example.legal_rights.R;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -46,16 +28,14 @@ import com.wonders.fragment.CheckInfoFragment;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.bean.PlanBean;
 import com.wonders.bean.ZtXkzBean;
+import com.wonders.thread.FastDealExecutor;
 import com.wonders.util.DateUtil;
-import com.wonders.util.PermissionUtil;
-import com.wonders.util.ToastUtil;
 import com.wonders.widget.LoadingDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,11 +50,9 @@ import retrofit2.Response;
 
 /**
  * Created by 1229 on 2016/8/29.
- * 告知页、预览页、办结页
+ * 生产-告知页、预览页、办结页
  */
-public class MessageActivity extends Activity {
-    private WebView wb;
-    private Button print_btn,change_btn,close_btn;
+public class PreviewScActivity extends PreviewActivity {
     private PlanBean bean;
     private JSONObject jsonObject;
     private JSONObject checksJson;
@@ -122,8 +100,6 @@ public class MessageActivity extends Activity {
     private String illustration = "";
     private String suggestion = "";
 
-    private String url = Environment.getExternalStorageDirectory() + "/Download/1228.pdf";
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -133,19 +109,17 @@ public class MessageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_yl);
-
-        HashMap params = getIntent().getSerializableExtra(Constants.PARAMS) != null? (HashMap) getIntent().getSerializableExtra(Constants.PARAMS): new HashMap();
-        planType = params.get(Constants.PLAN_TYPE) != null? (String) params.get(Constants.PLAN_TYPE) : "F";
-        planId = params.get(Constants.PLAN_ID) != null? (String) params.get(Constants.PLAN_ID) : "";
-        docType = params.get(Constants.DOC_TYPE) != null? (int) params.get(Constants.DOC_TYPE) : 2;
+        HashMap params = getIntent().getSerializableExtra(Constants.PARAMS) != null ? (HashMap) getIntent().getSerializableExtra(Constants.PARAMS) : new HashMap();
+        planType = params.get(Constants.PLAN_TYPE) != null ? (String) params.get(Constants.PLAN_TYPE) : "F";
+        planId = params.get(Constants.PLAN_ID) != null ? (String) params.get(Constants.PLAN_ID) : "";
+        docType = params.get(Constants.DOC_TYPE) != null ? (int) params.get(Constants.DOC_TYPE) : 2;
         id = getIntent().getStringExtra("id");
         certNo = handleCertNo();
 
         switch (docType) {
             case 1:
                 //组装数据
-                String gaozhi = params.get("gaozhi") != null? (String) params.get("gaozhi") : "";
+                String gaozhi = params.get("gaozhi") != null ? (String) params.get("gaozhi") : "";
                 try {
                     jsonObject = new JSONObject(gaozhi);
                     etpsName = jsonObject.getString("etpsName");
@@ -156,7 +130,7 @@ public class MessageActivity extends Activity {
                 }
                 break;
             case 2:
-                 checksJson = new JSONObject();
+                checksJson = new JSONObject();
                 try {
                     checksJson.put("group", groupJSONArray);
                     checksJson.put("child", childJSONArray);
@@ -197,8 +171,8 @@ public class MessageActivity extends Activity {
                     jsonObject.put("checkResult", checkResult);
                     jsonObject.put("startDate", startDate);
                     jsonObject.put("notes", notesJSONArray);
-                    jsonObject.put("suggestion","");
-                    jsonObject.put("type",1);
+                    jsonObject.put("suggestion", "");
+                    jsonObject.put("type", 1);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -212,7 +186,7 @@ public class MessageActivity extends Activity {
                 etpsName = bean.getEtpsName();
                 address = bean.getAddress();
                 checkUnit = bean.getExeOrgan();
-                String []remarkArray = !TextUtils.isEmpty(bean.getRemark())?bean.getRemark().split("\n"):new String[0];
+                String[] remarkArray = !TextUtils.isEmpty(bean.getRemark()) ? bean.getRemark().split("\n") : new String[0];
                 suggestion = bean.getOpinion();
                 try {
                     jsonObject.put("checkNo", bean.getCheckNo() == null ? "" : bean.getCheckNo());
@@ -240,12 +214,12 @@ public class MessageActivity extends Activity {
                     jsonObject.put("checkResult", checkResult);
                     jsonObject.put("startDate", startDate);
                     JSONArray remarkJSONArray = new JSONArray();
-                    for(String s:remarkArray){
+                    for (String s : remarkArray) {
                         remarkJSONArray.put(s);
                     }
                     jsonObject.put("remark", remarkJSONArray);
-                    jsonObject.put("suggestion",suggestion);
-                    jsonObject.put("type",2);
+                    jsonObject.put("suggestion", suggestion);
+                    jsonObject.put("type", 2);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -267,113 +241,13 @@ public class MessageActivity extends Activity {
                 }
         }
 
-        close_btn = (Button) findViewById(R.id.close_btn);
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        change_btn = (Button) findViewById(R.id.change_btn);
-        switch (docType) {
-            case 1:
-            case 4:
-            case 5:
-                change_btn.setVisibility(View.GONE);
-                break;
-            case 2:
-            case 3:
-                change_btn.setVisibility(View.VISIBLE);
-                break;
-        }
-        change_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch ((String) change_btn.getText()) {
-                    case "下一页":
-                        docType = 3;
-                        wb.loadUrl("file:///android_asset/checks.html");
-                        wb.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public void onPageFinished(WebView view, String url) {
-                                // TODO Auto-generated method stub
-                                super.onPageFinished(view, url);
-                                Log.e("checksJson", checksJson.toString());
-                                String call = "javascript:createTable(\'" + checksJson.toString().replaceAll("\r|\n", "") + "\')";
-                                view.loadUrl(call);
-                            }
-
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-                                return false;
-                            }
-                        });
-                        change_btn.setText("上一页");
-                        break;
-                    case "上一页":
-                        docType = 2;
-                        Log.d("sendData", jsonObject.toString());
-                        wb.loadUrl("file:///android_asset/record.html");
-                        wb.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public void onPageFinished(WebView view, String url) {
-                                // TODO Auto-generated method stub
-                                super.onPageFinished(view, url);
-                                String call = "javascript:sendData(\'" + jsonObject.toString().replaceAll("\r|\n", "") + "\')";
-                                view.loadUrl(call);
-                            }
-
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-                                return false;
-                            }
-                        });
-                        change_btn.setText("下一页");
-                        break;
-                }
-            }
-        });
-
-        print_btn = (Button) findViewById(R.id.print_btn);
-        print_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!SplashActivity.isAvailable(MessageActivity.this, Constants.PRINT_SOFTWARE_NAME)) {
-                    SplashActivity.showPrintDialog(MessageActivity.this);
-                } else {
-                    //需要存储pdf的权限
-                    if (!PermissionUtil.checkPermissions(MessageActivity.this
-                            , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})){
-                        ActivityCompat.requestPermissions(MessageActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                    }else {
-                        printPDF();
-                    }
-                }
-
-            }
-        });
-
         int resultCode = getIntent().getIntExtra("position", 0);
         setResult(resultCode);
-        wb = (WebView) findViewById(R.id.webview);
-        wb.getSettings().setJavaScriptEnabled(true);
-        wb.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        wb.setWebChromeClient(new WebChromeClient());
-        // 设置可以支持缩放
-        wb.getSettings().setSupportZoom(true);
-        // 设置出现缩放工具
-        wb.getSettings().setBuiltInZoomControls(true);
-        // 扩大比例的缩放
-        wb.getSettings().setUseWideViewPort(true);
-        wb.setInitialScale(10);
 
         switch (docType) {
             case 1:
-                wb.loadUrl("file:///android_asset/gaozhi.html");
-                wb.setWebViewClient(new WebViewClient() {
+                webView.loadUrl("file:///android_asset/gaozhi.html");
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
                         // TODO Auto-generated method stub
@@ -388,9 +262,9 @@ public class MessageActivity extends Activity {
                         return false;
                     }
                 });
-                wb.loadUrl("javascript:getIllustrate()");
+                webView.loadUrl("javascript:getIllustrate()");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
+                    webView.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {
 
@@ -402,8 +276,8 @@ public class MessageActivity extends Activity {
             case 2:
             case 4:
                 Log.d("sendData", jsonObject.toString());
-                wb.loadUrl("file:///android_asset/record.html");
-                wb.setWebViewClient(new WebViewClient() {
+                webView.loadUrl("file:///android_asset/record.html");
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
                         // TODO Auto-generated method stub
@@ -420,8 +294,8 @@ public class MessageActivity extends Activity {
                 });
                 break;
             case 5:
-                wb.loadUrl("file:///android_asset/checks.html");
-                wb.setWebViewClient(new WebViewClient() {
+                webView.loadUrl("file:///android_asset/checks.html");
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
                         // TODO Auto-generated method stub
@@ -439,34 +313,14 @@ public class MessageActivity extends Activity {
                 });
                 break;
         }
-
-
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //保存pdf的权限
-        if (requestCode == 0){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                printPDF();
-            else {
-                //权限选择被永久禁止
-                if (!ActivityCompat.shouldShowRequestPermissionRationale(MessageActivity.this, permissions[0]))
-                    showAlert();
-                else
-                    ToastUtil.showMid("打印前，请允许相关权限");
-            }
-
-        }
-    }
-
-    public void printPDF(){
-        LoadingDialog.show(MessageActivity.this);
-
+    protected boolean createPDF() {
         switch (docType) {
             case 1:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
+                    webView.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {
                             try {
@@ -475,13 +329,17 @@ public class MessageActivity extends Activity {
                                 personNoGaozhi = TextUtils.isEmpty(arr.getString(1)) ? "　　　　　　　　　" : arr.getString(1);
                                 certNameGaozhi = TextUtils.isEmpty(arr.getString(2)) ? "　　　　　　　　　" : arr.getString(2);
                                 certNoGaozhi = TextUtils.isEmpty(arr.getString(3)) ? "　　　　　　　　　" : arr.getString(3);
-                                checkDateGaozhi = (TextUtils.isEmpty(arr.getString(4)) ? "　　　　　　　　　" : arr.getString(4))+"年"+(TextUtils.isEmpty(arr.getString(5)) ? "　　　　　　　　　" : arr.getString(5))+"月"+((TextUtils.isEmpty(arr.getString(6)) ? "　　　　　　　　　" : arr.getString(6)))+"日";
+                                checkDateGaozhi = (TextUtils.isEmpty(arr.getString(4)) ? "　　　　　　　　　" : arr.getString(4)) + "年" + (TextUtils.isEmpty(arr.getString(5)) ? "　　　　　　　　　" : arr.getString(5)) + "月" + ((TextUtils.isEmpty(arr.getString(6)) ? "　　　　　　　　　" : arr.getString(6))) + "日";
                                 checkAddressGaozhi = TextUtils.isEmpty(arr.getString(7)) ? "　　　　　　　　　" : arr.getString(7);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } finally {
-                                createGaoZhiPDF();
-                                doPrintPDF(MessageActivity.this);
+                                FastDealExecutor.run(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        createGaoZhiPDF();
+                                    }
+                                });
                                 if (AppData.getInstance().isNetWork())
                                     uploadGaoZhiData();
                             }
@@ -492,7 +350,7 @@ public class MessageActivity extends Activity {
             case 2:
             case 4:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    wb.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
+                    webView.evaluateJavascript("javascript:getValue()", new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {
                             try {
@@ -505,8 +363,12 @@ public class MessageActivity extends Activity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } finally {
-                                createRecordPDF();
-                                doPrintPDF(MessageActivity.this);
+                                FastDealExecutor.run(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        createRecordPDF();
+                                    }
+                                });
                                 if (AppData.getInstance().isNetWork())
                                     uploadRecordData();
                             }
@@ -517,20 +379,91 @@ public class MessageActivity extends Activity {
                 break;
             case 3:
             case 5:
-                createChecksPDF();
-                doPrintPDF(MessageActivity.this);
+                FastDealExecutor.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        createChecksPDF();
+                    }
+                });
                 break;
 
         }
 
-        LoadingDialog.dismiss();
+        return false;
+    }
+
+    @Override
+    protected void setOnclick() {
+        super.setOnclick();
+
+        switch (docType) {
+            case 1:
+            case 4:
+            case 5:
+                btn_change.setVisibility(View.GONE);
+                break;
+            case 2:
+            case 3:
+                btn_change.setVisibility(View.VISIBLE);
+                break;
+        }
+        btn_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch ((String) btn_change.getText()) {
+                    case "下一页":
+                        docType = 3;
+                        webView.loadUrl("file:///android_asset/checks.html");
+                        webView.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public void onPageFinished(WebView view, String url) {
+                                // TODO Auto-generated method stub
+                                super.onPageFinished(view, url);
+                                Log.e("checksJson", checksJson.toString());
+                                String call = "javascript:createTable(\'" + checksJson.toString().replaceAll("\r|\n", "") + "\')";
+                                view.loadUrl(call);
+                            }
+
+                            @Override
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                                return false;
+                            }
+                        });
+                        btn_change.setText("上一页");
+                        break;
+                    case "上一页":
+                        docType = 2;
+                        Log.d("sendData", jsonObject.toString());
+                        webView.loadUrl("file:///android_asset/record.html");
+                        webView.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public void onPageFinished(WebView view, String url) {
+                                // TODO Auto-generated method stub
+                                super.onPageFinished(view, url);
+                                String call = "javascript:sendData(\'" + jsonObject.toString().replaceAll("\r|\n", "") + "\')";
+                                view.loadUrl(call);
+                            }
+
+                            @Override
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                                return false;
+                            }
+                        });
+                        btn_change.setText("下一页");
+                        break;
+                }
+            }
+        });
+
     }
 
     public void createGaoZhiPDF() {
         com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 //        com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4.rotate());
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(url));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF_PATH));
             document.open();
             float llx = 45;
             float lly = 50;
@@ -772,13 +705,9 @@ public class MessageActivity extends Activity {
             document.add(table);
             // ////////////////////////////////////////////////////////////////
             document.close();
-        } catch (FileNotFoundException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (IOException e) {
+            handler.sendEmptyMessage(0);
+        } catch (Exception e) {
+            handler.sendEmptyMessage(1);
             document.close();
             e.printStackTrace();
         }
@@ -787,7 +716,7 @@ public class MessageActivity extends Activity {
     public void createRecordPDF() {
         com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4);
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(url));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF_PATH));
             document.open();
             Font baseFont = new Font(BaseFont.createFont("assets/MSYYY.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
             Font font = new Font(baseFont);
@@ -1254,13 +1183,9 @@ public class MessageActivity extends Activity {
 
             // ////////////////////////////////////////////////////////////////
             document.close();
-        } catch (FileNotFoundException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (IOException e) {
+            handler.sendEmptyMessage(0);
+        } catch (Exception e) {
+            handler.sendEmptyMessage(1);
             document.close();
             e.printStackTrace();
         }
@@ -1270,7 +1195,7 @@ public class MessageActivity extends Activity {
 
         com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4);
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(url));
+            PdfWriter.getInstance(document, new FileOutputStream(PDF_PATH));
             document.open();
             Font baseFont = new Font(BaseFont.createFont("assets/MSYYY.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED));
             Font font = new Font(baseFont);
@@ -1448,18 +1373,13 @@ public class MessageActivity extends Activity {
 //            document.add(pg);
             // ////////////////////////////////////////////////////////////////
             document.close();
-        } catch (FileNotFoundException e) {
+            handler.sendEmptyMessage(0);
+        } catch (Exception e) {
             document.close();
             e.printStackTrace();
-        } catch (DocumentException e) {
-            document.close();
-            e.printStackTrace();
-        } catch (IOException e) {
-            document.close();
-            e.printStackTrace();
+            handler.sendEmptyMessage(1);
         }
     }
-
 
     public class BorderEvent implements PdfPTableEvent {
         public void tableLayout(PdfPTable table, float[][] widths, float[] heights, int headerRows, int rowStart, PdfContentByte[] canvases) {
@@ -1476,7 +1396,7 @@ public class MessageActivity extends Activity {
     }
 
     public void uploadGaoZhiData() {
-        HashMap<String,String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
 
         params.put("planId", planId);
         params.put("id", id);
@@ -1502,7 +1422,7 @@ public class MessageActivity extends Activity {
     }
 
     public void uploadRecordData() {
-        HashMap<String,String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
 
         params.put("planId", planId);
         params.put("id", id);
@@ -1526,18 +1446,18 @@ public class MessageActivity extends Activity {
         });
     }
 
-    private String handleCertNo(){
-        if (CheckInfoFragment.ztInfo!=null){
+    private String handleCertNo() {
+        if (CheckInfoFragment.ztInfo != null) {
             ArrayList<ZtXkzBean> arrayList = CheckInfoFragment.ztInfo.getCertificateInfos();
-            if (arrayList!=null){
-                if (arrayList.size()!=0){
-                    for (int i=0;i<arrayList.size()-1;i++){
+            if (arrayList != null) {
+                if (arrayList.size() != 0) {
+                    for (int i = 0; i < arrayList.size() - 1; i++) {
                         Date date1 = DateUtil.formate4(arrayList.get(i).getExpireDate());
-                        Date date2 = DateUtil.formate4(arrayList.get(i+1).getExpireDate());
+                        Date date2 = DateUtil.formate4(arrayList.get(i + 1).getExpireDate());
                         ZtXkzBean temp = arrayList.get(i);
-                        if (date1.before(date2)){
-                            arrayList.set(i,arrayList.get(i+1));
-                            arrayList.set(i+1,temp);
+                        if (date1.before(date2)) {
+                            arrayList.set(i, arrayList.get(i + 1));
+                            arrayList.set(i + 1, temp);
                         }
                     }
                     return arrayList.get(0).getCertNo();
@@ -1547,33 +1467,4 @@ public class MessageActivity extends Activity {
         return "";
     }
 
-    //打印PDF
-    public static void doPrintPDF(Context context){
-        File file = new File(Environment.getExternalStorageDirectory() + "/Download/1228.pdf");
-        ComponentName comp = new ComponentName("com.dynamixsoftware.printershare", "com.dynamixsoftware.printershare.ActivityPrintPDF");
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.setComponent(comp);
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        context.startActivity(intent);
-    }
-
-    public void showAlert(){
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append("打印功能需要提供 ");
-        ssb.append("存储权限 ");
-        ssb.append("请前往  设置-权限管理");
-        ssb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.blue_1)), 9, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        AlertDialog alertDialog = new AlertDialog.Builder(MessageActivity.this, R.style.alertDialog)
-                .setMessage(ssb)
-                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-
-    }
 }

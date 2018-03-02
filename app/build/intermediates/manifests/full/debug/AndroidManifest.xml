@@ -58,7 +58,7 @@
             android:name="com.wonders.activity.CompanyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wonders.activity.YlActivity"
+            android:name="com.wonders.activity.PreviewLtActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wonders.activity.InputLookActivity"
@@ -84,8 +84,9 @@
             android:name="com.wonders.activity.RecyclerViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wonders.activity.MessageActivity"
+            android:name="com.wonders.activity.PreviewScActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.wonders.activity.PreviewActivity" />
 
         <meta-data
             android:name="android.support.VERSION"

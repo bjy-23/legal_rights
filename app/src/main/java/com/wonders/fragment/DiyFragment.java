@@ -23,8 +23,8 @@ import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import com.wonders.activity.InputActivity;
-import com.wonders.activity.MessageActivity;
-import com.wonders.activity.YlActivity;
+import com.wonders.activity.PreviewScActivity;
+import com.wonders.activity.PreviewLtActivity;
 import com.wonders.adapter.MyExpandableListAdapter;
 import com.wonders.application.AppData;
 import com.wonders.constant.Constants;
@@ -340,17 +340,17 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
                     params.put(Constants.DOC_TYPE, 2);
                     JSONArray arrayList1 = new JSONArray();
                     CheckTypeInFragment.makeGroupData(arrayList1,groupArray);
-                    MessageActivity.groupJSONArray = arrayList1;
+                    PreviewScActivity.groupJSONArray = arrayList1;
                     JSONArray arrayList2 = new JSONArray();
                     CheckTypeInFragment.makeChildData(arrayList2,childArray);
-                    MessageActivity.childJSONArray = arrayList2;
-                    MessageActivity.notesJSONArray = getNotes();
+                    PreviewScActivity.childJSONArray = arrayList2;
+                    PreviewScActivity.notesJSONArray = getNotes();
 
-                    Intent intent = new Intent(getActivity(), MessageActivity.class);
+                    Intent intent = new Intent(getActivity(), PreviewScActivity.class);
                     intent.putExtra(Constants.PARAMS, params);
                     startActivity(intent);
                 }else {
-                    Intent intent = new Intent(getActivity(), YlActivity.class);
+                    Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                     intent.putExtra("planId", planId);
                     startActivity(intent);
                 }
@@ -378,7 +378,7 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
                         ylBtn.setVisibility(View.VISIBLE);
                     } else {
                         //预览
-                        Intent intent = new Intent(getActivity(), YlActivity.class);
+                        Intent intent = new Intent(getActivity(), PreviewLtActivity.class);
                         intent.putExtra(Constants.PLAN_ID, planId);
                         intent.putExtra("acc", "");
 
@@ -793,69 +793,69 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
     }
 
     public void makeRecordData(JSONArray array){
-        MessageActivity.highItems.clear();
-        MessageActivity.lowItems.clear();
-        MessageActivity.highPros.clear();
-        MessageActivity.lowPros.clear();
+        PreviewScActivity.highItems.clear();
+        PreviewScActivity.lowItems.clear();
+        PreviewScActivity.highPros.clear();
+        PreviewScActivity.lowPros.clear();
         try {
-            MessageActivity.count1 = array.get(0).toString();
-            MessageActivity.count2 = array.get(1).toString();
-            MessageActivity.count3 = array.get(2).toString();
+            PreviewScActivity.count1 = array.get(0).toString();
+            PreviewScActivity.count2 = array.get(1).toString();
+            PreviewScActivity.count3 = array.get(2).toString();
             JSONArray jsonArray4 = array.getJSONArray(3);
             if(jsonArray4.length()!=0){
                 String s4 = "";
                 for(int i=0;i<jsonArray4.length();i++){
-                    MessageActivity.highItems.add(jsonArray4.get(i).toString());
+                    PreviewScActivity.highItems.add(jsonArray4.get(i).toString());
                     String s = CheckTypeInFragment.getItemNum(jsonArray4.get(i).toString());
                     s4+=s.substring(1,s.length())+"、";
                 }
-                MessageActivity.count4 = s4.substring(0,s4.length()-1);
+                PreviewScActivity.count4 = s4.substring(0,s4.length()-1);
             }else {
-                MessageActivity.count4 = "";
+                PreviewScActivity.count4 = "";
             }
-            MessageActivity.count5 = array.get(4).toString();
+            PreviewScActivity.count5 = array.get(4).toString();
             JSONArray jsonArray6 = array.getJSONArray(5);
             if(jsonArray6.length()!=0){
                 String s6 = "";
                 for(int i=0;i<jsonArray6.length();i++){
-                    MessageActivity.lowItems.add(jsonArray6.get(i).toString());
+                    PreviewScActivity.lowItems.add(jsonArray6.get(i).toString());
                     String s = CheckTypeInFragment.getItemNum(jsonArray6.get(i).toString());
                     s6+=s+"、";
                 }
-                MessageActivity.count6 = s6.substring(0,s6.length()-1);
+                PreviewScActivity.count6 = s6.substring(0,s6.length()-1);
             }else {
-                MessageActivity.count6 = "";
+                PreviewScActivity.count6 = "";
             }
-            MessageActivity.count7 = array.get(6).toString();
+            PreviewScActivity.count7 = array.get(6).toString();
             JSONArray jsonArray8 = array.getJSONArray(7);
             if(jsonArray8.length()!=0){
                 String s8 = "";
                 for(int i=0;i<jsonArray8.length();i++){
-                    MessageActivity.highPros.add(jsonArray8.get(i).toString());
+                    PreviewScActivity.highPros.add(jsonArray8.get(i).toString());
                     String s= CheckTypeInFragment.getItemNum(jsonArray8.get(i).toString());
                     s8+=s.substring(1,s.length())+"、";
                 }
-                MessageActivity.count8 = s8.substring(0,s8.length()-1);
+                PreviewScActivity.count8 = s8.substring(0,s8.length()-1);
             }else {
-                MessageActivity.count8 = "";
+                PreviewScActivity.count8 = "";
             }
-            MessageActivity.count9 = array.get(8).toString();
+            PreviewScActivity.count9 = array.get(8).toString();
             JSONArray jsonArray10 = array.getJSONArray(9);
             if(jsonArray10.length()!=0){
                 String s10 = "";
                 for(int i=0;i<jsonArray10.length();i++){
-                    MessageActivity.lowPros.add(jsonArray10.get(i).toString());
+                    PreviewScActivity.lowPros.add(jsonArray10.get(i).toString());
                     String s = CheckTypeInFragment.getItemNum(jsonArray10.get(i).toString());
                     s10+=s+"、";
                 }
-                MessageActivity.count10 = s10.substring(0,s10.length()-1);
+                PreviewScActivity.count10 = s10.substring(0,s10.length()-1);
             }else {
-                MessageActivity.count10 = "";
+                PreviewScActivity.count10 = "";
             }
-            MessageActivity.checkResult = array.get(10).toString();
+            PreviewScActivity.checkResult = array.get(10).toString();
             planId = array.get(12).toString();
 
-            MessageActivity.startDate = DateUtil.formate2(System.currentTimeMillis());
+            PreviewScActivity.startDate = DateUtil.formate2(System.currentTimeMillis());
 
 
         }catch (JSONException e){
@@ -865,8 +865,8 @@ public class DiyFragment extends Fragment implements MyExpandableListAdapter.Del
 
     public JSONArray getNotes(){
         JSONArray jsonArray = new JSONArray();
-        makeNoteData(jsonArray, MessageActivity.highPros);
-        makeNoteData(jsonArray, MessageActivity.lowPros);
+        makeNoteData(jsonArray, PreviewScActivity.highPros);
+        makeNoteData(jsonArray, PreviewScActivity.lowPros);
 
         return jsonArray;
     }

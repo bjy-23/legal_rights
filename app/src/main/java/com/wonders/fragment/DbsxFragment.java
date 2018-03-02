@@ -21,12 +21,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.wonders.activity.CompanyActivity;
-import com.wonders.activity.MessageActivity;
+import com.wonders.activity.PreviewScActivity;
 import com.wonders.adapter.DbsxAdapter;
 import com.wonders.bean.DbsxBean;
 import com.wonders.bean.GroupMemberBean;
@@ -513,7 +512,7 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
         params.put(Constants.PLAN_ID, bean.getPlanId());
         params.put(Constants.DOC_TYPE, 1);
         params.put("gaozhi", makeGaozhiData(bean).toString());
-        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        Intent intent = new Intent(getActivity(), PreviewScActivity.class);
         intent.putExtra(Constants.PARAMS, params);
         startActivity(intent);
     }

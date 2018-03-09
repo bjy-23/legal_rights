@@ -772,7 +772,6 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
 
                 for (int i = 0; i < object.length(); i++) {
                     try {
-
                         db_message.setPlanId(planBean.getPlanId());
                         db_message.setUserId(appData.getLoginBean().getUserId());
                         db_message.setFlag(0);
@@ -799,7 +798,6 @@ public class DbsxFragment extends Fragment implements DbsxAdapter.OnclickListene
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-
                 }
 
                 if (Constants.TYPE.equals("")) {

@@ -24,13 +24,16 @@ import java.util.ArrayList;
 
 /**
  * Created by bjy on 2017/1/4.
+ * 读取配置文件
  */
 
 public class LoadDataAsyncTask extends AsyncTask {
-    private Context mContext;
 
-    public LoadDataAsyncTask(Context mContext) {
-        this.mContext = mContext;
+    private LoadDataAsyncTask() {
+    }
+
+    public static void run(){
+        new LoadDataAsyncTask().execute();
     }
 
     @Override
@@ -40,8 +43,8 @@ public class LoadDataAsyncTask extends AsyncTask {
     }
 
     private void loadData() {
-        AssetManager manager = mContext.getAssets();
         AppData appData = AppData.getInstance();
+        AssetManager manager =appData.getAssets();
         // 获取流通字典
         try {
             InputStream stream = manager.open("check_info_lt.txt");
@@ -51,14 +54,12 @@ public class LoadDataAsyncTask extends AsyncTask {
             while ((i = stream.read()) != -1) {
                 baos.write(i);
             }
-
             String resultJson = baos.toString("UTF-8");
             JSONObject json = new JSONObject(resultJson);
             JSONArray array = new JSONArray(json.getString("object"));
 
             for (int j = 0; j < array.length(); j++) {
                 JSONObject biginfo = (JSONObject) array.get(j);
-
                 JSONArray arrayBiginfo = new JSONArray(
                         biginfo.getString("bigInfo"));
                 Gson gson = new Gson();
@@ -125,6 +126,7 @@ public class LoadDataAsyncTask extends AsyncTask {
             String result = baos.toString("UTF-8");
             Gson gson = new Gson();
             ArrayList<SopCheckItemLt> sops = gson.fromJson(result,new TypeToken<ArrayList<SopCheckItemLt>>(){}.getType());
+
             Hawk.put(Constants.SOP_LT,sops);
         } catch (Exception e) {
             e.printStackTrace();

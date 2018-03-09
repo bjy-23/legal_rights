@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,14 @@ public class QyxxListFragment extends RecyclerViewFragment {
     private QyxxAdapter adapter;
     private HashMap params;
     private int position;
-    private Handler handler = new Handler(){
+    private MyHandler handler = new MyHandler(this);
+
+    class MyHandler extends Handler{
+        private WeakReference<Fragment> fragmentWeakReference;
+        public MyHandler(Fragment fragment) {
+            fragmentWeakReference = new WeakReference<Fragment>(fragment);
+        }
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -68,7 +77,7 @@ public class QyxxListFragment extends RecyclerViewFragment {
                     break;
             }
         }
-    };
+    }
 
     @Override
     public void onAttach(Context context) {

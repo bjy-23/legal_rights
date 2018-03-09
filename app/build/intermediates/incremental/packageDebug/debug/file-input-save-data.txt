@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Mar 01 16:11:18 CST 2018
+#Tue Mar 06 16:04:35 CST 2018
 17.baseType=DIRECTORY
 4.path=sop.html
 25.base=E\:\\Android\\AndroidProjects\\company\\legal_rights_new\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0

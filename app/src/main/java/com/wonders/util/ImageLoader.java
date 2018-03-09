@@ -63,13 +63,6 @@ public class ImageLoader {
             CORE_POOL_SIZE,MAXIMUM_POOL_SIZE,KEEP_ALIVE, TimeUnit.SECONDS,
             new LinkedBlockingQueue<Runnable>(),sThreadFactory);
 
-    private Handler mMainHandler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
     private Context mContext;
     private ImageResizer mImageResizer = new ImageResizer();
     private LruCache<String,Bitmap> mMemoryCache;

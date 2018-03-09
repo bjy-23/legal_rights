@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.legal_rights.BuildConfig;
 import com.example.legal_rights.R;
 import com.wonders.application.AppData;
 import com.wonders.bean.Result;
@@ -41,6 +43,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -222,19 +234,71 @@ public class SplashActivity extends AppCompatActivity {
         pd.setMessage("正在下载更新");
         pd.show();
 
-        FastDealExecutor.run(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    File file = getFileFromServer(url, pd);
-                    installApk(activity, file);
-                    pd.dismiss(); //结束掉进度条对话框
-                } catch (Exception e) {
-                    pd.dismiss();
-                    e.printStackTrace();
+        if (BuildConfig.DEBUG){
+            Observable.create(new ObservableOnSubscribe<okhttp3.Response>() {
+                @Override
+                public void subscribe(ObservableEmitter e) throws Exception {
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .build();
+                    okhttp3.Call call = okHttpClient.newCall(request);
+                    okhttp3.Response response = call.execute();
+                    e.onNext(response);
+                    Log.e(TAG, "onNext");
+                    e.onComplete();
+                    Log.e(TAG, "onComplete");
                 }
-            }
-        });
+            })
+                    .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<okhttp3.Response>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(okhttp3.Response response) {
+                            try {
+                                InputStream is = response.body().byteStream();
+                                int length = (int) response.body().contentLength();
+                                pd.setMax(length);
+                                File file = new File(Environment.getExternalStorageDirectory(), "legal_rights.apk");
+                                FileOutputStream fos = new FileOutputStream(file);
+                                BufferedInputStream bis = new BufferedInputStream(is);
+                                byte[] buffer = new byte[1024];
+                                int len;
+                                int total = 0;
+                                while ((len = bis.read(buffer)) != -1) {
+                                    fos.write(buffer);
+                                    //获取当前下载量
+                                    total += len;
+                                    pd.setProgress(total);
+                                }
+                                pd.dismiss();
+                                fos.close();
+                                bis.close();
+                                is.close();
+                                installApk(activity, file);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        }else {
+            getFileFromServer(activity, url, pd);
+        }
     }
 
     //安装apk
@@ -248,66 +312,43 @@ public class SplashActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
-    public static File getFileFromServer(String path, ProgressDialog pd) throws Exception {
+    public static void getFileFromServer(Activity activity, String path, ProgressDialog pd) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(path)
                 .build();
         okhttp3.Call call = okHttpClient.newCall(request);
+
         call.enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-
-            }
-
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                 InputStream is = response.body().byteStream();
                 int length = (int) response.body().contentLength();
-                File file = new File(Environment.getExternalStorageDirectory(), "updata.apk");
+                pd.setMax(length);
+                File file = new File(Environment.getExternalStorageDirectory(), "legal_rights.apk");
                 FileOutputStream fos = new FileOutputStream(file);
                 BufferedInputStream bis = new BufferedInputStream(is);
                 byte[] buffer = new byte[1024];
                 int len;
                 int total = 0;
                 while ((len = bis.read(buffer)) != -1) {
-                    fos.write(buffer, 0, len);
-                    total += len;
+                    fos.write(buffer);
                     //获取当前下载量
+                    total += len;
+                    pd.setProgress(total);
                 }
+                installApk(activity, file);
+                pd.dismiss();
                 fos.close();
                 bis.close();
                 is.close();
             }
-        });
 
-        //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            URL url = new URL(path);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            //获取到文件的大小
-            pd.setMax(conn.getContentLength());
-            InputStream is = conn.getInputStream();
-            File file = new File(Environment.getExternalStorageDirectory(), "updata.apk");
-            FileOutputStream fos = new FileOutputStream(file);
-            BufferedInputStream bis = new BufferedInputStream(is);
-            byte[] buffer = new byte[1024];
-            int len;
-            int total = 0;
-            while ((len = bis.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
-                total += len;
-                //获取当前下载量
-                pd.setProgress(total);
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+
             }
-            fos.close();
-            bis.close();
-            is.close();
-            return file;
-        } else {
-            return null;
-        }
+        });
     }
 
     //是否已安装了打印软件

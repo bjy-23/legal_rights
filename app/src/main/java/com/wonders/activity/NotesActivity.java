@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.legal_rights.R;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by bjy on 2016/10/12.
  */
@@ -16,6 +18,15 @@ public class NotesActivity extends AppCompatActivity {
     private TextView note2;
 
     private int second = 5;
+
+    private Handler handler = new MyHandler(this);
+    class MyHandler extends Handler{
+        private WeakReference<Activity> activityWeakReference;
+
+        public MyHandler(Activity activity){
+            activityWeakReference = new WeakReference<Activity>(activity);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +47,6 @@ public class NotesActivity extends AppCompatActivity {
     public void getData(){
         note1.setText("     首次录入检查项时记录开始时间和地点，即开始检查");
         note2.setText(second+"秒后自动关闭");
-        final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

@@ -15,8 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.legal_rights.BuildConfig;
 import com.example.legal_rights.R;
 import com.wonders.bean.LoginBean;
 import com.wonders.bean.Result;
@@ -33,6 +33,9 @@ import com.wonders.widget.LoadingDialog;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -48,9 +51,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity implements OnClickListener {
     private final String TAG = getClass().getName();
-    private Context mContext;
     private SharedPreferences sp;
-    private AppData appData;
+    private AppData appData = AppData.getInstance();
 
     private Button loginBtn;
     private ImageView remPswIv;
@@ -77,32 +79,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        mContext = getApplicationContext();
-        appData = (AppData) getApplication();
-
-        LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask(mContext);
-        loadDataAsyncTask.execute();
-
         setContentView(R.layout.activity_login);
 
-        sp = mContext.getSharedPreferences("config", Context.MODE_PRIVATE);
-        remPswFlag = sp.getBoolean("remPsw", false);
-        autoLoginFlag = sp.getBoolean("auto", false);
-        isManager = sp.getInt("manager", 1);
-        isCreate = sp.getInt("isCreate", 1);
         findView();
 
-        //检测是否有网络 判断是否是单机版还是网络版
-        if (WorkStateUtils.GetNetworkType(mContext).equals("没有网络")) {
-            appData.setIsNetWork(false);
-            moodEt.setText("单机模式");
-        } else {
-            appData.setIsNetWork(true);
-            moodEt.setText("联网模式");
-        }
+        setOnClick();
+
+        initViewData();
+
+        LoadDataAsyncTask.run();
+
     }
 
     @Override
@@ -116,9 +103,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         try {
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(
-                    this.getCurrentFocus().getWindowToken(), 0);
+            InputMethodManager imm = AppData.getInputMethodManger();
+            imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -133,7 +119,10 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     if (!appData.isNetWork()) {
                         sendNativeLoginRequest();
                     } else {
-                        getSectionRequest();
+//                        if (BuildConfig.DEBUG)
+//                            testCallable();
+//                        else
+                            getSectionRequest();
                     }
                 }
                 break;
@@ -193,7 +182,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 });
 
                 break;
-
 
             case R.id.link:
                 // 流通生产环境切换
@@ -299,40 +287,43 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 });
 
                 break;
-            default:
-                break;
         }
     }
 
     private void findView() {
-        loginBtn = (Button) findViewById(R.id.login_btn);
+        loginBtn = findViewById(R.id.login_btn);
+        moodEt =findViewById(R.id.et_mood);
+        linkEt = findViewById(R.id.link);
+        remPswIv = findViewById(R.id.jzmm_iv);
+        remPswTv = findViewById(R.id.jzmm_tv);
+        autoLoginIv = findViewById(R.id.zddl_iv);
+        autoLoginTv = findViewById(R.id.zddl_tv);
+        groupEt = findViewById(R.id.group);
+        nameEt = findViewById(R.id.username);
+        passwordEt = findViewById(R.id.password);
+        phoneEt = findViewById(R.id.phone_num);
+        phoneClear = findViewById(R.id.clear_phone_img);
+        nameClear = findViewById(R.id.clear_name_img);
+        passwordClear = findViewById(R.id.clear_name_password);
+    }
+
+    public void setOnClick(){
         loginBtn.setOnClickListener(this);
-        moodEt = (TextView) findViewById(R.id.et_mood);
         moodEt.setOnClickListener(this);
-        linkEt = (TextView) findViewById(R.id.link);
         linkEt.setOnClickListener(this);
-        remPswIv = (ImageView) findViewById(R.id.jzmm_iv);
         remPswIv.setOnClickListener(this);
-        remPswTv = (TextView) findViewById(R.id.jzmm_tv);
         remPswTv.setOnClickListener(this);
-        autoLoginIv = (ImageView) findViewById(R.id.zddl_iv);
         autoLoginIv.setOnClickListener(this);
-        autoLoginTv = (TextView) findViewById(R.id.zddl_tv);
         autoLoginTv.setOnClickListener(this);
-        groupEt = (TextView) findViewById(R.id.group);
         groupEt.setOnClickListener(this);
-
-        nameEt = (TextView) findViewById(R.id.username);
-        passwordEt = (TextView) findViewById(R.id.password);
-        phoneEt = (TextView) findViewById(R.id.phone_num);
-        phoneClear = (ImageView) findViewById(R.id.clear_phone_img);
         phoneClear.setOnClickListener(this);
-
-        nameClear = (ImageView) findViewById(R.id.clear_name_img);
         nameClear.setOnClickListener(this);
-        passwordClear = (ImageView) findViewById(R.id.clear_name_password);
         passwordClear.setOnClickListener(this);
+    }
 
+    public void initViewData(){
+        sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+        remPswFlag = sp.getBoolean("remPsw", false);
         if (remPswFlag) {
             remPswIv.setBackgroundResource(R.drawable.check);
             nameEt.setText(sp.getString("user", ""));
@@ -341,21 +332,35 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         } else {
             remPswIv.setBackgroundResource(R.drawable.check_blank);
         }
+
+        autoLoginFlag = sp.getBoolean("auto", false);
         if (autoLoginFlag) {
             autoLoginIv.setBackgroundResource(R.drawable.check);
         } else {
             autoLoginIv.setBackgroundResource(R.drawable.check_blank);
         }
+
+        isManager = sp.getInt("manager", 1);
         if (isManager == 0) {
             groupEt.setText("我是组员");
         } else {
             groupEt.setText("我是组长");
         }
 
+        isCreate = sp.getInt("isCreate", 1);
         if (isCreate == 1) {
             linkEt.setText("生产环节");
         } else {
             linkEt.setText("流通环节");
+        }
+
+        //检测是否有网络 判断是否是单机版还是网络版
+        if (WorkStateUtils.GetNetworkType(LoginActivity.this).equals("没有网络")) {
+            appData.setIsNetWork(false);
+            moodEt.setText("单机模式");
+        } else {
+            appData.setIsNetWork(true);
+            moodEt.setText("联网模式");
         }
     }
 
@@ -382,15 +387,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
      */
     private void sendNativeLoginRequest() {
 
-        Editor editor = sp.edit();
-        editor.putBoolean("remPsw", remPswFlag);
-        editor.putBoolean("auto", autoLoginFlag);
-        editor.putString("user", nameEt.getText().toString());
-        editor.putString("phone", phoneEt.getText().toString());
-        editor.putString("password", passwordEt.getText().toString());
-        editor.putInt("manager", isManager);
-        editor.putInt("isCreate", isCreate);
-        editor.commit();
+        saveLoginState();
 
         // 流通生产
         if (isCreate == 1) {
@@ -400,7 +397,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
 
         //判断用户名，密码是否与本地的匹配
-        DbHelper dbHelper = new DbHelper(mContext, DbConstants.TABLENAME, null, 1);
+        DbHelper dbHelper = new DbHelper(LoginActivity.this, DbConstants.TABLENAME, null, 1);
         UserBean userbean = dbHelper.queryUserInfo(nameEt.getText().toString());
 
         if (userbean.getLoginName() == null) {
@@ -435,18 +432,39 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
     }
 
+    private void testCallable(){
+        LoadingDialog.show(LoginActivity.this, true);
+        System.out.println("time1" + System.currentTimeMillis());
+        for (int i=0; i< 5000000; i++){
+            String s = new String("bjy");
+        }
+
+        System.out.println("time2" + System.currentTimeMillis());
+//        Callable<Boolean> callable = new Callable<Boolean>() {
+//            @Override
+//            public Boolean call() throws Exception {
+////                Thread.sleep(1000);
+//                return true;
+//            }
+//        };
+//
+//        FutureTask<Boolean> task = new FutureTask<Boolean>(callable);
+//
+//        new Thread(task).start();
+//
+//        try {
+//            if (task.get())
+//                LoadingDialog.dismiss();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+    }
     private void getSectionRequest() {
         LoadingDialog.show(LoginActivity.this);
 
-        Editor editor = sp.edit();
-        editor.putBoolean("remPsw", remPswFlag);
-        editor.putBoolean("auto", autoLoginFlag);
-        editor.putString("user", nameEt.getText().toString());
-        editor.putString("phone", phoneEt.getText().toString());
-        editor.putString("password", passwordEt.getText().toString());
-        editor.putInt("manager", isManager);
-        editor.putInt("isCreate", isCreate);
-        editor.commit();
+        saveLoginState();
 
         if (isCreate == 1) {
             Constants.TYPE = "";
@@ -545,4 +563,20 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
         return true;
     }
+
+    /**
+     * sp方式，保存登录状态
+     */
+    public void saveLoginState(){
+        Editor editor = sp.edit();
+        editor.putBoolean("remPsw", remPswFlag);
+        editor.putBoolean("auto", autoLoginFlag);
+        editor.putString("user", nameEt.getText().toString());
+        editor.putString("phone", phoneEt.getText().toString());
+        editor.putString("password", passwordEt.getText().toString());
+        editor.putInt("manager", isManager);
+        editor.putInt("isCreate", isCreate);
+        editor.apply();
+    }
+    
 }

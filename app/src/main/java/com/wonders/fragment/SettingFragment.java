@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONArray;
@@ -78,8 +79,17 @@ public class SettingFragment extends Fragment implements OnClickListener {
     private final static int HANDLE_NUMBER_1 = 1;
     private final static int HANDLE_NUMBER_2 = 2;
     private final static int HANDLE_NUMBER_3 = 3;
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+    private MyHandler handler = new MyHandler(this);
+
+    class MyHandler extends Handler{
+        private WeakReference<Fragment> weakReference;
+
+        public MyHandler(Fragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case HANDLE_NUMBER_2:
                     Notification notify = new Notification.Builder(getActivity())
@@ -110,7 +120,7 @@ public class SettingFragment extends Fragment implements OnClickListener {
 
             }
         }
-    };
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

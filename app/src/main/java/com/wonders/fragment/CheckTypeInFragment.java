@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.legal_rights.BuildConfig;
 import com.example.legal_rights.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -73,6 +74,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,6 +83,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -193,7 +201,15 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
     private RecordBean recordBean;
     private HashMap params;
-    private Handler handler = new Handler() {
+    public MyHandler handler = new MyHandler(this);
+
+    class MyHandler extends Handler{
+        private WeakReference<Fragment> fragmentWeakReference;
+
+        public MyHandler(Fragment fragment) {
+            fragmentWeakReference = new WeakReference<>(fragment);
+        }
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -205,7 +221,7 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
                     break;
             }
         }
-    };
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -1424,18 +1440,61 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
     private void queryUploadData() {
         LoadingDialog.show(getActivity());
 
-        FastDealExecutor.run(new Runnable() {
-            @Override
-            public void run() {
-                uploadDataList = dbHelper.querySops(userId, planId);
-                ArrayList<PicBean> picList = dbHelper.selectPic(planId, appData.getLoginBean().getUserId());
-                if (uploadDataList.size() == 0 && picList.size() == 0) {
-                    handler.sendEmptyMessage(0);
-                } else {
-                    uploadData();
+        if (BuildConfig.DEBUG){
+            io.reactivex.Observable.create(new ObservableOnSubscribe<Integer>() {
+                @Override
+                public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                    Log.e(TAG, "当前线程：" + Thread.currentThread().getName());
+                    uploadDataList = dbHelper.querySops(userId, planId);
+                    ArrayList<PicBean> picList = dbHelper.selectPic(planId, appData.getLoginBean().getUserId());
+                    if (uploadDataList.size() == 0 && picList.size() == 0) {
+                        e.onNext(1);
+                    } else {
+                        uploadData();
+                    }
                 }
-            }
-        });
+            }).subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Integer>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Integer integer) {
+                            Log.e(TAG, "当前线程：" + Thread.currentThread().getName());
+                            if (integer == 1){
+                                ToastUtil.showMid("暂时没有需要上传的待办数据");
+                                LoadingDialog.dismiss();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        }else {
+            FastDealExecutor.run(new Runnable() {
+                @Override
+                public void run() {
+                    uploadDataList = dbHelper.querySops(userId, planId);
+                    ArrayList<PicBean> picList = dbHelper.selectPic(planId, appData.getLoginBean().getUserId());
+                    if (uploadDataList.size() == 0 && picList.size() == 0) {
+                        handler.sendEmptyMessage(0);
+                    } else {
+                        uploadData();
+                    }
+                }
+            });
+        }
+
     }
 
     /**
@@ -1842,7 +1901,6 @@ public class CheckTypeInFragment extends Fragment implements MyExpandableListAda
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
-
 
     public static void UploadPics(final ArrayList<PicBean> picList) {
         String url = "";

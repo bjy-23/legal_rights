@@ -16,6 +16,9 @@ import com.wonders.util.PicUtil;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.squareup.picasso.MemoryPolicy.NO_CACHE;
+import static com.squareup.picasso.MemoryPolicy.NO_STORE;
+
 /**
  * Created by 1229 on 2016/8/30.
  */
@@ -98,7 +101,6 @@ public class ImageGridViewAdapter extends BaseAdapter{
             if(!"".equals(picPath)){
                 Picasso.with(mContext)
                         .load(new File(picPath))
-                        .skipMemoryCache()
                         .resize(120, 120)
                         .centerCrop()
                         .into(imageView);

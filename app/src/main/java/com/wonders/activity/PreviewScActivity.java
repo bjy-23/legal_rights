@@ -393,6 +393,13 @@ public class PreviewScActivity extends PreviewActivity {
     }
 
     @Override
+    protected void findView() {
+        super.findView();
+
+        btn_change.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     protected void setOnclick() {
         super.setOnclick();
 

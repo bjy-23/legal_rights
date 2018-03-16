@@ -3,6 +3,7 @@ package com.wonders.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -31,18 +32,20 @@ public class LoadingDialog {
             dialog.show();
 
             loadingDialog = dialog;
-            loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    loadingDialog = null;
-                }
-            });
+//            loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                @Override
+//                public void onDismiss(DialogInterface dialog) {
+//                    Log.e("时间1", System.currentTimeMillis()+ "");
+//                    loadingDialog = null;
+//                }
+//            });
         }
     }
 
     public static void dismiss() {
         if (loadingDialog != null) {
             loadingDialog.dismiss();
+            loadingDialog = null;
         }
     }
 }

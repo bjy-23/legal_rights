@@ -1,0 +1,299 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <link rel="stylesheet" type="text/css"
+          href="jquery-te-1.3.3.css"/>
+    
+    <script type="text/javascript"
+            src="html2canvas.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    	var canvas_img;
+    	var flag = true;
+
+    	$(function(){
+    		//sendJson("");
+    		//screenshot();
+    	});
+
+    	
+        function sendJson(tmp){
+    		
+    		//var tmp = '{"exeOrgan":"310000000","etpsName":"上海财铭食品饮料厂","address":"上海市青浦区白鹤镇腾北路81号","certNo":"QS3118 0601 0177","certType":"1","personName":"","accompaniedPeople":"","year":"2015","month":"10","day":"10","hour":"10","minute":"10","array_assable":[{"number":"1","itemCode":"LT01A1011","content":"【亮许可证】查看许 可证是否悬挂或摆放在店堂醒目置。","isPass":"1","remark":"Ttgsvzhf 阿德健康御呵呵"},{"number":"AAA","itemCode":"BBB","content":"CCC","isPass":"0","remark":"Ttgsvzhf 阿德健康御呵呵"}]}';
+    		var itemsList = [];
+    		var itemsProblem = [];
+      		var jsonO = eval("("+tmp+")");
+      		var exeOrgan = jsonO.exeOrgan;
+      		var etpsName = jsonO.etpsName;
+      		var address = jsonO.address;
+      		var notes = jsonO.notes;
+      		var certNo = jsonO.certNo;
+      		var certType = jsonO.certType;
+      		var personName = jsonO.personName;
+      		var accompaniedPeople = jsonO.accompaniedPeople;
+      		var year = jsonO.year;
+      		var month = jsonO.month;
+      		var day = jsonO.day;
+      		var hour = jsonO.hour;
+      		var minute = jsonO.minute;
+      		var count = 0;
+      		$('#jgm').html(exeOrgan);
+      		$('#jgm2').html(exeOrgan);
+      		$('#bjcdwmc').html(etpsName);
+      		$('#address').html(address);
+      		$('#notes').html(notes);
+      		$('#xkzh').html(certNo);
+      		$('#xklb').html(certType);
+      		$('#frdbr').html(personName);
+      		$('#ptjcr').html(accompaniedPeople);
+      		$('#year').html(year);
+      		$('#month').html(month);
+      		$('#day').html(day);
+      		$('#hour').html(hour);
+      		$('#minute').html(minute);
+      		for(var i=0; i<jsonO.array_assable.length; i++){
+      			var a = jsonO.array_assable[i].num;
+      			var b = jsonO.array_assable[i].itemCode;
+      			var c = jsonO.array_assable[i].content;
+      			<!--var c1 = jsonO.array_assable[i].;-->
+      			if(jsonO.array_assable[i].isPass =="0"){
+      				var d = "√";
+      				var e = "&nbsp;";
+      				count = count + 1;
+      				if(flag == true){
+      					itemsProblem.push("<tr><th width=\"55\" style=\"text-align: center;font-size:18px;\">序号</th><th style=\"text-align: center;font-size:18px;\">监督检查问题项目具体内容（可加附页）</th></tr>");
+      					flag = false;
+      				}
+      				var detailRecord = jsonO.array_assable[i].isremark ==1?jsonO.array_assable[i].remark:"无";
+      				itemsProblem.push("<tr><td style=\"text-align: center;font-size:18px;\">"+count+"</td><td style=\"text-align: left; padding-left:5px; padding-right:5px;font-size:18px;\">检查项目:"+jsonO.array_assable[i].itemCode+"&nbsp;&nbsp;检查内容:"+jsonO.array_assable[i].content+"<br>具体问题详细记录:"+detailRecord+"</td></tr>");
+      				
+      			}else if(jsonO.array_assable[i].isPass == "1"){
+      				var d = "&nbsp;";
+      				var e = "√";
+      			}
+      			else if(jsonO.array_assable[i].isPass == ""){
+      				var d = "&nbsp;";
+      				var e = "&nbsp";
+      			}
+      			itemsList.push("<tr><td style=\"text-align: center;font-size:18px; line-height: 28px;\">"+a+"</td><td style=\"line-height:28px;padding-left:5px; padding-right:5px;font-size:18px;\">"+b+"</td><td style=\"line-height: 28px; padding-left:5px; padding-right:5px;font-size:18px;\">"+c+"</td><td style=\"text-align: center; width:26px;\">"+d+"</td><td style=\"text-align: center; width:33px;\">"+e+"</td></tr>");
+      		}
+      		$('#detail').append(itemsProblem.join(''));
+      		$('#table').append(itemsList.join(''));
+
+    	}
+
+    	function screenshot(){
+    		
+    		html2canvas( $('#body') ,{  		
+					onrendered: function(canvas){
+						var canvas_img = canvas.toDataURL();
+						interaction.toastMessage(canvas_img);
+					}
+				});
+    	}
+
+    </script>
+</head>
+<body bgcolor="#FFFFFF"  id = "body" style="text-align:center;">
+<div style="min-width:768px!important;height:100px;text-align:center;">
+		<div style="width: 768px!important;margin-left:0px;" id="wholediv">
+			<div style="width: 768px!important;margin-left: 0px!important;" id="printPage">
+			<div class="row">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			    <tr>
+			        <td valign="top" align="center" style=" font-size:24px; height:50px; text-align:center; font-weight:bold;font-family:SimHei;">
+			        食品流通监督通用检查标准规程（SOP）现场核查表格
+			        </td>
+			    </tr>
+			    <tr>
+			        <td align="center" style=" font-size:24px; text-align:center; font-family:SimHei; height:32px;">
+			        <div id="jgm"></div>
+
+			        <div style=" border-bottom: 1px solid; height:2px; line-height:2px; margin:0; padding:0; width:90%;margin-bottom:2px;margin-left:40px;">&nbsp;</div>
+			        </td>
+			    </tr>
+			     <tr>
+			        <td valign="top" align="center" style=" font-size:20px; text-align:center; font-family:SimHei; height:30px; line-height:30px;">
+			        监督检查笔录</br>
+			        </td>
+			    </tr>
+			     <tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">			        
+			            <table border="0" width="100%">
+			                <tr>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:223px;"><b style="font-size:18px;">被检查单位名称（姓名）：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;" id="bjcdwmc"></td>
+			                </tr>
+			            </table>
+				    </td>
+				</tr>
+				 <tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">			        
+			            <table border="0" width="100%">
+			                <tr>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:58px;"><b style="font-size:18px;">地址：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;" id="address"></td>
+			                </tr>
+			            </table>
+				    </td>
+				</tr>
+				
+				<c:forEach items="${fpsiCertInfoList}" var="fpsiCertInfo">
+				<tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">			        
+			            <table border="0" width="100%">
+			                <tr>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:98px;"><b style="font-size:18px;">许可证号：</b></td><td style=" border-bottom:1px solid #000; font-size:18px; " id="xkzh"></td>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:98px;"><b style="font-size:18px;">许可类别：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;width:250px;" id="xklb"></td>
+			                </tr>
+			            </table>
+				    </td>
+				</tr>				
+				</c:forEach>
+				<tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">			        
+			            <table border="0" width="100%">
+			                <tr>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:118px;"><b style="font-size:18px;">法定代表人：</b></td><td style=" border-bottom:1px solid #000; font-size:18px; width:250px;" id="frdbr"></td>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:118px;"><b style="font-size:18px;">有效证件号：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;">&nbsp;</td>
+			                </tr>
+			            </table>
+				    </td>
+				</tr>
+				<tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">			        
+			            <table border="0" width="100%">
+			                <tr>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:118px;"><b style="font-size:18px;">陪同检查人：</b></td><td style=" border-bottom:1px solid #000; font-size:18px; width:200px;" id="ptjcr"></td>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:58px;"><b style="font-size:18px;">职务：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;">&nbsp;</td>
+				                <td valgin="top" algin="left" style=" margin:0; padding:0; width:118px;"><b style="font-size:18px;">有效证件号：</b></td><td style=" border-bottom:1px solid #000; font-size:18px;">&nbsp;</td>
+			                </tr>
+			            </table>
+				    </td>
+				</tr>				            
+                <tr>
+	                <td valgin="top" algin="left" width="100%" style=" margin:0; padding:0; height:25px;">		                       		    
+	                    <div class="large-12 columns"><div style=" width:13%; float:left;"><b style="font-size:18px;">检查时间：</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;" id="year"></div><div style=" width:3%; float:left;"><b style="font-size:18px;">年</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;" id="month"></div><div style=" width:3%; float:left;"><b style="font-size:18px;">月</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;" id="day"></div><div style=" width:3%; float:left;"><b style="font-size:18px;">日</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;" id="hour"></div><div style=" width:3%; float:left;"><b style="font-size:18px;">时</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;" id="minute"></div><div style=" width:6%; float:left;"><b style="font-size:18px;">分至</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;"><fmt:formatDate value="${fpsiInspPlan.endDate}" pattern="HH" />&nbsp;</div><div style=" width:3%; float:left;"><b style="font-size:18px;">时</b></div>
+		                    <div style=" width:9%; float:left; text-align:center; border-bottom:1px solid #000; font-size:18px;"><fmt:formatDate value="${fpsiInspPlan.endDate}" pattern="mm" />&nbsp;</div><div style=" width:3%; float:left;"><b style="font-size:18px;">分</b></div>
+	                    </div>
+	                </td>
+                </tr>
+               <tr>
+			        <td valign="top" align="left" width="100%" style=" margin:0; padding:0;">
+                       <table border="0" width="100%">
+			               <tr>    
+                                <td valgin="top" algin="left" style=" margin:0; padding:0; height:30px; width:325px;"><b style="font-size:18px;">本次检查内容：</b></td>
+                                <td style="font-size:18px;">&nbsp;</td>
+                            </tr>
+                        </table>
+               	 </td>
+               </tr>
+                 <tr>
+                    <td valgin="top" algin="left" style="font-size:18px; text-indent:2em; line-height:32px;">
+                    我们是<span style=" text-align:center;font-size:18px; border-bottom:1px solid #000;" id="jgm2">
+                  
+          	</span>行政执法人员，现出示执法证件，依法对你单位进行现场检查，请予配合。依照规定，执法人员少于两人或者所出示的执法证件与其身份不符的，你单位有权拒绝检查；对于检查人员，有下列情形之一的，你单位有权申请检查人员回避：（1）系当事人或当事人的近亲属；（2）与本人或本人近亲属有利害关系；（3）与当事人有其他关系，可能影响公正执法的。
+                    </td>
+                </tr>
+			</table>
+			</div>	
+				<div class="row">
+					<table style=" border-collapse:collapse; border-width:thin; border-style:solid;" cellpadding="0" cellspacing="0" border="1" id="table">
+						<tr>
+							<td width="6%" style="text-align: center; font-size:18px; font-weight:bold; line-height:22px;">序<br/>号</td>
+							<td style="text-align: center; width:154px;"><b style="font-size:18px;">核查项目</b></td>
+							<td style="text-align: center; width:424px;"><b style="font-size:18px;">核查内容</b></td>
+							<td colspan="2" style="text-align: center; margin:0; padding:0; width:66px;">
+							<table cellpadding="0" cellspacing="0" border="0" width="100%" style=" margin:0; padding:0;" >
+								<tr><td colspan="2" style=" margin:0; padding:0; line-height:22px;"><b style="font-size:18px;"><nobr>是 否 发<br/>现 问 题</nobr></b></td></tr>
+								<tr><td style="text-align: center; width:33px; margin:0; padding:0; border-top:1px solid #000;border-right:1px solid #000;"><b style="font-size:18px;">是</b></td>
+									<td style="text-align: center; width:33px; margin:0; padding:0; border-top:1px solid #000;"><b style="font-size:18px;">否</b></td>
+								</tr>
+							</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row">
+					<table style=" border-collapse:collapse; border-width:thin; border-style:solid; margin-top:20px;" cellpadding="0" cellspacing="0" border="1" id="detail">
+
+
+
+
+
+						<!-- <c:set var="number" scope="page" value="0"></c:set>
+						<c:set var="flag" scope="page" value="true"></c:set>
+						<c:forEach var="item" items="${itemList}">
+							<c:if test="${checkResult[item.fpsiPlanResult.result] eq '发现问题'}">
+								<c:if test="${flag eq 'true'}">
+								<tr>
+									<th width="55" style="text-align: center;font-size:18px;">序号</th>
+									<th style="text-align: center;font-size:18px;">监督检查问题项目具体内容（可加附页）</th>
+								</tr>
+								<c:set var="flag" scope="page" value="false"></c:set>
+								</c:if>
+								<tr>
+									<td style="text-align: center;font-size:18px;">
+										<c:set var="number" scope="page" value="${number+1}"></c:set>
+										${number}
+									</td>
+									<td style="text-align: left; padding-left:5px; padding-right:5px;font-size:18px;">
+										检查项目:${item.itemCode}&nbsp;&nbsp;检查内容:${item.checkContent}
+										<br>具体问题详细记录:
+										<c:if test="${fn:length(fn:trim(item.fpsiPlanResult.remark)) eq 0}">无</c:if>
+										<c:if test="${fn:length(fn:trim(item.fpsiPlanResult.remark)) gt 0}">${item.fpsiPlanResult.remark}</c:if>
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach> -->
+					</table>
+				</div>
+				<table border="0" width="100%">
+					<tr>
+						<td valgin="top" algin="left" style=" margin:0; padding:0; width:58px;"><p style="font-size:18px;">备注：</p></td><td style=" border-bottom:0 solid #000; font-size:18px;" id="notes"></td>
+					</tr>
+				</table>
+				<div class="row" style=" margin-top:5px;">
+					<div class="large-12 columns" style=" text-indent:2em;font-size:18px;">检查人员现场向企业（当事人）反馈了本次检查情况。</div>
+				</div>
+				<div class="row" style=" margin-top:10px;">
+					<div class="large-12 columns" style=" text-indent:2em;font-size:18px;">被检查人（法定代表人或授权人）意见：</div>
+				</div>
+				
+				<div class="row" style=" margin-top:10px; z-index:11;">
+					<div class="large-6 columns" >
+						<div style=" width:14%; float:left; text-indent:2em;font-size:18px;" >签&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+						<div style=" width:3%; float:left; text-align:left;font-size:18px;" >&nbsp;</div>
+						<div style=" width:15%; float:left; text-align:center;border-bottom:1px solid #000;">&nbsp;</div>
+						<div style=" width:19%; float:left; text-align:left;font-size:18px;" >&nbsp;</div>
+						<div style=" width:23%; float:left;font-size:18px;" >检 查 人 员 签 名：</div>
+						<div style=" width:15%; float:left; text-align:left; border-bottom:1px solid #000;">&nbsp;</div>
+					</div>
+				</div>
+				<div class="row" style=" z-index:11; clear:both;margin-top:50px;">
+						<div style=" width:45%; float:left; text-align:center;font-size:18px;margin-top:10px;">
+						<fmt:formatDate value="${date}" pattern="yyyy" />&nbsp;年
+						<fmt:formatDate value="${date}" pattern="MM" />&nbsp;月
+						<fmt:formatDate value="${date}" pattern="dd" />&nbsp;日
+						</div>
+						<div style=" width:45%; float:left; text-align:center;font-size:18px;margin-top:10px;">
+						<fmt:formatDate value="${date}" pattern="yyyy" />&nbsp;年
+						<fmt:formatDate value="${date}" pattern="MM" />&nbsp;月
+						<fmt:formatDate value="${date}" pattern="dd" />&nbsp;日
+						</div>
+				</div>
+				
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

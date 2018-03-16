@@ -32,7 +32,7 @@ public class SopListAdapter extends BaseAdapter {
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle;
         ImageView imgAdd;
         public ViewHolder(View itemView) {

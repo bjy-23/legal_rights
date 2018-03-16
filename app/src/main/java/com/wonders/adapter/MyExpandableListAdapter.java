@@ -38,10 +38,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     public int getGroupCount() {
         if(groupArray!=null){
             return groupArray.size();
-        }else {
-            return 0;
         }
-
+        return 0;
     }
 
     @Override
@@ -92,11 +90,13 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             viewHolderGroup = (ViewHolderGroup) convertView.getTag();
         }
 
-        String s = groupArray.get(groupPosition).getContent();
-        if ("".equals(Constants.TYPE)){
-            viewHolderGroup.textGroup.setText(s.substring(1,s.length()));
-        }else {
-            viewHolderGroup.textGroup.setText(s);
+        if (groupArray != null && groupArray.size() != 0){
+            String s = groupArray.get(groupPosition).getContent();
+            if ("".equals(Constants.TYPE)){
+                viewHolderGroup.textGroup.setText(s.substring(1,s.length()));
+            }else {
+                viewHolderGroup.textGroup.setText(s);
+            }
         }
         return convertView;
     }

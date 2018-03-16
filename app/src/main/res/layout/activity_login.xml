@@ -48,18 +48,11 @@
             android:paddingTop="10dp"
             android:src="@drawable/icons_chang_link" />
 
-        <EditText
+        <TextView
+            style="@style/activity_login_text"
             android:id="@+id/link"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
             android:layout_toRightOf="@id/iv_username"
-            android:background="@null"
-            android:editable="false"
-            android:singleLine="true"
-            android:text="生产环节"
-            android:textSize="18sp" />
+            android:text="生产环节" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -90,18 +83,11 @@
             android:paddingTop="10dp"
             android:src="@drawable/icons_net" />
 
-        <EditText
+        <TextView
+            style="@style/activity_login_text"
             android:id="@+id/et_mood"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
             android:layout_toRightOf="@id/iv_username1"
-            android:background="@null"
-            android:editable="false"
-            android:singleLine="true"
-            android:text="联网模式"
-            android:textSize="18sp" />
+            android:text="联网模式" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -132,18 +118,11 @@
             android:paddingTop="10dp"
             android:src="@drawable/icons_changidentity" />
 
-        <EditText
+        <TextView
+            style="@style/activity_login_text"
             android:id="@+id/group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
             android:layout_toRightOf="@id/iv_username2"
-            android:background="@null"
-            android:editable="false"
-            android:singleLine="true"
-            android:text="我是组员"
-            android:textSize="18sp" />
+            android:text="我是组员" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -175,17 +154,11 @@
             android:src="@drawable/icons_phone" />
 
         <EditText
+            style="@style/activity_login_edit"
             android:id="@+id/phone_num"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
             android:layout_toRightOf="@id/iv_username3"
-            android:background="@null"
             android:hint="手机号"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="18sp" />
+            android:inputType="number" />
 
         <ImageView
             android:id="@+id/clear_phone_img"
@@ -218,16 +191,10 @@
             android:src="@drawable/icons_user" />
 
         <EditText
+            style="@style/activity_login_edit"
             android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dp"
             android:layout_toRightOf="@id/iv_username4"
-            android:background="@null"
-            android:hint="用户名"
-            android:singleLine="true"
-            android:textSize="18sp" />
+            android:hint="用户名" />
 
         <ImageView
             android:id="@+id/clear_name_img"
@@ -260,17 +227,11 @@
             android:src="@drawable/icons_password" />
 
         <EditText
+            style="@style/activity_login_edit"
             android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="11dip"
             android:layout_toRightOf="@id/iv_password"
-            android:background="@null"
             android:hint="密码"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textSize="18sp" />
+            android:inputType="textPassword" />
 
         <ImageView
             android:id="@+id/clear_name_password"

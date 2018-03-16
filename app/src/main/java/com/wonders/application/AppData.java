@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.example.legal_rights.BuildConfig;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.NoEncryption;
+import com.squareup.leakcanary.LeakCanary;
 import com.wonders.bean.LoginBean;
 import com.wonders.bean.Db_message;
 import com.wonders.bean.SopBean;
@@ -73,9 +74,9 @@ public class AppData extends MultiDexApplication {
         widthPixels = dm.widthPixels;
         heightPixels = dm.heightPixels;
 
-		Hawk.init(this)
-				.setEncryption(new NoEncryption())
-				.build();
+		Hawk.init(this).build();
+
+//		LeakCanary.install(this);
 
 		sopList_lt.add(sopList_a);
 		sopList_lt.add(sopList_b);

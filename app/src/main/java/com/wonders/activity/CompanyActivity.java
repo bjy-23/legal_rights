@@ -4,8 +4,8 @@ import com.example.legal_rights.R;
 import com.wonders.adapter.ViewPagerAdapter;
 import com.wonders.application.AppData;
 import com.wonders.constant.Constants;
-import com.wonders.fragment.CheckTypeInFragment;
-import com.wonders.fragment.DiyFragment;
+import com.wonders.fragment.CheckInputRcFragment;
+import com.wonders.fragment.CheckInputLsFragment;
 import com.wonders.fragment.UnqualifiedInfoFragment;
 import com.wonders.fragment.CheckRecordFragment;
 import com.wonders.fragment.CheckInfoFragment;
@@ -86,9 +86,9 @@ public class CompanyActivity extends AppCompatActivity {
         titles.add("监管记录");
 
         if (taskType==0){
-            CheckTypeInFragment mCheckTypeInFragment = new CheckTypeInFragment();
-            mCheckTypeInFragment.setArguments(bundle);
-            fragments.add(mCheckTypeInFragment);
+            CheckInputRcFragment mCheckInputRcFragment = new CheckInputRcFragment();
+            mCheckInputRcFragment.setArguments(bundle);
+            fragments.add(mCheckInputRcFragment);
             titles.add("巡查录入");
 
             if("".equals(Constants.TYPE)&& AppData.getInstance().isNetWork()){
@@ -98,9 +98,9 @@ public class CompanyActivity extends AppCompatActivity {
                 titles.add("历史不合格信息");
             }
         }else if (taskType == 1){
-            DiyFragment mDiyFragment = new DiyFragment();
-            mDiyFragment.setArguments(bundle);
-            fragments.add(mDiyFragment);
+            CheckInputLsFragment mCheckInputLsFragment = new CheckInputLsFragment();
+            mCheckInputLsFragment.setArguments(bundle);
+            fragments.add(mCheckInputLsFragment);
             titles.add("巡查录入");
         }
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments,titles);

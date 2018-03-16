@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>食品生产经营日常监督检查结果记录表</title>
+    <link href="public.css" rel="stylesheet" type="text/css"/>
+    <link href="jquery.alerts.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="html2canvas.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="jquery.alerts.js"></script>
+    <style>
+        #info {
+        height: 88px;
+        overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="space10"></div>
+    <p class="title2 center"><span
+            style=" text-align:center;font-size:30px; border-bottom:0px solid #000;"
+            id="topTitle"></span></p>
+    <p class="title center">食品生产经营日常监督检查结果记录表</p>
+    <div class="space10"></div>
+    <p class="title1 center">编号：<input type="text" name="No"/>
+    </p>
+    <table class="tableB" cellpadding="1">
+        <tr>
+            <th width="98">名称</th>
+            <td width="225"><span
+                    style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                    id="etpsName"></span></td>
+            <th width="79">地址</th>
+            <td width="240"><span
+                    style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                    id="address"></span></td>
+        </tr>
+        <tr>
+            <th>联系人</th>
+            <td><input type="text" name="legalPerson"/></td>
+            <th>联系方式</th>
+            <td><input type="text" name="phoneNo"/></td>
+        </tr>
+        <tr>
+            <th>许可证编号</th>
+            <td><span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                      id="certNo"></span></td>
+            <th>检查次数</th>
+            <td>本年度第 <span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                           id="count1"></span> 次检查
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <p align="left"><strong>检查内容： </strong><br/> &nbsp;&nbsp;
+                    <span style="border-bottom:1px solid #000;" id="checkUnit"></span>检查人员
+                    根据《中华人民共和国食品安全法》及其实施条例、《食品生产经营日常监督检查管理办法》的规定，于<span
+                            style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                            id="startDate"></span>对你单位进行了监督检查。本次监督检查按照表开展，共检查了（   <span
+                            style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                            id="count2"></span> ）项内容；其中： <br/> &nbsp;重点项（
+                    <span id="count3"></span> ）项，项目序号分别是（<span id="count4"></span> ），发现问题（ <span
+                            id="count7"></span>）项<span id="count7-1">，项目序号分别是（<span
+                            id="count8"></span> ）；</span>
+                </p>
+                &nbsp;一般项（ <span id="count5"></span>）项，项目序号分别是（ <span id="count6"></span>
+                ），发现问题（ <span id="count9"></span>）项<span id="count9-1">，项目序号分别是（<span
+                    id="count10"></span> ）</span>。
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <p><strong>检查结果： </strong><br/>
+                    <span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                          id="checkResult"></span>
+                    <br/>
+                    <strong>结果处理： </strong><br/>
+                    <span style=" text-align:center;font-size:18px; border-bottom:0px solid #000;"
+                          id="handleResult"></span>
+                    <br/>
+                    <strong>说明</strong>（可附页）<strong>： </strong>
+                <p><textarea id="info" style="width: 100%;"></textarea></p>
+                </p>
+                <p id="clyj"></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="line-height:20pt">
+                <p>执法人员（签名）： </p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p align="right">年  月  日</p>
+            </td>
+            <td colspan="2" style="line-height:20pt">
+                <p>被检查单位意见： </p>
+                <p>&nbsp;</p>
+                <p>法人或负责人： </p>
+                <p align="right">年  月  日（章）</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="space"></div>
+<div style="height:200px"></div>
+<div class="wrap tableB" id="page2" style="position:static;height:978px;width:649px;">
+    附页：
+    <div id="fllm"><textarea style="width:100%;" id="info2"></textarea></div>
+
+</div>
+<script type="text/javascript">
+			//var tmp = "{\"etpsName\":\"上海东航美心食品有限公司虹桥分公司\",\"address\":\"上海市长宁区空港三路100号\",\"legalPerson\":\"\",\"phoneNo\":\"\",\"certNo\":\"QS3105 2401 0651\",\"count1\":\"35\",\"count2\":\"7\",\"count3\":\"0\",\"count4\":\"\",\"count5\":\"0\",\"count6\":\"\",\"count7\":\"0\",\"count8\":\"\",\"count9\":\"0\",\"count10\":\"\",\"checkUnit\":\"长宁区市场监督管理局\",\"checkResult\":\"1\",\"recordText\":\"\"}";
+			//sendData(tmp);
+
+			//var tmp = '{"etpsName":"上海马哥孛罗面包有限公司","address":"上海市徐汇区石龙路345弄28号","legalPerson":"卓刘庆弟","phoneNo":"","certNo":"QS3104 2401 0050","count1":"10","count2":"42","count3":"17","count4":"1.2,1.3,2.1,2.2,3.2,3.3,3.4,3...","count5":"25","count6":"1.1,1.4,1.5,1.6,1.7,2.3,3.1,3...","count7":"1","count8":"4.4","count9":"1","count10":"3.6","checkUnit":"徐汇区市场监督管理局","topTitle":"上海市徐汇区市场监督管理局","checkResult":"3","startDate":"2016年9月2日","notes":[{"checkContent":"*4.4","note":".缺少出厂检验原始记录\n"},{"checkContent":"3.6","note":".使用未通过批准的新食品原料。\n"}]}'
+			//sendData(tmp);
+
+			//var tmp='{"startDate":"2016年9月2日","etpsName":"","checkResult":"3","count10":"","checkUnit":"徐汇区市场监督管理局","legalPerson":"","phoneNo":"","count9":"0","count8":"1.3","topTitle":"上海市徐汇区市场监督管理局","count7":"1","address":"","count2":"43","certNo":"","count1":"6","notes":[{"note":"","checkContent":"*1.3"}],"count6":"1.4,1.5,1.6,1.7,2.3,3.1,3.6,3...","count5":"27","count4":"1.3,2.1,2.2,3.2,3.3,3.4,3.5,3...","count3":"16"}';
+			//sendData(tmp);
+			function sendData(tmp) {
+			    //alert(temp);
+				//$(document.body).append("<input type='text' value='"+tmp+"'>")
+				//try{var jsonO = eval("("+tmp+")");}catch(e){alert(e);}
+				while(tmp.indexOf('\n') >= 0) {
+					tmp = tmp.replace('\n', '');
+				}
+
+				var jsonO = eval("(" + tmp + ")");
+				//console.log(jsonO);
+				//alert(JSON.stringify(jsonO));
+				var type = jsonO.type;
+				var topTitle = jsonO.topTitle;
+				var etpsName = jsonO.etpsName;
+				var noteArray = [];
+				var remarkArray = [];
+				if(type==1){
+				    noteArray = jsonO.notes;
+				}else if(type==2){
+				    remarkArray = jsonO.remark;
+				}
+
+				var suggestion = jsonO.suggestion;
+				//alert(etpsName);
+				var address = jsonO.address;
+				var legalPerson = jsonO.legalPerson;
+				var phoneNo = jsonO.phoneNo;
+				var checkNo = jsonO.checkNo;
+				var certNo = jsonO.certNo;
+				var count1 = jsonO.count1;
+				var count2 = jsonO.count2;
+				var count3 = jsonO.count3;
+				//alert(count3);
+				var count4 = jsonO.count4;
+				//count4="count4";
+				var count5 = jsonO.count5;
+				var count6 = jsonO.count6;
+				//count6="count6";
+				var count7 = jsonO.count7;
+				var count8 = jsonO.count8;
+				//count8="count8";
+				var count9 = jsonO.count9;
+				var count10 = jsonO.count10;
+				//count10="count10";
+				var checkUnit = jsonO.checkUnit;
+				var checkResult = jsonO.checkResult;
+				var startDate = jsonO.startDate;
+
+				$('#topTitle').html(topTitle);
+				$('#etpsName').html(etpsName);
+				$('#address').html(address);
+				$("input[name='No']").val(checkNo);
+				$("input[name='legalPerson']").val(legalPerson);
+				$("input[name='phoneNo']").val(phoneNo);
+				$('#certNo').html(certNo);
+				$('#count1').html(count1);
+				$('#count2').html(count2);
+				$('#count3').html(count3);
+				$('#count4').html(count4);
+				$('#count5').html(count5);
+				$('#count6').html(count6);
+				$('#count7').html(count7);
+				$('#count8').html(count8);
+				$('#count9').html(count9);
+				$('#count10').html(count10);
+				$('#checkUnit').html(checkUnit);
+				$('#startDate').html(startDate);
+				var result1 = "□符合    □基本符合      □不符合";
+				var result2 = "□通过    □书面限期整改   □食品生产经营者立即停止食品生产经营活动";
+				switch(checkResult) {
+					case '1':
+						result1 = "√符合    □基本符合    □不符合";
+						result2 = "√通过    □书面限期整改   □食品生产经营者立即停止食品生产经营活动";
+						break;
+					case '2':
+						result1 = "□符合    √基本符合    □不符合";
+						result2 = "□通过    √书面限期整改   □食品生产经营者立即停止食品生产经营活动";
+						break;
+					case '3':
+						result1 = "<span name='result1'>□符合</span>    <span name='result1'>□基本符合</span>    <span name='result1'>√不符合</span>";
+						result2 = "□通过    □书面限期整改   √食品生产经营者立即停止食品生产经营活动";
+						break;
+				}
+
+				$('#checkResult').html(result1);
+				$('#handleResult').html(result2);
+				var lineNumber=0,uphalf=0;
+				if(type==1){
+				for(var i = 0; i < noteArray.length; i++) {
+				    var str="检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note;
+				    lineNumber+=1+Math.floor(str.length/46);
+				    //alert(lineNumber)
+					$("#info").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note +"\n");
+					if(lineNumber>=3){
+					    uphalf=i;
+					    break;
+					}
+				}
+				if(lineNumber<3){
+				    $("#page2").hide();
+					$("#clyj").append("处理意见：<br><textarea style='width:100%;' id='suggestion'></textarea>");
+				}else{
+				    lineNumber=0;
+                    for(var i = uphalf+1; i < noteArray.length; i++) {
+                        var str="检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note;
+                        lineNumber+=1+Math.floor(str.length/46);
+						$("#info2").append(str +"\n");
+					}
+					$("#info2").css("height",(22*lineNumber)+"px");
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion1'></textarea>");
+					<!--$("#suggestion1").append("处理意见")-->
+				}
+				}else if(type==2){
+
+				for(var i = 0; i < noteArray.length; i++) {
+				    var str=remarkArray[i];
+				    lineNumber+=1+Math.floor(str.length/46);
+					$("#info").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note +"\n");
+					if(lineNumber>=3){
+					    uphalf=i;
+					    break;
+					}
+				}
+				if(lineNumber<3){
+				    $("#page2").hide();
+					$("#clyj").append("处理意见：<br><textarea style='width:100%;' id='suggestion'></textarea>");
+				}else{
+                    for(var i = uphalf+1; i < noteArray.length; i++) {
+						$("#info2").append(remarkArray[i] +"\n"+ "<br>");
+					}
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion1'></textarea>");
+				}
+
+
+				}
+
+
+              /*if(type==1){
+                    if(noteArray.length < 4) {
+					for(var i = 0; i < noteArray.length; i++) {
+						$("#info").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note +"\n"+ "<br>");
+					}
+					$("#page2").hide();
+					$("#clyj").append("处理意见：<br><textarea style='width:100%;' id='suggestion'></textarea>");
+				}else if(noteArray.length < 7) {
+					for(var i = 0; i < noteArray.length; i++) {
+						$("#info").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note +"\n"+ "<br>");
+					}
+					$("#fllm").remove();
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion1'></textarea>");
+				}else{
+					for(var i = 0; i < 6; i++) {
+						$("#info").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note + "\n");
+					}
+					for(var i = 6; i < noteArray.length; i++) {
+						$("#info2").append("检查" + noteArray[i].checkContent + "时发现：" + noteArray[i].note + "\n");
+					}
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion2'></textarea>");
+				}
+            }else if(type==2){
+                if(remarkArray.length < 4) {
+					for(var i = 0; i < remarkArray.length; i++) {
+						$("#info").append(remarkArray[i]+"\n"+ "<br>");
+					}
+					$("#page2").hide();
+					$("#clyj").append("处理意见：<br><textarea style='width:100%;' id='suggestion'></textarea>");
+				}else if(remarkArray.length < 7) {
+					for(var i = 0; i < remarkArray.length; i++) {
+						$("#info").append(remarkArray[i]+"\n"+ "<br>");
+					}
+					$("#fllm").remove();
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion1'></textarea>");
+				}else{
+					for(var i = 0; i < 6; i++) {
+						$("#info").append( remarkArray[i]+ "\n");
+					}
+					for(var i = 6; i < remarkArray.length; i++) {
+						$("#info2").append(remarkArray[i]+ "\n");
+					}
+					$("#page2").append("处理意见：<br><textarea style='width:100%;' id='suggestion2'></textarea>");
+				}
+            }*/
+
+                $('#suggestion').val(suggestion);
+				$('#suggestion1').val(suggestion);
+				$('#suggestion2').val(suggestion);
+
+			}
+
+			if($("#count7").text() == "0") {
+				$("#count7-1").remove();
+			}
+			if($("#count9").text() == "0") {
+				$("#count9-1").remove();
+			}
+
+
+</script>
+<script>
+			function getValue() {
+				var ret = [];
+				ret.push($("input[name='legalPerson']").val());
+				ret.push($("input[name='phoneNo']").val());
+				ret.push($("input[name='No']").val());
+				ret.push($("#info").val());
+				ret.push($("#info2").val());
+				var suggestion;
+				if(null!=$("#suggestion").val()){
+				suggestion=$("#suggestion").val();
+				}
+				if(null!=$("#suggestion1").val()){
+				suggestion=$("#suggestion1").val();
+				}
+				if(null!=$("#suggestion2").val()){
+				suggestion=$("#suggestion2").val();
+				}
+                ret.push(suggestion);
+				return ret;
+			}
+
+			function comfirmText(obj) {
+				//obj.innerText= prompt("请输入")
+				jPrompt('请输入：', obj.innerText.trim(), '', function(r) {
+					if(r) obj.innerText = r;
+				});
+			}
+			
+			
+			
+			function getText1(){
+				return $("#info").text();
+			}
+			
+			function getText2(){
+				return $("#info2").text();
+			}
+			//			<!--var $arrResult1=$("span[name=result1]")-->
+			//			<!--$("span[name=result1]").bind("click",function(e){-->
+			//			<!--for(var i=0;i<$arrResult1.length;i++){-->
+			//			<!--var str=$($arrResult1[i]).text();-->
+			//			<!--console.log(str)-->
+			//			<!--$($arrResult1[i]).text("□"+str.substring(1))-->
+			//			<!--}-->
+			//			<!--$(e.target).text("√"+$(e.target).text().substr(1))-->
+			//			<!--})-->
+
+
+</script>
+</body>

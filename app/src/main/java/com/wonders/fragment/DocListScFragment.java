@@ -87,6 +87,20 @@ public class DocListScFragment extends RecyclerViewFragment{
 
         TextView tvTitle = getActivity().findViewById(R.id.tv_title);
         tvTitle.setText("文书列表");
+
+//        Handler handler = new Handler(){
+//            @Override
+//            public void dispatchMessage(Message msg) {
+//                switch (msg.what){
+//                    case 1:
+//                        action_1();
+//                        break;
+//                }
+//            }
+//        };
+//
+//        handler.sendEmptyMessage(1);
+//        action_2();
     }
 
     public void getData(){
@@ -249,7 +263,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                             }
 
                             JSONArray countList = object.getJSONArray("countList");
-                            CheckTypeInFragment.makeRecordData(countList);
+                            CheckInputRcFragment.makeRecordData(countList);
 
                             itemList2 = object.getJSONArray("itemList2");
                             JSONObject jb0 = itemList2.getJSONObject(0);
@@ -279,7 +293,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                                         jsonObject.put("isPass", "1");
                                         break;
                                 }
-                                String num = CheckTypeInFragment.getItemNum(jb.getString("itemCode"));
+                                String num = CheckInputRcFragment.getItemNum(jb.getString("itemCode"));
                                 jsonObject.put("itemCode", num);
                                 if (groupCode.size() != 0) {
                                     boolean isHave = false;
@@ -299,7 +313,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                                     } else {
                                         String parentCode = jb.getString("parentCode");
                                         groupCode.add(parentCode);
-                                        String groupName = CheckTypeInFragment.getGroupName(parentCode);
+                                        String groupName = CheckInputRcFragment.getGroupName(parentCode);
                                         group.put(groupName);
                                         JSONArray array = new JSONArray();
                                         array.put(jsonObject);
@@ -308,7 +322,7 @@ public class DocListScFragment extends RecyclerViewFragment{
                                 } else {
                                     String parentCode = jb.getString("parentCode");
                                     groupCode.add(parentCode);
-                                    String groupName = CheckTypeInFragment.getGroupName(parentCode);
+                                    String groupName = CheckInputRcFragment.getGroupName(parentCode);
                                     group.put(groupName);
                                     JSONArray array = new JSONArray();
                                     array.put(jsonObject);
@@ -345,7 +359,7 @@ public class DocListScFragment extends RecyclerViewFragment{
     public void makeNoteData(JSONArray jsonArray, ArrayList<String> arrayList) {
         for (String itemCode : arrayList) {
             NoteBean bean = new NoteBean();
-            String checkContent = CheckTypeInFragment.getItemNum(itemCode);
+            String checkContent = CheckInputRcFragment.getItemNum(itemCode);
             String note = "";
             bean.setCheckContent(checkContent);
             bean.setNote(note);

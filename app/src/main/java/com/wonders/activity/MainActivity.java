@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
 
     //个人信息的展示
+    LinearLayout layoutSide;
     private TextView informationTv;
     private TextView identity;
     private TextView nameTv;
@@ -162,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findView() {
+        layoutSide = findViewById(R.id.layout_side);
+        //设置背景
+
         tvTitle = findViewById(R.id.tv_title);
         layoutHome = findViewById(R.id.layout_home);
         layoutHome.setOnClickListener(new OnClickListener() {
@@ -180,13 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-//        layoutBack.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getFragmentManager().popBackStack();
-//            }
-//        });
-        menuLv = (ListView) findViewById(R.id.menu_lv);
+
+        menuLv = findViewById(R.id.menu_lv);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         adapter = new MenuAdapter();

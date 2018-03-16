@@ -5,77 +5,64 @@
     android:background="#f2f0eb"
     android:orientation="vertical">
 
-    <com.wonders.widget.LoadingLayout
-        android:id="@+id/loading_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="none">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="5dp"
+                android:background="#f2f0eb" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:alpha="0.1"
+                android:background="#000000" />
+
+            <include
+                android:id="@+id/item_title1"
+                layout="@layout/item_title" />
+
+            <com.wonders.widget.HeightExpandableListView
+                android:id="@+id/elv1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            </com.wonders.widget.HeightExpandableListView>
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:background="#f2f0eb" />
+            <include
+                android:id="@+id/item_title2"
+                layout="@layout/item_title" />
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1px"
-                        android:alpha="0.1"
-                        android:background="#000000" />
+            <com.wonders.widget.HeightExpandableListView
+                android:id="@+id/elv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                    <include
-                        android:id="@+id/item_title1"
-                        layout="@layout/item_title" />
-                </LinearLayout>
+            </com.wonders.widget.HeightExpandableListView>
 
-                <com.wonders.widget.HeightExpandableListView
-                    android:id="@+id/elv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <com.wonders.widget.HeightExpandableGridView
+                android:id="@+id/igv"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:columnWidth="80dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                android:visibility="gone" />
 
-                </com.wonders.widget.HeightExpandableListView>
-
-                <include
-                    android:id="@+id/item_title2"
-                    layout="@layout/item_title" />
-
-                <com.wonders.widget.HeightExpandableListView
-                    android:id="@+id/elv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </com.wonders.widget.HeightExpandableListView>
-
-                <com.wonders.widget.HeightExpandableGridView
-                    android:id="@+id/igv"
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:columnWidth="80dp"
-                    android:horizontalSpacing="10dp"
-                    android:numColumns="3"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="10dp"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-        </ScrollView>
-
-    </com.wonders.widget.LoadingLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <EditText
         android:layout_width="match_parent"
@@ -91,13 +78,13 @@
         android:layout_height="35dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_status"
         android:hint="陪同检查人"
-        android:textColorHint="@color/line_gray"
-        android:textColor="@color/gray_normal"
-        android:textSize="12sp"
-        android:visibility="gone"
         android:paddingLeft="3dp"
-        android:background="@drawable/edit_text_status"/>
+        android:textColor="@color/gray_normal"
+        android:textColorHint="@color/line_gray"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/beizhu_layout"

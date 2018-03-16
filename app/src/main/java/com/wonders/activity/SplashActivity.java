@@ -9,6 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -16,6 +23,8 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,7 +37,9 @@ import com.wonders.bean.UpdateBean;
 import com.wonders.constant.Constants;
 import com.wonders.http.Retrofit2Helper;
 import com.wonders.thread.FastDealExecutor;
+import com.wonders.util.BitmapUtil;
 import com.wonders.util.NetCheck;
+import com.wonders.util.SortUtil;
 import com.wonders.util.ToastUtil;
 
 import java.io.BufferedInputStream;
@@ -39,9 +50,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -75,6 +88,61 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+        if (BuildConfig.DEBUG){
+//            InputStream inputStream = getResources().openRawResource(R.drawable.slide_bg);
+//
+//            Drawable drawable1 = getResources().getDrawable(R.drawable.slide_bg);
+//            Log.e(TAG, "Opacity:    " + drawable1.getOpacity());
+//
+//            Drawable drawable2 = getResources().getDrawable(R.drawable.y);
+//            Log.e(TAG, "Opacity:    " + drawable2.getOpacity());
+
+            try{
+                Class class_1 = Resources.class;
+                Method[] methods = class_1.getDeclaredMethods();
+                String[] names = new String[methods.length];
+               for (int i=0; i<methods.length; i++){
+                   names[i] = methods[i].getName();
+               }
+                SortUtil.quickSort(names, methods.length/2, 0, methods.length-1);
+                Log.e(TAG, "method总数：   " + methods.length);
+                for (String method: names){
+                    Log.e(TAG, method);
+                    if ("obtainTempTypedValue".equals(method)){
+                        Log.e(TAG, "包含方法：obtainTempTypedValue");
+                    }
+                }
+
+                Method method_obtainTempTypedValue = class_1.getDeclaredMethod("obtainTempTypedValue");
+                method_obtainTempTypedValue.setAccessible(true);
+                Resources resources = getResources();
+                TypedValue typedValue = (TypedValue) method_obtainTempTypedValue.invoke(resources);
+                Log.e("typedValue.string:", typedValue.string + "");
+                Log.e("typedValue.assetCookie:", typedValue.assetCookie + "");
+                Class clazz = AssetManager.class;
+                Method method  = clazz.getMethod("", new Class[]{} );
+                AssetManager assetManager = getAssets();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inJustDecodeBounds = true;
+//            options.inPreferredConfig = Bitmap.Config.RGB_565;
+////            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.slide_bg, options);
+////        Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+////            BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/Download/1228.jpg");
+//            Log.e(TAG, "bitmap outWith: " + options.outWidth);
+//            Log.e(TAG, "bitmap outHeight: " + options.outHeight);
+//
+//            options.inJustDecodeBounds = false;
+//            options.inPreferredConfig = Bitmap.Config.RGB_565;
+//            Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/Download/1228.jpg");
+//            Log.e(TAG, "Bitmap大小(getByteCount)：" + (float)bitmap.getByteCount()/1024/1024+ "MB");
+
+//            Log.e(TAG, "density:    " + getResources().getDisplayMetrics().density);
+//            Log.e(TAG, "densityDpi:    " + getResources().getDisplayMetrics().densityDpi);
+        }
 
         splashBtn = findViewById(R.id.splash_btn);
         splashBtn.setOnClickListener(new OnClickListener() {

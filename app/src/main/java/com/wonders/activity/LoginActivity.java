@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         initViewData();
 
         LoadDataAsyncTask.run();
-
     }
 
     @Override
@@ -192,9 +191,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
                 dialog_mood.show();
 
-                Button one_lt = (Button) dialog_mood.findViewById(R.id.btn_one);
-                Button two_lt = (Button) dialog_mood.findViewById(R.id.btn_two);
-                Button three_lt = (Button) dialog_mood.findViewById(R.id.btn_three);
+                Button one_lt = dialog_mood.findViewById(R.id.btn_one);
+                Button two_lt = dialog_mood.findViewById(R.id.btn_two);
+                Button three_lt = dialog_mood.findViewById(R.id.btn_three);
 
                 one_lt.setOnClickListener(new OnClickListener() {
 

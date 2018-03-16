@@ -3,6 +3,7 @@ package com.wonders.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,8 @@ import android.util.Log;
 
 public class BitmapUtil {
 	private static final String TAG = BitmapUtil.class.getName();
-	public static String bitmaptoString(Bitmap bitmap, int bitmapQuality) {
 
+	public static String bitmaptoString(Bitmap bitmap, int bitmapQuality) {
 		String string = null;
 		ByteArrayOutputStream bStream = new ByteArrayOutputStream();
 		bitmap.compress(CompressFormat.PNG, bitmapQuality, bStream);
@@ -38,6 +39,37 @@ public class BitmapUtil {
 		}
 		return bitmap;
 	}
+
+    public static Bitmap decodeBitmapFromResource(Resources resources, int resId, int reqWidth, int reqHeight){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(resources, resId, options);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+
+        return  BitmapFactory.decodeResource(resources, resId, options);
+    }
+
+    /**
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return 获得采样率
+     */
+    public static int calculateInSampleSize(BitmapFactory.Options options,int reqWidth,int reqHeight){
+        final int width  = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+
+        if(width > reqWidth || height > reqHeight){
+            final int halWidth = width / 2;
+            final int halHeight = height / 2;
+            while ((halWidth / inSampleSize) >=reqWidth &&(halHeight / inSampleSize) >= reqHeight ){
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
+    }
 
 	private static Bitmap compressImage(Bitmap image) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
